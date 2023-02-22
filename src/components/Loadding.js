@@ -3,20 +3,20 @@ import { SafeAreaView, Text, View, StyleSheet, Button } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 
 const Loadding = ({ stopped, condition, time, contents }) => {
-  const [loadding, setLoadding] = React.useState(false);
+  const [loadding, setLoadding] = React.useState(true);
   React.useEffect(() => {
-    if (condition) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (condition) {
         setLoadding(true);
-        if (stopped) {
+      }
+      if (stopped) {
+        setLoadding(false);
+      } else {
+        setTimeout(() => {
           setLoadding(false);
-        } else {
-          setTimeout(() => {
-            setLoadding(false);
-          }, time.maxTime);
-        }
-      }, time.waitTime);
-    }
+        }, time.maxTime);
+      }
+    }, time.waitTime);
   }, [condition]);
   return (
     <SafeAreaView style={{ flex: 1 }}>

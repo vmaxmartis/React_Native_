@@ -22,7 +22,7 @@ const Detail = ({ route, navigation }) => {
           product.imageSource,
         ]}
       />
-      <InfoProduct product={product} productId={productId} />
+      <InfoProduct product={product} />
     </View>
   );
 };

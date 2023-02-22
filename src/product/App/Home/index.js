@@ -6,7 +6,8 @@ import {
   useWindowDimensions,
 } from "react-native";
 import React, { useState } from "react";
-import { SearchBox, SpaceBetween } from "../../../components/index";
+import { SpaceBetween } from "../../../components/index";
+import SearchBox from "../../../components/SearchBox";
 import WithSafeArea from "../../../Config/safeArea";
 import CategoryItem from "./CategoryItem";
 import ProductItem from "./ProductItem";
@@ -86,7 +87,6 @@ const Home = ({ drawerRef, navigation }) => {
                     price={item.price}
                     imageSource={item.imageSource}
                     backgroundColor={item.backgroundColor}
-                    favorite={true}
                     onPress={() => {
                       navigation.navigate("Detail", { productId: item.id });
                     }}

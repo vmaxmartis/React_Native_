@@ -2,13 +2,12 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 // import { SpaceBetween, BaseButton } from "../../../../components/index";
 import { theme } from "../../../../theme/theme";
-import { getColors } from "../api";
 import ColorButton from "./../ColorButton/index";
 import { BaseButton, SpaceBetween } from "../../../../components";
 
-function InfoProduct({ productId, product }) {
+function InfoProduct({ product }) {
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-  const colors = getColors(productId);
+  const colors = product.options;
 
   return (
     <View style={styles.infoContainer}>
@@ -16,14 +15,14 @@ function InfoProduct({ productId, product }) {
         <Text style={styles.productName}>{product.name}</Text>
         <Text style={styles.productPrice}>${product.price}</Text>
       </SpaceBetween>
-      <Text style={styles.colorLabel}>Choose Color</Text>
+      <Text style={styles.colorLabel}>Color</Text>
       <View style={styles.colorContainer}>
         {colors.map((color, index) => (
           <ColorButton
             style={{ marginRight: 5 }}
             key={index}
-            name={color.label}
-            color={color.code}
+            name={color.color}
+            color={color.color}
             selected={selectedColorIndex === index}
             onPress={() => setSelectedColorIndex(index)}
           />
@@ -32,7 +31,9 @@ function InfoProduct({ productId, product }) {
       <Text style={styles.quantityLabel}>
         Quantity:{" "}
         <Text style={styles.quantityNumber}>
-          {colors[selectedColorIndex].quantity}
+          {colors[selectedColorIndex].quantity
+            ? colors[selectedColorIndex].quantity
+            : 0}
         </Text>
       </Text>
       <ScrollView style={styles.productDescription}>

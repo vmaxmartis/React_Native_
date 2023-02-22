@@ -10,6 +10,7 @@ import filterProducts from "./../Home/filter";
 
 const Search = ({ filter, products, navigation }) => {
   const [resultProducts, setResultProducts] = React.useState(products);
+  console.log("resultProducts:", resultProducts);
   React.useEffect(() => {
     setResultProducts(filterProducts(products, filter.searchText, 50, 150));
   }, [filter]);
@@ -26,8 +27,8 @@ const Search = ({ filter, products, navigation }) => {
           <Text style={styles.text}>Recent Searches </Text>
           <Loadding
             condition={filter.searchText.trim().length > 0}
-            stopped={viewProducts().length > 0}
-            time={{ maxTime: 1500, waitTime: 200 }}
+            stopped={resultProducts.length === 0}
+            time={{ maxTime: 1500, waitTime: 333 }}
             contents={"Đang tìm nè "}
           />
           <Icon name="navigate-next" size={25} color={theme.primary} />

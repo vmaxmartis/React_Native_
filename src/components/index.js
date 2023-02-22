@@ -1,4 +1,3 @@
-import SearchBox from "./SearchBox";
 import SpaceBetween from "./SpaceBw";
 import BaseText from "./BaseText";
 import CustomImage from "./CustomImage";
@@ -21,7 +20,6 @@ export {
   LoginWithSocial,
   NonAccount,
   TermConditions,
-  SearchBox,
   SpaceBetween,
   BaseText,
   BaseTouchable,
