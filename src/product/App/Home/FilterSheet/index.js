@@ -103,7 +103,7 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
     {
       type: "button",
       title: "Apply Filter",
-      styleView: styles.applyFilter,
+      view: styles.applyFilter,
     },
   ];
   return (

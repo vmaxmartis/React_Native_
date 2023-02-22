@@ -1,49 +1,19 @@
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-} from "react-native";
-import React, { useEffect, useState } from "react";
-import { HeaderProduct, SpaceBetween, BaseButton } from "../../../components";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { HeaderApp } from "../../../components";
 import { theme } from "./../../../../src/theme/theme";
 import WithSafeArea from "../../../Config/safeArea";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import CarouselSlider from "./CarouselSlider";
-import { getColors, getProduct } from "./api";
-import ColorButton from "./ColorButton";
+import { getProduct } from "./api";
+import InfoProduct from "./InfoProduct/index";
 
 const Detail = ({ route, navigation }) => {
   const { productId } = route.params;
   const product = getProduct(productId);
-  const colors = getColors(productId);
-  const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   return (
     <View style={[styles.container]}>
-      <HeaderProduct
-        style={styles.header}
-        showGoBack
-        right={
-          <TouchableOpacity
-            style={styles.favoriteButton}
-            activeOpacity={0.8}
-            onPress={() => {
-              setIsFavorite(!isFavorite);
-            }}
-          >
-            <Icon
-              style={styles.favoriteIcon}
-              name={isFavorite ? "favorite" : "favorite-border"}
-              color={theme.primary}
-              size={25}
-            />
-          </TouchableOpacity>
-        }
-      />
+      <HeaderApp style={styles.header} showGoBack icon="favorite" />
       <CarouselSlider
         style={styles.slider}
         imageSources={[
@@ -52,46 +22,10 @@ const Detail = ({ route, navigation }) => {
           product.imageSource,
         ]}
       />
-      <View style={styles.infoContainer}>
-        <SpaceBetween>
-          <Text style={styles.productName}>{product.name}</Text>
-          <Text style={styles.productPrice}>${product.price}</Text>
-        </SpaceBetween>
-        <Text style={styles.colorLabel}>Choose Color</Text>
-        <View style={styles.colorContainer}>
-          {colors.map((color, index) => (
-            <ColorButton
-              style={{ marginRight: 5 }}
-              key={index}
-              name={color.label}
-              color={color.code}
-              selected={selectedColorIndex === index}
-              onPress={() => setSelectedColorIndex(index)}
-            />
-          ))}
-        </View>
-        <Text style={styles.quantityLabel}>
-          Quantity:{" "}
-          <Text style={styles.quantityNumber}>
-            {colors[selectedColorIndex].quantity}
-          </Text>
-        </Text>
-        <ScrollView style={styles.productDescription}>
-          <Text style={styles.productDescriptionText}>
-            {product.description}
-          </Text>
-        </ScrollView>
-        <BaseButton
-          view={styles.addToCart}
-          title="Add to cart"
-          disabled={colors[selectedColorIndex].quantity === 0}
-          onPress={() => {}}
-        />
-      </View>
+      <InfoProduct product={product} productId={productId} />
     </View>
   );
 };
-
 export default WithSafeArea(Detail);
 
 const styles = StyleSheet.create({
@@ -102,20 +36,12 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 15,
   },
-  favoriteButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 40,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   slider: {
     width: "100%",
   },
   infoContainer: {
     flex: 1,
-    backgroundColor: theme.background,
+    backgroundColor: "#f7f7f8",
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     paddingHorizontal: 20,

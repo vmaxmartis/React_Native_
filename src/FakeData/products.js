@@ -2,7 +2,7 @@ export default [
   {
     id: 1,
     categoryId: 2,
-    name: "Shirts 1",
+    name: "mssssss",
     description: "Áo mẹ mua",
     price: 100,
     quantity: 5,
@@ -12,7 +12,7 @@ export default [
   {
     id: 2,
     categoryId: 2,
-    name: "Shirts 2",
+    name: "c",
     description: "Áo người yêu mua",
     price: 100,
     imageSource: require("../../assets/Home/Products/t-shirt-1.png"),
@@ -21,7 +21,7 @@ export default [
   {
     id: 3,
     categoryId: 2,
-    name: "shirts 3",
+    name: "s",
     description: "Áo người yêu cũ mua",
     price: 100,
     imageSource: require("../../assets/Home/Products/t-shirt-1.png"),
@@ -39,7 +39,7 @@ export default [
   {
     id: 3,
     categoryId: 2,
-    name: "shirts 3",
+    name: "b",
     description: "Áo người yêu cũ mua",
     price: 100,
     imageSource: require("../../assets/Home/Products/t-shirt-1.png"),
@@ -48,7 +48,7 @@ export default [
   {
     id: 3,
     categoryId: 2,
-    name: "shirts 3",
+    name: "a",
     description: "Áo người yêu cũ mua",
     price: 100,
     imageSource: require("../../assets/Home/Products/t-shirt-1.png"),
@@ -57,7 +57,7 @@ export default [
   {
     id: 3,
     categoryId: 2,
-    name: "shirts 3",
+    name: "as",
     description: "Áo người yêu cũ mua",
     price: 100,
     imageSource: require("../../assets/Home/Products/t-shirt-1.png"),
@@ -66,7 +66,7 @@ export default [
   {
     id: 2,
     categoryId: 2,
-    name: "shirts 3",
+    name: "ss",
     description: "Áo người yêu cũ mua",
     price: 100,
     imageSource: require("../../assets/Home/Products/t-shirt-1.png"),

@@ -36,6 +36,9 @@ const SearchBox = ({ value, onChangeText, onBlur, onFocus }) => {
         placeholder={"Any text"}
         value={value}
         onChangeText={onChangeText}
+        //   enterKeyHint={() => {
+        //     alert("hall");
+        //   }}
         onBlur={(e) => {
           onBlur(e);
           setFocus(false);

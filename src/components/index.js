@@ -13,8 +13,9 @@ import BaseCheckbox from "./BaseCheckBox";
 import BaseInputField from "./BaseInputField";
 import BaseButton from "./BaseButton";
 import RangeSliderFilter from "./RangeSlideFilter/index";
-import HeaderProduct from "./HeaderProduct";
+import HeaderApp from "./HeaderProduct";
 // import Carousel from "./Carousel";
+import Loadding from "./Loadding";
 
 export {
   LoginWithSocial,
@@ -32,6 +33,7 @@ export {
   BaseInputField,
   BaseButton,
   RangeSliderFilter,
-  HeaderProduct,
+  HeaderApp,
   //   Carousel,
+  Loadding,
 };

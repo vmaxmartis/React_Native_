@@ -1,16 +1,22 @@
 import React from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import PropTypes from "prop-types";
-import { SpaceBetween } from "./../../../components";
+import { Loadding, SpaceBetween } from "./../../../components";
 import ProductItem from "../Home/ProductItem";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { theme } from "../../../theme/theme";
 import { isEmpty } from "lodash";
+import filterProducts from "./../Home/filter";
 
 const Search = ({ filter, products, navigation }) => {
+  const [resultProducts, setResultProducts] = React.useState(products);
+  React.useEffect(() => {
+    setResultProducts(filterProducts(products, filter.searchText, 50, 150));
+  }, [filter]);
+
   const viewProducts = () => {
-    if (products.length % 2 === 1) [...products].push({});
-    return products;
+    if (resultProducts.length % 2 === 1) [...products].push({});
+    return resultProducts;
   };
 
   return (
@@ -18,6 +24,12 @@ const Search = ({ filter, products, navigation }) => {
       <View style={styles.resultFor}>
         <SpaceBetween style={styles.recentSearch}>
           <Text style={styles.text}>Recent Searches </Text>
+          <Loadding
+            condition={filter.searchText.trim().length > 0}
+            stopped={viewProducts().length > 0}
+            time={{ maxTime: 1500, waitTime: 200 }}
+            contents={"Đang tìm nè "}
+          />
           <Icon name="navigate-next" size={25} color={theme.primary} />
         </SpaceBetween>
         <Text style={styles.text}>
@@ -26,15 +38,15 @@ const Search = ({ filter, products, navigation }) => {
             : ""}
         </Text>
       </View>
-      <FlatList
-        style={styles.searchList}
-        columnWrapperStyle={{ flex: 1, justifyContent: "space-between" }}
-        data={viewProducts()}
-        numColumns={2}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item, index }) =>
-          !isEmpty(item) ? (
+      {viewProducts().length > 0 ? (
+        <FlatList
+          style={styles.searchList}
+          columnWrapperStyle={{ flex: 1, justifyContent: "space-between" }}
+          data={viewProducts()}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => (
             <ProductItem
               key={index}
               style={{ marginHorizontal: 1 }}
@@ -42,18 +54,26 @@ const Search = ({ filter, products, navigation }) => {
               price={item.price}
               imageSource={item.imageSource}
               backgroundColor={item.backgroundColor}
-              favorite={item.favorite}
+              favorite={true}
               onPress={() =>
                 navigation.navigate("Detail", { productId: item.id })
               }
             />
-          ) : (
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Text style={{}}>Không thấy propduct nào</Text>
-            </View>
-          )
-        }
-      />
+          )}
+        />
+      ) : (
+        <View
+          style={{
+            marginTop: 100,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 15, fontWeight: "100" }}>
+            Currently, there are no products that match the above keywords. . .
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

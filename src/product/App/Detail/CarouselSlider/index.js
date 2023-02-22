@@ -38,6 +38,7 @@ const CarouselSlider = ({ style, imageSources }) => {
         renderItem={({ item, index }) => {
           return (
             <Image
+              key={index}
               style={[styles.image, { width }]}
               source={item.imageSource}
             />

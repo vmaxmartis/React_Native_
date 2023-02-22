@@ -24,6 +24,7 @@ export default function App() {
             <Stack.Screen name="GetStarted" component={GetStarted} />
             <Stack.Screen name="Auth" component={Auth} />
             <Stack.Screen name="Detail" component={Detail} />
+            <Stack.Screen name="Favorite" component={Favorite} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

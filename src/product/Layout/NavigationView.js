@@ -11,10 +11,11 @@ import { theme } from "../../theme/theme";
 import { Icon } from "../../components";
 import Icons from "react-native-vector-icons/Ionicons";
 
-export default function NavigationView({ drawerRef }) {
+export default function NavigationView({ navigation, drawerRef }) {
+  console.log("navigation:", navigation);
   const [isSelected, setSelection] = useState(NaN);
   useEffect(() => {}, []);
-  const ha = [
+  const Tabs = [
     { lable: "Favorite", icon: "heart", navigate: "Favorite" },
     { lable: "Wallets", icon: "wallet", navigate: "Favorite" },
     { lable: "My Orders", icon: "cart", navigate: "Favorite" },
@@ -34,11 +35,14 @@ export default function NavigationView({ drawerRef }) {
         </View>
       </View>
       <View style={styles.listTab}>
-        {ha.map((item, i) => {
+        {Tabs.map((item, i) => {
           return (
             <TouchableOpacity
               key={i}
-              onPress={() => setSelection(i)}
+              onPress={() => {
+                setSelection(i);
+                navigation.navigate(item.navigate);
+              }}
               style={styles.tab}
             >
               <Icon

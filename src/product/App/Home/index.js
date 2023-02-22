@@ -33,7 +33,7 @@ const Home = ({ drawerRef, navigation }) => {
   const [filter, setFilter] = useState(defaultFilter);
 
   React.useEffect(() => {
-    if (!isEmpty(filter.searchText)) {
+    if (!isEmpty(filter.searchText.trim())) {
       setOpenSearch(true);
     } else {
       setOpenSearch(false);
@@ -86,6 +86,7 @@ const Home = ({ drawerRef, navigation }) => {
                     price={item.price}
                     imageSource={item.imageSource}
                     backgroundColor={item.backgroundColor}
+                    favorite={true}
                     onPress={() => {
                       navigation.navigate("Detail", { productId: item.id });
                     }}

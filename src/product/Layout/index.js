@@ -25,7 +25,7 @@ function Main({ navigation }) {
     return screen.screen;
   }
   function renderNavigation() {
-    return <NavigationView drawerRef={drawer} />;
+    return <NavigationView navigation={navigation} drawerRef={drawer} />;
   }
 
   const Screens = [
@@ -35,7 +35,11 @@ function Main({ navigation }) {
       iconName: "home",
     },
     { label: "Cart", screen: <Cart />, iconName: "cart" },
-    { label: "Favorite", screen: <Favorite />, iconName: "heart" },
+    {
+      label: "Favorite",
+      screen: <Favorite navigation={navigation} />,
+      iconName: "heart",
+    },
     { label: "Profile", screen: <Profile />, iconName: "people" },
   ];
 
@@ -72,7 +76,6 @@ const styles = StyleSheet.create({
   },
   mainLayout: {
     flex: 1,
-    padding: 20,
     justifyContent: "center",
     alignItems: "center",
   },
