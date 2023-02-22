@@ -4,8 +4,7 @@ import store from "./src/redux/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Auth, GetStarted, Main } from "./src/product";
-import { View } from "react-native";
+import { Auth, Detail, Favorite, GetStarted, Main } from "./src/product";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +23,7 @@ export default function App() {
             <Stack.Screen name="Main" component={Main} />
             <Stack.Screen name="GetStarted" component={GetStarted} />
             <Stack.Screen name="Auth" component={Auth} />
+            <Stack.Screen name="Detail" component={Detail} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

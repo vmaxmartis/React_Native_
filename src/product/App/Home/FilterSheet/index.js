@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { BaseButton, RangeSliderFilter } from "../../../../components";
 import AutoRender from "./../../../../Config/AutoRender";
 
-const FiltersBottomSheet = ({ navigation, elOpenBottomSheet, styleEl }) => {
+const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
   const [distance, setDistance] = useState(0);
   const [price, setPrice] = useState(0);
   const [isVisible, setIsVisible] = useState(false);

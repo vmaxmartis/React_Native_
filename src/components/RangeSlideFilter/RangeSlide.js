@@ -1,10 +1,10 @@
 import { StyleSheet, View } from "react-native";
 import React, { useCallback } from "react";
+import { theme } from "./../../theme/theme";
 import PropTypes from "prop-types";
 import Slider from "@ptomasroos/react-native-multi-slider";
-import { theme } from "./../../theme/theme";
 
-const Range = () => <View style={styles.marker} />;
+const Marker = () => <View style={styles.marker} />;
 
 const RangeSlider = ({
   min,
@@ -20,7 +20,7 @@ const RangeSlider = ({
       max={max}
       values={[leftValue, rightValue]}
       sliderLength={sliderLength}
-      customRange={Range}
+      customMarker={Marker}
       selectedStyle={styles.selected}
       onValuesChange={onValuesChange}
     />
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: theme.background,
+    borderColor: "#fff",
     backgroundColor: theme.primary,
   },
   selected: {

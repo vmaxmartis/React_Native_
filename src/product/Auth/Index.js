@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View, Keyboard } from "react-native";
 import { theme } from "../../theme/theme";
 import withSafeArea from "../../Config/safeArea";
 import AutoRender from "../../Config/AutoRender";
-import CustomImage from "../../components/CustomImage";
 import { TouchableOpacity } from "react-native";
 import LineWithText from "../../components/LineWithText";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "./../../redux/slide/userSlide";
 import TermConditions from "../../components/authComponents/TermConditions";
 import { StackActions } from "@react-navigation/native";
 import utils from "../../utils";
-import { Keyboard } from "react-native";
 import LoginWithSocial from "../../components/authComponents/LoginWithSocial";
 
 function Auth({ navigation }) {
@@ -41,10 +38,6 @@ function Auth({ navigation }) {
       keyboardDidHideListener.remove();
     };
   }, []);
-  Keyboard.addListener("keyboardDidHide", () => {
-    console.log("Keyboard is hidden");
-  });
-
   const dispatch = useDispatch();
   const handleCheckField = () => {
     let fields = [email, password];
@@ -116,7 +109,7 @@ function Auth({ navigation }) {
     signup && {
       type: "input",
       placeholder: "Name",
-      icon: "user",
+      icon: "people",
       value: userName,
       initialValue: "",
       onChangeText: setUserName,
@@ -126,7 +119,7 @@ function Auth({ navigation }) {
     {
       type: "input",
       placeholder: "Email",
-      icon: "envelope",
+      icon: "mail",
       value: email,
       initialValue: "",
       onChangeText: setEmail,
@@ -136,7 +129,7 @@ function Auth({ navigation }) {
     {
       type: "input",
       placeholder: "Password",
-      icon: "lock",
+      icon: "lock-closed",
       value: password,
       initialValue: "",
       onChangeText: setPassword,

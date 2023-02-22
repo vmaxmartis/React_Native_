@@ -65,7 +65,7 @@ export default ProductItem;
 
 const styles = StyleSheet.create({
   container: {
-    width: 160,
+    width: 170,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 10,
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
-    width: 145,
-    height: 145,
+    width: 150,
+    height: 150,
     borderRadius: 20,
   },
   //   favorite: {

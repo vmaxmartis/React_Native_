@@ -64,7 +64,7 @@ export default [
     backgroundColor: "#fffcfb",
   },
   {
-    id: 3,
+    id: 2,
     categoryId: 2,
     name: "shirts 3",
     description: "Áo người yêu cũ mua",
