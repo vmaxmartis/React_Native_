@@ -8,8 +8,12 @@ import products from "../../../FakeData/products";
 function Favorite({ navigation }) {
   const viewFavoriteProducts = () => {
     if (products.length % 2 === 1) [...products].push({});
-    return products;
+    return products.filter((item) => item.favorite);
   };
+  console.log(
+    products.filter((item) => item.favorite),
+    "pr"
+  );
   return (
     <View style={styles.container}>
       <HeaderApp

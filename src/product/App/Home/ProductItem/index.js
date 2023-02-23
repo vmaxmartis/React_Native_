@@ -14,7 +14,7 @@ const ProductItem = ({
   onPress,
   backgroundColor,
 }) => {
-  const [isFavorite, setIsFavorite] = React.useState(false);
+  const [isFavorite, setIsFavorite] = React.useState(favorite);
   return (
     <TouchableOpacity
       style={[styles.container, style]}

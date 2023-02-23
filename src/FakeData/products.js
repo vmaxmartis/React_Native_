@@ -5,6 +5,7 @@ export default [
     name: "mssssss",
     description: "Áo mẹ mua",
     price: 100,
+    distance: 100,
     options: [
       { color: "red", quantity: 10 },
       { color: "black", quantity: 10 },
@@ -34,6 +35,7 @@ export default [
     name: "s",
     description: "Áo người yêu cũ mua",
     price: 100,
+    distance: 100,
     options: [
       { color: "red", quantity: 10 },
       { color: "black", quantity: 10 },
@@ -48,6 +50,8 @@ export default [
     name: "shirts 3",
     description: "Áo người yêu cũ mua",
     price: 100,
+    distance: 100,
+    favorite: true,
     options: [
       { color: "red", quantity: 10 },
       { color: "black", quantity: 10 },
@@ -62,6 +66,7 @@ export default [
     name: "b",
     description: "Áo người yêu cũ mua",
     price: 100,
+    distance: 100,
     options: [
       { color: "red", quantity: 10 },
       { color: "black", quantity: 10 },
@@ -76,6 +81,8 @@ export default [
     name: "a",
     description: "Áo người yêu cũ mua",
     price: 100,
+    distance: 100,
+    favorite: true,
     options: [
       { color: "red", quantity: 10 },
       { color: "black", quantity: 10 },
@@ -90,6 +97,8 @@ export default [
     name: "as",
     description: "Áo người yêu cũ mua",
     price: 100,
+    distance: 100,
+    favorite: true,
     options: [
       { color: "red", quantity: 10 },
       { color: "black", quantity: 10 },
@@ -104,6 +113,7 @@ export default [
     name: "ss",
     description: "Áo người yêu cũ mua",
     price: 100,
+    distance: 100,
     options: [
       { color: "red", quantity: 10 },
       { color: "black", quantity: 10 },
