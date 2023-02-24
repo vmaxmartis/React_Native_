@@ -1,4 +1,5 @@
 export { default as Home } from "./App/Home/index";
+export { default as Search } from "./App/Search/index";
 export { default as Detail } from "./App/Detail/index";
 export { default as GetStarted } from "./Onboarding/index";
 export { default as Auth } from "./Auth/Index";

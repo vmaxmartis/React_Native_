@@ -13,6 +13,7 @@ const ProductItem = ({
   style,
   onPress,
   backgroundColor,
+  hideFavorite,
 }) => {
   const [isFavorite, setIsFavorite] = React.useState(favorite);
   return (
@@ -27,16 +28,18 @@ const ProductItem = ({
           source={imageSource}
         />
       </View>
-      <TouchableOpacity
-        onPress={() => setIsFavorite(!isFavorite)}
-        style={styles.favorite}
-      >
-        <Icon
-          name="favorite"
-          color={isFavorite ? theme.primary : theme.primaryDisabled}
-          size={15}
-        />
-      </TouchableOpacity>
+      {!hideFavorite && (
+        <TouchableOpacity
+          onPress={() => setIsFavorite(!isFavorite)}
+          style={styles.favorite}
+        >
+          <Icon
+            name="favorite"
+            color={isFavorite ? theme.primary : theme.primaryDisabled}
+            size={15}
+          />
+        </TouchableOpacity>
+      )}
 
       <Text style={styles.name}>{name}</Text>
       <Text style={styles.price}>
@@ -56,6 +59,7 @@ ProductItem.propTypes = {
   style: PropTypes.object,
   onPress: PropTypes.func,
   backgroundColor: PropTypes.string,
+  hideFavorite: PropTypes.bool,
 };
 
 ProductItem.defaultProps = {
@@ -67,6 +71,7 @@ ProductItem.defaultProps = {
   style: {},
   onPress: () => {},
   backgroundColor: "#efeef3",
+  hideFavorite: false,
 };
 
 export default ProductItem;

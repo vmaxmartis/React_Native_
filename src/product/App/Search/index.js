@@ -1,32 +1,48 @@
 import React from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import PropTypes from "prop-types";
-import { Loadding, SpaceBetween } from "./../../../components";
+import { HeaderApp, Loadding, SpaceBetween } from "./../../../components";
 import ProductItem from "../Home/ProductItem";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { theme } from "../../../theme/theme";
 import { isEmpty } from "lodash";
 import filterProducts from "./../Home/filter";
+import SearchBox from "../../../components/SearchBox";
+import WithSafeArea from "./../../../Config/safeArea";
+import products from "../../../FakeData/products";
 
-const Search = ({ filter, products, navigation }) => {
-  const [resultProducts, setResultProducts] = React.useState(products);
-  console.log("resultProducts:", resultProducts);
+const Search = ({ navigation, route }) => {
+  const [searchText, setSearchText] = React.useState("");
+  const [resultProducts, setResultProducts] = React.useState(
+    filterProducts(products, searchText)
+  );
   React.useEffect(() => {
-    setResultProducts(filterProducts(products, filter.searchText, 50, 150));
-  }, [filter]);
-
-  const viewProducts = () => {
-    if (resultProducts.length % 2 === 1) [...products].push({});
-    return resultProducts;
-  };
+    setResultProducts(filterProducts(products, route.params.filter.searchText));
+    setSearchText(route.params.filter.searchText);
+  }, []);
+  React.useEffect(() => {
+    setResultProducts(filterProducts(products, searchText));
+  }, [searchText]);
 
   return (
-    <View>
+    <View style={styles.container}>
+      <HeaderApp
+        title={"15/2 Texas"}
+        styleTitle={{}}
+        iconLeft={"md-menu-outline"}
+        onPressLeftIcon={() => route.params.drawer.openDrawer()}
+        iconRight={"notifications"}
+      />
+      <SearchBox
+        handleSubmit={() => {}}
+        onChangeText={setSearchText}
+        value={searchText}
+      />
       <View style={styles.resultFor}>
         <SpaceBetween style={styles.recentSearch}>
           <Text style={styles.text}>Recent Searches </Text>
           <Loadding
-            condition={filter.searchText.trim().length > 0}
+            condition={searchText.trim().length > 0}
             stopped={resultProducts.length === 0}
             time={{ maxTime: 1500, waitTime: 333 }}
             contents={"Đang tìm nè "}
@@ -34,16 +50,14 @@ const Search = ({ filter, products, navigation }) => {
           <Icon name="navigate-next" size={25} color={theme.primary} />
         </SpaceBetween>
         <Text style={styles.text}>
-          {filter.searchText
-            ? "Search result for " + ` "${filter.searchText}"`
-            : ""}
+          {searchText ? "Search result for " + ` "${searchText}"` : ""}
         </Text>
       </View>
-      {viewProducts().length > 0 ? (
+      {resultProducts.length === 0 ? (
         <FlatList
           style={styles.searchList}
           columnWrapperStyle={{ flex: 1, justifyContent: "space-between" }}
-          data={viewProducts()}
+          data={resultProducts}
           numColumns={2}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => index.toString()}
@@ -87,9 +101,13 @@ Search.defaultProps = {
   filter: {},
 };
 
-export default Search;
+export default WithSafeArea(Search);
 
 const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    paddingHorizontal: 20,
+  },
   recentSearch: {
     marginTop: 10,
   },
@@ -104,17 +122,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginBottom: 5,
     fontWeight: "600",
-  },
-  itemStart: {
-    marginRight: 5,
-    marginBottom: 10,
-  },
-  itemMiddle: {
-    marginHorizontal: 5,
-    marginBottom: 10,
-  },
-  itemEnd: {
-    marginLeft: 5,
-    marginBottom: 10,
   },
 });

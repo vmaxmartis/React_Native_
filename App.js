@@ -4,7 +4,15 @@ import store from "./src/redux/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Auth, Cart, Detail, Favorite, GetStarted, Main } from "./src/product";
+import {
+  Auth,
+  Cart,
+  Detail,
+  Favorite,
+  GetStarted,
+  Main,
+  Search,
+} from "./src/product";
 import DrawerApp from "./src/product/Layout/DrawerApp";
 
 const Stack = createStackNavigator();
@@ -27,6 +35,7 @@ export default function App() {
             <Stack.Screen name="Detail" component={Detail} />
             <Stack.Screen name="Favorite" component={Favorite} />
             <Stack.Screen name="Cart" component={Cart} />
+            <Stack.Screen name="Search" component={Search} />
             <Stack.Screen name="DrawerApp" component={DrawerApp} />
           </Stack.Navigator>
         </NavigationContainer>

@@ -4,25 +4,59 @@ import { HeaderApp } from "../../../components";
 import { theme } from "./../../../../src/theme/theme";
 import WithSafeArea from "../../../Config/safeArea";
 import CarouselSlider from "./CarouselSlider";
-import { getProduct } from "./api";
+// import { getProduct } from "./api";
 import InfoProduct from "./InfoProduct/index";
+import { useSelector, useDispatch } from "react-redux";
+import { setFavorite, getProduct } from "../../../redux/slide/productSlide";
+import { Button } from "@rneui/base";
 
 const Detail = ({ route, navigation }) => {
+  const [selectedIcon, setSelectedIcon] = useState(false);
   const { productId } = route.params;
-  const product = getProduct(productId);
+  const productsRedux = useSelector((state) => state.product.productDetail); // []
+  console.log("productsRedux:", productsRedux);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getProduct(productId));
+  }, []);
+
+  const handleToggleFavorite = () => {
+    const payload = {
+      id: productsRedux.id,
+      favorite: !productsRedux.favorite,
+    };
+    dispatch(setFavorite(payload));
+  };
+  React.useEffect(() => {
+    setSelectedIcon(productsRedux.favorite);
+  }, [productsRedux]);
 
   return (
     <View style={[styles.container]}>
-      <HeaderApp style={styles.header} showGoBack icon="favorite" />
-      <CarouselSlider
-        style={styles.slider}
-        imageSources={[
-          product.imageSource,
-          product.imageSource,
-          product.imageSource,
-        ]}
-      />
-      <InfoProduct product={product} />
+      {productsRedux && (
+        <>
+          <HeaderApp
+            style={styles.header}
+            iconRight={"heart"}
+            showGoBack
+            selectedIcon={selectedIcon}
+            onPressRightIcon={handleToggleFavorite}
+          />
+          <CarouselSlider
+            style={styles.slider}
+            imageSources={[
+              productsRedux.imageSource,
+              productsRedux.imageSource,
+              productsRedux.imageSource,
+            ]}
+          />
+          <InfoProduct
+            product={productsRedux}
+            onPressButton={handleToggleFavorite}
+          />
+        </>
+      )}
     </View>
   );
 };

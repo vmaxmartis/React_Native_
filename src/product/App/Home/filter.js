@@ -1,5 +1,5 @@
 export default function filterProducts(arr, keyword, minPrice, maxPrice) {
-  if (keyword.trim().length > 0) {
+  if (keyword) {
     return arr.filter((item) =>
       item.name.toLowerCase().includes(keyword.toLowerCase())
     );

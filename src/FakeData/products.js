@@ -1,5 +1,22 @@
 export default [
   {
+    id: 0,
+    categoryId: 2,
+    name: "Chiếc áo mới",
+    description: "Áo mẹ mua",
+    price: 100,
+    distance: 100,
+    favorite: false,
+    options: [
+      { color: "red", quantity: 10 },
+      { color: "black", quantity: 10 },
+      { color: "white", quantity: 10 },
+    ],
+    quantity: 5,
+    imageSource: require("../../assets/Home/Products/t-shirt-1.png"),
+    backgroundColor: "red",
+  },
+  {
     id: 1,
     categoryId: 2,
     name: "mssssss",
@@ -21,6 +38,7 @@ export default [
     name: "c",
     description: "Áo người yêu mua",
     price: 100,
+    favorite: false,
     options: [
       { color: "red", quantity: 10 },
       { color: "black", quantity: 10 },
@@ -36,6 +54,7 @@ export default [
     description: "Áo người yêu cũ mua",
     price: 100,
     distance: 100,
+    favorite: true,
     options: [
       { color: "red", quantity: 10 },
       { color: "black", quantity: 10 },
@@ -114,6 +133,7 @@ export default [
     description: "Áo người yêu cũ mua",
     price: 100,
     distance: 100,
+    favorite: false,
     options: [
       { color: "red", quantity: 10 },
       { color: "black", quantity: 10 },
