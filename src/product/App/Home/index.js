@@ -26,6 +26,7 @@ const defaultFilter = {
 };
 
 const Home = ({ drawerRef, navigation }) => {
+  console.log("navigation home:", navigation);
   const { width } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [openFilter, setOpenFilter] = useState(false);
@@ -40,10 +41,12 @@ const Home = ({ drawerRef, navigation }) => {
       setOpenSearch(false);
     }
   });
+
   return (
     <View>
       <View style={[styles.container, { width }]}>
-        <Header onPressMenu={() => drawerRef.current.openDrawer()} />
+        {/* <Header onPressMenu={() => drawerRef.current.openDrawer()} /> */}
+        <Header onPressMenu={() => navigation.openDrawer()} />
         {!openSearch && (
           <View>
             <Text style={styles.title}>Title</Text>

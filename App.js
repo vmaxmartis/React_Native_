@@ -4,7 +4,8 @@ import store from "./src/redux/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Auth, Detail, Favorite, GetStarted, Main } from "./src/product";
+import { Auth, Cart, Detail, Favorite, GetStarted, Main } from "./src/product";
+import DrawerApp from "./src/product/Layout/DrawerApp";
 
 const Stack = createStackNavigator();
 
@@ -12,9 +13,9 @@ export default function App() {
   return (
     <Provider store={store}>
       <SafeAreaProvider>
-        <NavigationContainer>
+        <NavigationContainer independent={true}>
           <Stack.Navigator
-            initialRouteName="Main"
+            initialRouteName="DrawerApp"
             screenOptions={{
               gestureEnabled: true,
               headerShown: false,
@@ -25,6 +26,8 @@ export default function App() {
             <Stack.Screen name="Auth" component={Auth} />
             <Stack.Screen name="Detail" component={Detail} />
             <Stack.Screen name="Favorite" component={Favorite} />
+            <Stack.Screen name="Cart" component={Cart} />
+            <Stack.Screen name="DrawerApp" component={DrawerApp} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

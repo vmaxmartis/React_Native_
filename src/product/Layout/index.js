@@ -31,7 +31,8 @@ function Main({ navigation }) {
   const Screens = [
     {
       label: "Home",
-      screen: <Home drawerRef={drawer} navigation={navigation} />,
+      screen: <Home navigation={navigation} />,
+      // screen: <Home drawerRef={drawer} navigation={navigation} />,
       iconName: "home",
     },
     { label: "Cart", screen: <Cart />, iconName: "cart" },
@@ -44,24 +45,24 @@ function Main({ navigation }) {
   ];
 
   return (
-    <DrawerLayoutAndroid
-      drawerWidth={250}
-      drawerPosition={"left"}
-      renderNavigationView={renderNavigation}
-      ref={drawer}
-      style={styles.drawerLayoutAndroid}
-    >
-      <View style={styles.container}>
-        <View style={styles.mainLayout}>
-          {renderScreen(Screens, activeScreen)}
-        </View>
-        <BottomTab
-          tabs={Screens}
-          activeScreen={activeScreen}
-          setActiveScreen={setActiveScreen}
-        />
+    //  <DrawerLayoutAndroid
+    //    drawerWidth={250}
+    //    drawerPosition={"left"}
+    //    renderNavigationView={renderNavigation}
+    //    ref={drawer}
+    //    style={styles.drawerLayoutAndroid}
+    //  >
+    <View style={styles.container}>
+      <View style={styles.mainLayout}>
+        {renderScreen(Screens, activeScreen)}
       </View>
-    </DrawerLayoutAndroid>
+      <BottomTab
+        tabs={Screens}
+        activeScreen={activeScreen}
+        setActiveScreen={setActiveScreen}
+      />
+    </View>
+    //  </DrawerLayoutAndroid>
   );
 }
 export default WithSafeArea(Main);

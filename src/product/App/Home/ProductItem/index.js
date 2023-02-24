@@ -27,12 +27,6 @@ const ProductItem = ({
           source={imageSource}
         />
       </View>
-      {/* {favorite && (
-        <View style={styles.favorite}>
-          <Icon name="favorite" color={theme.primary} size={15} />
-        </View>
-      )} */}
-
       <TouchableOpacity
         onPress={() => setIsFavorite(!isFavorite)}
         style={styles.favorite}
