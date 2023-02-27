@@ -1,27 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import PropTypes from "prop-types";
 import { HeaderApp, Loadding, SpaceBetween } from "./../../../components";
 import ProductItem from "../Home/ProductItem";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { theme } from "../../../theme/theme";
-import { isEmpty } from "lodash";
 import filterProducts from "./../Home/filter";
 import SearchBox from "../../../components/SearchBox";
 import WithSafeArea from "./../../../Config/safeArea";
-import products from "../../../FakeData/products";
+import { getData } from "./../../../utils/getData";
 
 const Search = ({ navigation, route }) => {
+  const products = getData("product");
   const [searchText, setSearchText] = React.useState("");
-  const [resultProducts, setResultProducts] = React.useState(
-    filterProducts(products, searchText)
-  );
-  React.useEffect(() => {
-    setResultProducts(filterProducts(products, route.params.filter.searchText));
-    setSearchText(route.params.filter.searchText);
-  }, []);
-  React.useEffect(() => {
+  console.log("searchText:", searchText);
+  const [resultProducts, setResultProducts] = React.useState([]);
+  //   useEffect(() => {
+  //     setSearchText(route.params.filter.searchText);
+  //   }, []);
+  useEffect(() => {
     setResultProducts(filterProducts(products, searchText));
+    setSearchText(route.params.filter.searchText);
   }, [searchText]);
 
   return (
@@ -29,13 +28,15 @@ const Search = ({ navigation, route }) => {
       <HeaderApp
         title={"15/2 Texas"}
         styleTitle={{}}
+        isButton
         iconLeft={"md-menu-outline"}
         onPressLeftIcon={() => route.params.drawer.openDrawer()}
         iconRight={"notifications"}
       />
       <SearchBox
-        handleSubmit={() => {}}
-        onChangeText={setSearchText}
+        onChangeText={(text) => {
+          setSearchText(text);
+        }}
         value={searchText}
       />
       <View style={styles.resultFor}>
@@ -55,7 +56,6 @@ const Search = ({ navigation, route }) => {
       </View>
       {resultProducts.length === 0 ? (
         <FlatList
-          style={styles.searchList}
           columnWrapperStyle={{ flex: 1, justifyContent: "space-between" }}
           data={resultProducts}
           numColumns={2}
@@ -64,12 +64,7 @@ const Search = ({ navigation, route }) => {
           renderItem={({ item, index }) => (
             <ProductItem
               key={index}
-              style={{ marginHorizontal: 1 }}
-              name={item.name}
-              price={item.price}
-              imageSource={item.imageSource}
-              backgroundColor={item.backgroundColor}
-              favorite={true}
+              data={item}
               onPress={() =>
                 navigation.navigate("Detail", { productId: item.id })
               }
@@ -110,9 +105,6 @@ const styles = StyleSheet.create({
   },
   recentSearch: {
     marginTop: 10,
-  },
-  searchList: {
-    marginBottom: 190,
   },
   resultFor: {
     marginVertical: 5,

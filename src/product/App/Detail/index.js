@@ -11,10 +11,8 @@ import { setFavorite, getProduct } from "../../../redux/slide/productSlide";
 import { Button } from "@rneui/base";
 
 const Detail = ({ route, navigation }) => {
-  const [selectedIcon, setSelectedIcon] = useState(false);
   const { productId } = route.params;
-  const productsRedux = useSelector((state) => state.product.productDetail); // []
-  console.log("productsRedux:", productsRedux);
+  const prod = useSelector((state) => state.product.productDetail); // []
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -23,38 +21,33 @@ const Detail = ({ route, navigation }) => {
 
   const handleToggleFavorite = () => {
     const payload = {
-      id: productsRedux.id,
-      favorite: !productsRedux.favorite,
+      id: prod.id,
+      favorite: !prod.favorite,
     };
     dispatch(setFavorite(payload));
   };
-  React.useEffect(() => {
-    setSelectedIcon(productsRedux.favorite);
-  }, [productsRedux]);
 
   return (
     <View style={[styles.container]}>
-      {productsRedux && (
+      {prod && (
         <>
           <HeaderApp
             style={styles.header}
             iconRight={"heart"}
             showGoBack
-            selectedIcon={selectedIcon}
+            selectedIcon={prod.favorite}
+            isButton
             onPressRightIcon={handleToggleFavorite}
           />
           <CarouselSlider
             style={styles.slider}
             imageSources={[
-              productsRedux.imageSource,
-              productsRedux.imageSource,
-              productsRedux.imageSource,
+              prod.imageSource,
+              prod.imageSource,
+              prod.imageSource,
             ]}
           />
-          <InfoProduct
-            product={productsRedux}
-            onPressButton={handleToggleFavorite}
-          />
+          <InfoProduct product={prod} onPressButton={() => {}} />
         </>
       )}
     </View>

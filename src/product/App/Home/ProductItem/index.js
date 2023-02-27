@@ -3,19 +3,23 @@ import React from "react";
 import PropTypes from "prop-types";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { theme } from "./../../../../theme/theme";
+import { useSelector, useDispatch } from "react-redux";
+import { getProduct, setFavorite } from "../../../../redux/slide/productSlide";
 
-const ProductItem = ({
-  favorite,
-  imageSource,
-  name,
-  price,
-  prefix,
-  style,
-  onPress,
-  backgroundColor,
-  hideFavorite,
-}) => {
-  const [isFavorite, setIsFavorite] = React.useState(favorite);
+const ProductItem = ({ data, prefix, style, onPress, hideFavorite }) => {
+  const prod = useSelector((state) => state.product.productDetail);
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getProduct(data.id));
+  }, []);
+  const handleToggleFavorite = () => {
+    const payload = {
+      id: data.id,
+      favorite: !data.favorite,
+    };
+    dispatch(setFavorite(payload));
+  };
+
   return (
     <TouchableOpacity
       style={[styles.container, style]}
@@ -24,49 +28,50 @@ const ProductItem = ({
     >
       <View style={{}}>
         <Image
-          style={[styles.image, { backgroundColor: backgroundColor }]}
-          source={imageSource}
+          style={[styles.image, { backgroundColor: data.backgroundColor }]}
+          source={data.imageSource}
         />
       </View>
       {!hideFavorite && (
         <TouchableOpacity
-          onPress={() => setIsFavorite(!isFavorite)}
+          onPress={handleToggleFavorite}
           style={styles.favorite}
         >
           <Icon
             name="favorite"
-            color={isFavorite ? theme.primary : theme.primaryDisabled}
+            color={data.favorite ? theme.primary : theme.primaryDisabled}
             size={15}
           />
         </TouchableOpacity>
       )}
 
-      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.name}>{data.name}</Text>
       <Text style={styles.price}>
         {prefix}
-        {price}
+        {data.price}
       </Text>
     </TouchableOpacity>
   );
 };
 
 ProductItem.propTypes = {
+  data: PropTypes.object,
   favorite: PropTypes.bool,
-  imageSource: PropTypes.any,
-  name: PropTypes.string,
-  price: PropTypes.number,
   prefix: PropTypes.string,
   style: PropTypes.object,
   onPress: PropTypes.func,
-  backgroundColor: PropTypes.string,
   hideFavorite: PropTypes.bool,
 };
 
 ProductItem.defaultProps = {
+  data: {
+    id: 100,
+    name: "",
+    price: 1000,
+    imageSource: "",
+    backgroundColor: "#efeef3",
+  },
   favorite: false,
-  imageSource: "",
-  name: "",
-  price: 0,
   prefix: "$",
   style: {},
   onPress: () => {},

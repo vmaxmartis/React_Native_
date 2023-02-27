@@ -7,6 +7,8 @@ const userSlice = createSlice({
     name: "Nguyen Van v",
     email: "a@gmail.com",
     password: "a",
+    avatar: require("./../../../assets/vv.png"),
+    background: require("./../../../assets/background.png"),
   },
   reducers: {
     login: (state, action) => {

@@ -21,12 +21,10 @@ const productSlice = createSlice({
       );
     },
     setFavorite: (state, action) => {
-      let cloneProduct = JSON.parse(JSON.stringify(state.data));
       const id = action.payload.id; // nhận vào ID để tìm product
       const favorite = action.payload.favorite; // payload mới
-      const product = cloneProduct.find((item) => item.id === id); // tìm product
-      product.favorite = favorite; // set lại Favorite
-      state.data = JSON.parse(JSON.stringify(cloneProduct));
+      const product = state.data.find((item) => item.id === id); // tìm product
+      product.favorite = favorite;
       state.productDetail = product;
     },
   },

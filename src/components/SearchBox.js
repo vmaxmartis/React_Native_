@@ -40,7 +40,7 @@ const SearchBox = ({ value, onChangeText, onFocus, handleSubmit }) => {
           setFocus(false);
         }}
         onFocus={handleFocus}
-        onSubmitEditing={() => handleSubmit()}
+        onSubmitEditing={handleSubmit}
       />
 
       <FiltersBottomSheet
@@ -62,11 +62,10 @@ SearchBox.propTypes = {
 };
 
 SearchBox.defaultProps = {
-  onChangeText: null,
   onFilterPress: null,
   onFocus: () => {},
   value: null,
-  handleSubmit: null,
+  handleSubmit: () => {},
 };
 
 export default SearchBox;

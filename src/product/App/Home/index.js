@@ -11,9 +11,9 @@ import SearchBox from "../../../components/SearchBox";
 import WithSafeArea from "../../../Config/safeArea";
 import CategoryItem from "./CategoryItem";
 import ProductItem from "./ProductItem";
-import products from "./../../../FakeData/products";
 import categories from "../../../FakeData/categories";
 import { theme } from "../../../theme/theme";
+import { getData } from "./../../../utils/getData";
 
 const defaultFilter = {
   category: "",
@@ -28,6 +28,8 @@ const Home = ({ drawerRef, navigation }) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCategories, setFilterCategories] = useState([]);
   const [filter, setFilter] = useState(defaultFilter);
+  console.log("filter:", filter.searchText);
+  const products = getData("product");
 
   return (
     <View>
@@ -35,6 +37,7 @@ const Home = ({ drawerRef, navigation }) => {
         <HeaderApp
           title={"15/2 Texas"}
           styleTitle={{}}
+          isButton
           iconLeft={"md-menu-outline"}
           onPressLeftIcon={() => navigation.openDrawer()}
           iconRight={"notifications"}
@@ -76,10 +79,7 @@ const Home = ({ drawerRef, navigation }) => {
               {products.map((item, index) => (
                 <ProductItem
                   key={index}
-                  name={item.name}
-                  price={item.price}
-                  imageSource={item.imageSource}
-                  backgroundColor={item.backgroundColor}
+                  data={item}
                   onPress={() => {
                     navigation.navigate("Detail", { productId: item.id });
                   }}

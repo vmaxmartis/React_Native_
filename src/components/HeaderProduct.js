@@ -11,18 +11,39 @@ const HeaderApp = ({
   showGoBack,
   title,
   styleTitle,
-  icon,
   iconLeft,
   onPressLeftIcon,
   iconRight,
   onPressRightIcon,
   selectedIcon,
+  isButton,
 }) => {
   const navigation = useNavigation();
-  const [isSelectedIcon, setIsSelectedIcon] = React.useState(selectedIcon);
   const handleGoBack = () => {
     navigation.goBack();
   };
+  const styles = StyleSheet.create({
+    container: {
+      height: 40,
+      marginVertical: 10,
+      alignItems: "center",
+    },
+    title: {
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+    buttonIcon: {
+      width: 40,
+      height: 40,
+      borderRadius: 40,
+      backgroundColor: isButton ? "#fff" : "transparent",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    leftAndRight: {
+      width: 50,
+    },
+  });
   return (
     <SpaceBetween style={{ ...styles.container, ...style }}>
       <View style={styles.leftAndRight}>
@@ -42,14 +63,14 @@ const HeaderApp = ({
       <View style={styles.leftAndRight}>
         {iconRight && (
           <TouchableOpacity
-            style={styles.favoriteButton}
+            style={styles.buttonIcon}
             activeOpacity={0.8}
             onPress={onPressRightIcon}
           >
             <Ionicons
               style={styles.favoriteIcon}
-              name={isSelectedIcon ? iconRight : `${iconRight + "-outline"}`}
-              color={isSelectedIcon ? theme.primary : theme.textDarkGray}
+              name={selectedIcon ? iconRight : `${iconRight + "-outline"}`}
+              color={selectedIcon ? theme.primary : theme.textDarkGray}
               size={25}
             />
           </TouchableOpacity>
@@ -65,6 +86,7 @@ HeaderApp.propTypes = {
   title: PropTypes.string,
   selectedIcon: PropTypes.bool,
   onPressRightIcon: PropTypes.func,
+  isButton: PropTypes.bool,
 };
 
 HeaderApp.defaultProps = {
@@ -73,29 +95,7 @@ HeaderApp.defaultProps = {
   title: "",
   selectedIcon: false,
   onPressRightIcon: () => {},
+  isButton: false,
 };
 
 export default HeaderApp;
-
-const styles = StyleSheet.create({
-  container: {
-    height: 40,
-    marginVertical: 10,
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  favoriteButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 40,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  leftAndRight: {
-    width: 50,
-  },
-});

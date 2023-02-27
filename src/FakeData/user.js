@@ -5,6 +5,7 @@ export default [
     email: "a",
     password: "a",
     address: "111",
+    avatar: require("../../assets/vv.png"),
     phone: "313288",
   },
   {
