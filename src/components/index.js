@@ -13,7 +13,6 @@ import BaseInputField from "./BaseInputField";
 import BaseButton from "./BaseButton";
 import RangeSliderFilter from "./RangeSlideFilter/index";
 import HeaderApp from "./HeaderProduct";
-// import Carousel from "./Carousel";
 import Loadding from "./Loadding";
 
 export {

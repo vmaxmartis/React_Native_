@@ -1,12 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import products from "../../FakeData/products";
-// const getProduct = (id) => {
-//   const product = products.find((item) => item.id === id);
-//   return product;
-// };
-// function nameFunc(param: any) {
-//   return;
-// }
 
 const productSlice = createSlice({
   name: "product",

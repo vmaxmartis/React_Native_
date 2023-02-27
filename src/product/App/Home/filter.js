@@ -8,6 +8,6 @@ export default function filterProducts(arr, keyword, minPrice, maxPrice) {
       (item) => item.price >= minPrice && item.price <= maxPrice
     );
   } else {
-    return arr;
+    return [];
   }
 }

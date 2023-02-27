@@ -18,8 +18,8 @@ import { getData } from "./../../../utils/getData";
 const defaultFilter = {
   category: "",
   searchText: "",
-  pricing: null,
-  distance: null,
+  pricing: 0,
+  distance: 0,
 };
 
 const Home = ({ drawerRef, navigation }) => {
@@ -28,7 +28,7 @@ const Home = ({ drawerRef, navigation }) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCategories, setFilterCategories] = useState([]);
   const [filter, setFilter] = useState(defaultFilter);
-  console.log("filter:", filter.searchText);
+  console.log("filter:", filter);
   const products = getData("product");
 
   return (

@@ -87,13 +87,8 @@ export default function DrawerApp() {
         headerShown: false,
       }}
     >
-      <Drawer.Screen
-        name="Main"
-        options={{
-          drawerIcon: () => <Icon name="home" iconComponent={Ionicons} />,
-        }}
-        component={Main}
-      />
+      <Drawer.Screen name="Main" component={Main} />
+      <Drawer.Screen name="Favorite" component={Favorite} />
       <Drawer.Screen name="Search" component={Search} />
     </Drawer.Navigator>
   );

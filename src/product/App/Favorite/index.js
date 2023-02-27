@@ -16,10 +16,10 @@ function Favorite({ navigation }) {
   return (
     <View>
       <HeaderApp
-        showGoBack={navigation}
         style={{ paddingHorizontal: 15 }}
         title={"Favorite"}
         isButton
+        route={navigation}
       />
       <View
         style={{
@@ -43,7 +43,6 @@ function Favorite({ navigation }) {
             <ProductItem
               key={index}
               data={item}
-              favorite={true}
               onPress={() =>
                 navigation.navigate("Detail", { productId: item.id })
               }

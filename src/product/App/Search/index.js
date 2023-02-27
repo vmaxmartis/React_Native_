@@ -13,15 +13,17 @@ import { getData } from "./../../../utils/getData";
 const Search = ({ navigation, route }) => {
   const products = getData("product");
   const [searchText, setSearchText] = React.useState("");
-  console.log("searchText:", searchText);
+  console.log("filter", route.params.filter);
   const [resultProducts, setResultProducts] = React.useState([]);
-  //   useEffect(() => {
-  //     setSearchText(route.params.filter.searchText);
-  //   }, []);
+
+  useEffect(() => {
+    setSearchText(route.params.filter.searchText);
+  }, []);
+
   useEffect(() => {
     setResultProducts(filterProducts(products, searchText));
-    setSearchText(route.params.filter.searchText);
   }, [searchText]);
+  console.log("products:", products, "resultProducts: ", resultProducts);
 
   return (
     <View style={styles.container}>
@@ -54,35 +56,40 @@ const Search = ({ navigation, route }) => {
           {searchText ? "Search result for " + ` "${searchText}"` : ""}
         </Text>
       </View>
-      {resultProducts.length === 0 ? (
-        <FlatList
-          columnWrapperStyle={{ flex: 1, justifyContent: "space-between" }}
-          data={resultProducts}
-          numColumns={2}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) => (
-            <ProductItem
-              key={index}
-              data={item}
-              onPress={() =>
-                navigation.navigate("Detail", { productId: item.id })
-              }
+      {searchText.trim().length != "" && (
+        <>
+          {resultProducts.length > 0 ? (
+            <FlatList
+              columnWrapperStyle={{ flex: 1, justifyContent: "space-between" }}
+              data={resultProducts}
+              numColumns={2}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }) => (
+                <ProductItem
+                  key={index}
+                  data={item}
+                  onPress={() =>
+                    navigation.navigate("Detail", { productId: item.id })
+                  }
+                />
+              )}
             />
+          ) : (
+            <View
+              style={{
+                marginTop: 100,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 15, fontWeight: "100" }}>
+                Currently, there are no products that match the above keywords.
+                . .
+              </Text>
+            </View>
           )}
-        />
-      ) : (
-        <View
-          style={{
-            marginTop: 100,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ fontSize: 15, fontWeight: "100" }}>
-            Currently, there are no products that match the above keywords. . .
-          </Text>
-        </View>
+        </>
       )}
     </View>
   );

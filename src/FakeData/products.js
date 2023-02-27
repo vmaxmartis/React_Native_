@@ -14,7 +14,6 @@ export default [
     ],
     quantity: 5,
     imageSource: require("../../assets/Home/Products/t-shirt-1.png"),
-    backgroundColor: "red",
   },
   {
     id: 1,

@@ -52,7 +52,6 @@ const SearchBox = ({ value, onChangeText, onFocus, handleSubmit }) => {
     </TouchableOpacity>
   );
 };
-//value, onChangeText, onBlur, onFocus, handleSubmit
 SearchBox.propTypes = {
   onChangeText: PropTypes.func,
   onFilterPress: PropTypes.func,

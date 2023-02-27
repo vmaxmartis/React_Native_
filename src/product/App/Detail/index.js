@@ -4,7 +4,6 @@ import { HeaderApp } from "../../../components";
 import { theme } from "./../../../../src/theme/theme";
 import WithSafeArea from "../../../Config/safeArea";
 import CarouselSlider from "./CarouselSlider";
-// import { getProduct } from "./api";
 import InfoProduct from "./InfoProduct/index";
 import { useSelector, useDispatch } from "react-redux";
 import { setFavorite, getProduct } from "../../../redux/slide/productSlide";
@@ -14,7 +13,6 @@ const Detail = ({ route, navigation }) => {
   const { productId } = route.params;
   const prod = useSelector((state) => state.product.productDetail); // []
   const dispatch = useDispatch();
-
   React.useEffect(() => {
     dispatch(getProduct(productId));
   }, []);
