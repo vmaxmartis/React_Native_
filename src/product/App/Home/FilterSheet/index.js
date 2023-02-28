@@ -4,6 +4,8 @@ import { BottomSheet } from "@rneui/themed";
 import Icon from "react-native-vector-icons/Ionicons";
 import { BaseButton, RangeSliderFilter } from "../../../../components";
 import AutoRender from "./../../../../Config/AutoRender";
+import { useDispatch } from "react-redux";
+import { filterResult } from "../../../../redux/slide/productSlide";
 const defaulValue = {
   price: { min: 0, max: 1000 },
   distance: { min: 0, max: 1000 },
@@ -11,14 +13,14 @@ const defaulValue = {
 
 const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
   const [distance, setDistance] = useState(defaulValue.distance);
-  console.log("distance:", distance);
   const [price, setPrice] = useState(defaulValue.price);
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(0);
-  function handleSelected(isSelect) {
-    let isSelected = !isSelect;
-    return isSelected;
-  }
+  const dispatch = useDispatch();
+  const handleApply = () => {
+    dispatch(filterResult({ price: price, distance: distance }));
+    setIsVisible(!isVisible);
+  };
+
   const categories = [
     { label: "New Arrival" },
     { label: "New Arrival" },
@@ -113,6 +115,7 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
       type: "button",
       title: "Apply Filter",
       view: styles.applyFilter,
+      handle: handleApply,
     },
   ];
   return (

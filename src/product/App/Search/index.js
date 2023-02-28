@@ -5,25 +5,27 @@ import { HeaderApp, Loadding, SpaceBetween } from "./../../../components";
 import ProductItem from "../Home/ProductItem";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { theme } from "../../../theme/theme";
-import filterProducts from "./../Home/filter";
 import SearchBox from "../../../components/SearchBox";
 import WithSafeArea from "./../../../Config/safeArea";
 import { getData } from "./../../../utils/getData";
+import { useDispatch } from "react-redux";
+import { filterResult } from "../../../redux/slide/productSlide";
 
 const Search = ({ navigation, route }) => {
-  const products = getData("product");
+  const DataResults = getData("ressultFilter");
   const [searchText, setSearchText] = React.useState("");
-  console.log("filter", route.params.filter);
   const [resultProducts, setResultProducts] = React.useState([]);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     setSearchText(route.params.filter.searchText);
   }, []);
+  useEffect(() => {
+    dispatch(filterResult({ searchText: searchText }));
+  }, [searchText]);
 
   useEffect(() => {
-    setResultProducts(filterProducts(products, searchText));
-  }, [searchText]);
-  console.log("products:", products, "resultProducts: ", resultProducts);
+    setResultProducts(DataResults);
+  }, [DataResults]);
 
   return (
     <View style={styles.container}>
@@ -44,19 +46,13 @@ const Search = ({ navigation, route }) => {
       <View style={styles.resultFor}>
         <SpaceBetween style={styles.recentSearch}>
           <Text style={styles.text}>Recent Searches </Text>
-          <Loadding
-            condition={searchText.trim().length > 0}
-            stopped={resultProducts.length === 0}
-            time={{ maxTime: 1500, waitTime: 333 }}
-            contents={"Đang tìm nè "}
-          />
           <Icon name="navigate-next" size={25} color={theme.primary} />
         </SpaceBetween>
         <Text style={styles.text}>
           {searchText ? "Search result for " + ` "${searchText}"` : ""}
         </Text>
       </View>
-      {searchText.trim().length != "" && (
+      {(searchText.trim().length != "" || filterResult) && (
         <>
           {resultProducts.length > 0 ? (
             <FlatList
@@ -69,6 +65,7 @@ const Search = ({ navigation, route }) => {
                 <ProductItem
                   key={index}
                   data={item}
+                  hideFavorite
                   onPress={() =>
                     navigation.navigate("Detail", { productId: item.id })
                   }
