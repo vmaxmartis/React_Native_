@@ -28,7 +28,6 @@ const Home = ({ drawerRef, navigation }) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCategories, setFilterCategories] = useState([]);
   const [filter, setFilter] = useState(defaultFilter);
-  console.log("filter:", filter);
   const products = getData("product");
 
   return (

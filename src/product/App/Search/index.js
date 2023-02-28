@@ -15,6 +15,7 @@ const Search = ({ navigation, route }) => {
   const DataResults = getData("ressultFilter");
   const [searchText, setSearchText] = React.useState("");
   const [resultProducts, setResultProducts] = React.useState([]);
+  console.log("resultProducts:", resultProducts);
   const dispatch = useDispatch();
   useEffect(() => {
     setSearchText(route.params.filter.searchText);
@@ -31,7 +32,6 @@ const Search = ({ navigation, route }) => {
     <View style={styles.container}>
       <HeaderApp
         title={"15/2 Texas"}
-        styleTitle={{}}
         isButton
         iconLeft={"md-menu-outline"}
         onPressLeftIcon={() => route.params.drawer.openDrawer()}
@@ -73,16 +73,9 @@ const Search = ({ navigation, route }) => {
               )}
             />
           ) : (
-            <View
-              style={{
-                marginTop: 100,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+            <View style={styles.nonProduct}>
               <Text style={{ fontSize: 15, fontWeight: "100" }}>
-                Currently, there are no products that match the above keywords.
-                . .
+                Currently, there are no products that match the above keywords{" "}
               </Text>
             </View>
           )}
@@ -118,5 +111,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginBottom: 5,
     fontWeight: "600",
+  },
+  nonProduct: {
+    marginTop: 100,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

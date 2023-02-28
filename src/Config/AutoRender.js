@@ -41,6 +41,7 @@ function AutoRender(props) {
                 onPress={item.handle}
                 title={item.title}
                 view={item.view}
+                setValueSelecteds={item.setValueSelecteds}
               />
             );
           }

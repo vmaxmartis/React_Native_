@@ -13,7 +13,7 @@ function Icon({ iconComponent: Icon, name, size, color, style }) {
 }
 
 Icon.propTypes = {
-  style: PropTypes.object,
+  style: PropTypes.any,
   iconComponent: PropTypes.func,
   name: PropTypes.string,
   size: PropTypes.number,
@@ -21,7 +21,7 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-  style: {},
+  style: {} || [],
   iconComponent: Ionicons,
   name: "",
   size: 24,

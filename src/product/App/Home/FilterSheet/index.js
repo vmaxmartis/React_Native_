@@ -15,16 +15,20 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
   const [distance, setDistance] = useState(defaulValue.distance);
   const [price, setPrice] = useState(defaulValue.price);
   const [isVisible, setIsVisible] = useState(false);
+  const [category, setCategory] = useState([]);
   const dispatch = useDispatch();
+  let payload = { price: price, distance: distance, category: category };
   const handleApply = () => {
-    dispatch(filterResult({ price: price, distance: distance }));
+    dispatch(filterResult(payload));
     setIsVisible(!isVisible);
+    setCategory([]);
   };
+  console.log("payload:", payload);
 
   const categories = [
-    { label: "New Arrival" },
-    { label: "New Arrival" },
-    { label: "New Arrival" },
+    { id: 1, label: "New Arrival" },
+    { id: 2, label: "Top Tranding" },
+    { id: 3, label: "Feature Products" },
   ];
   const rangeSlides = [
     {
@@ -46,7 +50,6 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
     setDistance(defaulValue.distance);
     setPrice(defaulValue.price);
   };
-
   const dataFilter = [
     {
       type: "other",
@@ -75,14 +78,16 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
               return (
                 <BaseButton
                   key={i}
+                  id={item.id}
                   selected={true}
                   title={item.label}
                   styleView={styles.btnCategory}
                   styleText={{
-                    fontSize: 18,
+                    fontSize: 15,
                     fontWeight: "500",
-                    asFont: "Inter",
                   }}
+                  valueSelecteds={category}
+                  setValueSelecteds={setCategory}
                 />
               );
             })}
