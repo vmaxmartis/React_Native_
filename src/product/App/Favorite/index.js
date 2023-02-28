@@ -41,6 +41,7 @@ function Favorite({ navigation }) {
           )}
         />
       </View>
+
     </View>
   );
 }

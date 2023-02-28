@@ -43,7 +43,6 @@ const ProductItem = ({
           size={15}
         />
       </TouchableOpacity>
-
       <Text style={styles.name}>{name}</Text>
       <Text style={styles.price}>
         {prefix}

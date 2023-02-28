@@ -5,6 +5,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Auth, Detail, Favorite, GetStarted, Main } from "./src/product";
+import { View } from "react-native";
+
 
 const Stack = createStackNavigator();
 

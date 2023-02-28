@@ -58,6 +58,8 @@ const Home = ({ drawerRef, navigation }) => {
         />
         {!openSearch ? (
           <View>
+        <View>
+          {!openSearch && (
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
