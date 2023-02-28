@@ -6,23 +6,20 @@ import {
   useWindowDimensions,
 } from "react-native";
 import React, { useState } from "react";
-import { SpaceBetween } from "../../../components/index";
+import { SpaceBetween, HeaderApp } from "../../../components/index";
 import SearchBox from "../../../components/SearchBox";
 import WithSafeArea from "../../../Config/safeArea";
 import CategoryItem from "./CategoryItem";
 import ProductItem from "./ProductItem";
-import Header from "./Header";
-import products from "./../../../FakeData/products";
 import categories from "../../../FakeData/categories";
 import { theme } from "../../../theme/theme";
-import { isEmpty, isNull } from "lodash";
-import Search from "../Search";
+import { getData } from "./../../../utils/getData";
 
 const defaultFilter = {
   category: "",
   searchText: "",
-  pricing: null,
-  distance: null,
+  pricing: 0,
+  distance: 0,
 };
 
 const Home = ({ drawerRef, navigation }) => {
@@ -30,80 +27,68 @@ const Home = ({ drawerRef, navigation }) => {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCategories, setFilterCategories] = useState([]);
-  const [openSearch, setOpenSearch] = useState(true);
   const [filter, setFilter] = useState(defaultFilter);
+  console.log("filter:", filter);
+  const products = getData("product");
 
-  React.useEffect(() => {
-    if (!isEmpty(filter.searchText.trim())) {
-      setOpenSearch(true);
-    } else {
-      setOpenSearch(false);
-    }
-  });
   return (
     <View>
       <View style={[styles.container, { width }]}>
-        <Header onPressMenu={() => drawerRef.current.openDrawer()} />
-        {!openSearch && (
-          <View>
-            <Text style={styles.title}>Title</Text>
-            <Text style={styles.slogan}>Slogan</Text>
-          </View>
-        )}
+        <HeaderApp
+          title={"15/2 Texas"}
+          styleTitle={{}}
+          isButton
+          iconLeft={"md-menu-outline"}
+          onPressLeftIcon={() => navigation.openDrawer()}
+          iconRight={"notifications"}
+        />
+        <View>
+          <Text style={styles.title}>Title</Text>
+          <Text style={styles.slogan}>Slogan</Text>
+        </View>
         <SearchBox
           value={filter.searchText}
           onChangeText={(text) => setFilter({ searchText: text })}
-          onFocus={() => !isNull(filter.searchText) && setOpenSearch(true)}
-          onBlur={() => setOpenSearch(false)}
+          handleSubmit={() =>
+            navigation.navigate("Search", { filter, drawer: navigation })
+          }
         />
-        {!openSearch ? (
-          <View>
         <View>
-          {!openSearch && (
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={styles.category}
-            >
-              {categories.map((item, index) => (
-                <CategoryItem
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.category}
+          >
+            {categories.map((item, index) => (
+              <CategoryItem
+                key={index}
+                style={{ marginHorizontal: 10 }}
+                selected={selectedCategory === index}
+                label={item.label}
+                imageSource={item.imageSource}
+                onPress={() => setSelectedCategory(index)}
+              />
+            ))}
+          </ScrollView>
+          <SpaceBetween style={styles.header}>
+            <Text style={styles.headerTitle}>NEW ARRIVAL</Text>
+            <Text style={styles.headerLink}>See all</Text>
+          </SpaceBetween>
+          <View style={styles.productContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {products.map((item, index) => (
+                <ProductItem
                   key={index}
-                  style={{ marginHorizontal: 10 }}
-                  selected={selectedCategory === index}
-                  label={item.label}
-                  imageSource={item.imageSource}
-                  onPress={() => setSelectedCategory(index)}
+                  data={item}
+                  onPress={() => {
+                    navigation.navigate("Detail", { productId: item.id });
+                  }}
+                  hideFavorite={true}
                 />
               ))}
             </ScrollView>
-            <SpaceBetween style={styles.header}>
-              <Text style={styles.headerTitle}>NEW ARRIVAL</Text>
-              <Text style={styles.headerLink}>See all</Text>
-            </SpaceBetween>
-            <View style={styles.productContainer}>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {products.map((item, index) => (
-                  <ProductItem
-                    key={index}
-                    name={item.name}
-                    price={item.price}
-                    imageSource={item.imageSource}
-                    backgroundColor={item.backgroundColor}
-                    onPress={() => {
-                      navigation.navigate("Detail", { productId: item.id });
-                    }}
-                  />
-                ))}
-              </ScrollView>
-            </View>
           </View>
-        ) : (
-          <Search
-            navigation={navigation}
-            products={products || []}
-            filter={filter}
-          />
-        )}
+        </View>
       </View>
     </View>
   );

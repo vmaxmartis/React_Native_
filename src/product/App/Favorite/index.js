@@ -1,39 +1,48 @@
 import React from "react";
-import { Text, View, StyleSheet, FlatList } from "react-native";
+import { View, Dimensions, FlatList } from "react-native";
 import WithSafeArea from "../../../Config/safeArea";
 import { HeaderApp } from "../../../components";
-import { theme } from "./../../../theme/theme";
 import ProductItem from "../Home/ProductItem";
-import products from "../../../FakeData/products";
+import { getData } from "./../../../utils/getData";
+
 function Favorite({ navigation }) {
-  const viewFavoriteProducts = () => {
-    if (products.length % 2 === 1) [...products].push({});
-    return products;
-  };
+  const products = getData("product");
+  const favoriteProd = products.filter((item) => item.favorite === true);
+  const screenWidth =
+    favoriteProd.length % 2 === 1
+      ? Dimensions.get("window").width - 21.5
+      : "auto";
+
   return (
-    <View style={styles.container}>
+    <View>
       <HeaderApp
-        showGoBack={navigation && true}
         style={{ paddingHorizontal: 15 }}
         title={"Favorite"}
+        isButton
+        route={navigation}
       />
-      <View style={{ flex: 1, padding: 10, flexDirection: "column" }}>
+      <View
+        style={{
+          flex: 1,
+          padding: 10,
+          flexDirection: "column",
+          width: screenWidth,
+        }}
+      >
         <FlatList
-          style={styles.searchList}
-          columnWrapperStyle={{ flex: 1, justifyContent: "space-between" }}
-          data={viewFavoriteProducts()}
+          columnWrapperStyle={{
+            flex: 1,
+            justifyContent:
+              screenWidth === "auto" ? "space-between" : "flex-start",
+          }}
+          data={favoriteProd}
           numColumns={2}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
             <ProductItem
               key={index}
-              style={{ marginHorizontal: 1 }}
-              name={item.name}
-              price={item.price}
-              imageSource={item.imageSource}
-              backgroundColor={item.backgroundColor}
-              favorite={true}
+              data={item}
               onPress={() =>
                 navigation.navigate("Detail", { productId: item.id })
               }
@@ -46,8 +55,3 @@ function Favorite({ navigation }) {
   );
 }
 export default WithSafeArea(Favorite);
-
-const styles = StyleSheet.create({
-  container: {},
-  backgroundColor: "red",
-});

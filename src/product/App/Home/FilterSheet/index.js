@@ -4,10 +4,15 @@ import { BottomSheet } from "@rneui/themed";
 import Icon from "react-native-vector-icons/Ionicons";
 import { BaseButton, RangeSliderFilter } from "../../../../components";
 import AutoRender from "./../../../../Config/AutoRender";
+const defaulValue = {
+  price: { min: 0, max: 1000 },
+  distance: { min: 0, max: 1000 },
+};
 
 const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
-  const [distance, setDistance] = useState(0);
-  const [price, setPrice] = useState(0);
+  const [distance, setDistance] = useState(defaulValue.distance);
+  console.log("distance:", distance);
+  const [price, setPrice] = useState(defaulValue.price);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(0);
   function handleSelected(isSelect) {
@@ -35,13 +40,17 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
       onChange: setDistance,
     },
   ];
+  const handleResetFilter = () => {
+    setDistance(defaulValue.distance);
+    setPrice(defaulValue.price);
+  };
 
   const dataFilter = [
     {
       type: "other",
       ordersComponnets: (
         <View style={styles.filterHeaderView}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleResetFilter}>
             <Text> Clear</Text>
           </TouchableOpacity>
           <Text style={{ fontSize: 20, fontWeight: "700" }}> Filters</Text>

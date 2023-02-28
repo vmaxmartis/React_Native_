@@ -5,7 +5,7 @@ import FiltersBottomSheet from "../product/App/Home/FilterSheet";
 import { theme } from "../theme/theme";
 import PropTypes from "prop-types";
 
-const SearchBox = ({ value, onChangeText, onBlur, onFocus }) => {
+const SearchBox = ({ value, onChangeText, onFocus, handleSubmit }) => {
   const inputRef = useRef(null);
   const [isFocus, setFocus] = useState(false);
 
@@ -35,15 +35,12 @@ const SearchBox = ({ value, onChangeText, onBlur, onFocus }) => {
         style={styles.input}
         placeholder={"Any text"}
         value={value}
-        onChangeText={onChangeText}
-        //   enterKeyHint={() => {
-        //     alert("hall");
-        //   }}
+        onChangeText={(text) => onChangeText(text)}
         onBlur={(e) => {
-          onBlur(e);
           setFocus(false);
         }}
         onFocus={handleFocus}
+        onSubmitEditing={handleSubmit}
       />
 
       <FiltersBottomSheet
@@ -55,21 +52,19 @@ const SearchBox = ({ value, onChangeText, onBlur, onFocus }) => {
     </TouchableOpacity>
   );
 };
-
 SearchBox.propTypes = {
   onChangeText: PropTypes.func,
-  onBlur: PropTypes.func,
   onFilterPress: PropTypes.func,
   onFocus: PropTypes.func,
   value: PropTypes.string,
+  handleSubmit: PropTypes.func,
 };
 
 SearchBox.defaultProps = {
-  onChangeText: () => {},
-  onBlur: () => {},
-  onFilterPress: () => {},
+  onFilterPress: null,
   onFocus: () => {},
   value: null,
+  handleSubmit: () => {},
 };
 
 export default SearchBox;

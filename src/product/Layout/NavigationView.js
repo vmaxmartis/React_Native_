@@ -12,7 +12,6 @@ import { Icon } from "../../components";
 import Icons from "react-native-vector-icons/Ionicons";
 
 export default function NavigationView({ navigation, drawerRef }) {
-  console.log("navigation:", navigation);
   const [isSelected, setSelection] = useState(NaN);
   useEffect(() => {}, []);
   const Tabs = [

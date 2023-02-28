@@ -5,7 +5,6 @@ import BaseCheckbox from "./../BaseCheckBox";
 
 const TermConditions = () => {
   const [accept, setAccept] = React.useState(false);
-  console.log("accept", accept);
   return (
     <View
       style={{

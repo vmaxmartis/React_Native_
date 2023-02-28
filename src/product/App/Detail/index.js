@@ -4,25 +4,50 @@ import { HeaderApp } from "../../../components";
 import { theme } from "./../../../../src/theme/theme";
 import WithSafeArea from "../../../Config/safeArea";
 import CarouselSlider from "./CarouselSlider";
-import { getProduct } from "./api";
 import InfoProduct from "./InfoProduct/index";
+import { useSelector, useDispatch } from "react-redux";
+import { setFavorite, getProduct } from "../../../redux/slide/productSlide";
+import { Button } from "@rneui/base";
 
 const Detail = ({ route, navigation }) => {
   const { productId } = route.params;
-  const product = getProduct(productId);
+  const prod = useSelector((state) => state.product.productDetail); // []
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getProduct(productId));
+  }, []);
+
+  const handleToggleFavorite = () => {
+    const payload = {
+      id: prod.id,
+      favorite: !prod.favorite,
+    };
+    dispatch(setFavorite(payload));
+  };
 
   return (
     <View style={[styles.container]}>
-      <HeaderApp style={styles.header} showGoBack icon="favorite" />
-      <CarouselSlider
-        style={styles.slider}
-        imageSources={[
-          product.imageSource,
-          product.imageSource,
-          product.imageSource,
-        ]}
-      />
-      <InfoProduct product={product} />
+      {prod && (
+        <>
+          <HeaderApp
+            style={styles.header}
+            iconRight={"heart"}
+            showGoBack
+            selectedIcon={prod.favorite}
+            isButton
+            onPressRightIcon={handleToggleFavorite}
+          />
+          <CarouselSlider
+            style={styles.slider}
+            imageSources={[
+              prod.imageSource,
+              prod.imageSource,
+              prod.imageSource,
+            ]}
+          />
+          <InfoProduct product={prod} onPressButton={() => {}} />
+        </>
+      )}
     </View>
   );
 };
