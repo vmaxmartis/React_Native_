@@ -7,11 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProduct, setFavorite } from "../../../../redux/slide/productSlide";
 
 const ProductItem = ({ data, prefix, style, onPress, hideFavorite }) => {
-  const prod = useSelector((state) => state.product.productDetail);
   const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(getProduct(data.id));
-  }, []);
   const handleToggleFavorite = () => {
     const payload = {
       id: data.id,
