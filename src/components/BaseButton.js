@@ -2,10 +2,9 @@ import React from "react";
 import { Text, StyleSheet, TouchableOpacity, View } from "react-native";
 import PropTypes from "prop-types";
 import { theme } from "../theme/theme";
-import Icon from "react-native-vector-icons/EvilIcons";
-import * as Font from "expo-font";
 
 const BaseButton = ({
+  id,
   onPress,
   title,
   icon,
@@ -14,13 +13,23 @@ const BaseButton = ({
   disabled,
   selected,
   view,
+  valueSelecteds,
+  setValueSelecteds,
 }) => {
   const [isSelected, setSelection] = React.useState(selected);
+  React.useEffect(() => {
+    if (isSelected === true) {
+      valueSelecteds.push(id); //[1,2]
+      () => setValueSelecteds(valueSelecteds);
+    } else if (id) {
+      () => setValueSelecteds(valueSelecteds.filter((e) => e !== id));
+    } else {
+      () => setValueSelecteds(valueSelecteds.filter((e) => e !== id));
+    }
+  }, [isSelected]);
   const handleSelection = () => {
     if (selected) {
       setSelection(!isSelected);
-    } else {
-      console.log("no action");
     }
   };
   return (
@@ -64,6 +73,8 @@ BaseButton.defaultProps = {
   disabled: PropTypes.bool,
   selected: PropTypes.any,
   view: PropTypes.object,
+  valueSelecteds: PropTypes.array,
+  setValueSelected: PropTypes.func,
 };
 
 BaseButton.defaultProps = {
@@ -75,6 +86,8 @@ BaseButton.defaultProps = {
   disabled: false,
   selected: null,
   view: {},
+  valueSelecteds: [],
+  setValueSelected: null,
 };
 
 export default BaseButton;

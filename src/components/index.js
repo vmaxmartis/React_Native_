@@ -4,7 +4,6 @@ import SpaceBetween from "./SpaceBw";
 import BaseText from "./BaseText";
 import CustomImage from "./CustomImage";
 import Icon from "./Icon";
-import CartItem from "./cardProduct";
 import BaseTouchable from "./BaseTouchable";
 import LineWithText from "./LineWithText";
 import LoginWithSocial from "./authComponents/LoginWithSocial";
@@ -24,7 +23,6 @@ export {
   SpaceBetween,
   BaseText,
   BaseTouchable,
-  CartItem,
   CustomImage,
   LineWithText,
   BaseCheckbox,

@@ -4,6 +4,8 @@ import { BottomSheet } from "@rneui/themed";
 import Icon from "react-native-vector-icons/Ionicons";
 import { BaseButton, RangeSliderFilter } from "../../../../components";
 import AutoRender from "./../../../../Config/AutoRender";
+import { useDispatch } from "react-redux";
+import { filterResult } from "../../../../redux/slide/productSlide";
 const defaulValue = {
   price: { min: 0, max: 1000 },
   distance: { min: 0, max: 1000 },
@@ -11,18 +13,22 @@ const defaulValue = {
 
 const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
   const [distance, setDistance] = useState(defaulValue.distance);
-  console.log("distance:", distance);
   const [price, setPrice] = useState(defaulValue.price);
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(0);
-  function handleSelected(isSelect) {
-    let isSelected = !isSelect;
-    return isSelected;
-  }
+  const [category, setCategory] = useState([]);
+  const dispatch = useDispatch();
+  let payload = { price: price, distance: distance, category: category };
+  const handleApply = () => {
+    dispatch(filterResult(payload));
+    setIsVisible(!isVisible);
+    setCategory([]);
+  };
+  console.log("payload:", payload);
+
   const categories = [
-    { label: "New Arrival" },
-    { label: "New Arrival" },
-    { label: "New Arrival" },
+    { id: 1, label: "New Arrival" },
+    { id: 2, label: "Top Tranding" },
+    { id: 3, label: "Feature Products" },
   ];
   const rangeSlides = [
     {
@@ -44,7 +50,6 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
     setDistance(defaulValue.distance);
     setPrice(defaulValue.price);
   };
-
   const dataFilter = [
     {
       type: "other",
@@ -73,14 +78,16 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
               return (
                 <BaseButton
                   key={i}
+                  id={item.id}
                   selected={true}
                   title={item.label}
                   styleView={styles.btnCategory}
                   styleText={{
-                    fontSize: 18,
+                    fontSize: 15,
                     fontWeight: "500",
-                    asFont: "Inter",
                   }}
+                  valueSelecteds={category}
+                  setValueSelecteds={setCategory}
                 />
               );
             })}
@@ -113,6 +120,7 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
       type: "button",
       title: "Apply Filter",
       view: styles.applyFilter,
+      handle: handleApply,
     },
   ];
   return (

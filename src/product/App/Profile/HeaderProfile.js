@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     height: screenHeight * 0.3,
     width: screenWidth,
     justifyContent: "flex-end",
-    backgroundColor: "blue",
     alignItems: "center",
     marginBottom: 20,
   },
