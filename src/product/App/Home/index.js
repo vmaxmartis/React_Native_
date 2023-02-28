@@ -6,16 +6,17 @@ import {
   useWindowDimensions,
 } from "react-native";
 import React, { useState } from "react";
-import { SearchBox, SpaceBetween } from "../../../components/index";
+import { SpaceBetween } from "../../../components/index";
+import SearchBox from "../../../components/SearchBox";
 import WithSafeArea from "../../../Config/safeArea";
 import CategoryItem from "./CategoryItem";
 import ProductItem from "./ProductItem";
 import Header from "./Header";
 import products from "./../../../FakeData/products";
 import categories from "../../../FakeData/categories";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import { theme } from "../../../theme/theme";
 import { isEmpty, isNull } from "lodash";
+import Search from "../Search";
 
 const defaultFilter = {
   category: "",
@@ -24,14 +25,21 @@ const defaultFilter = {
   distance: null,
 };
 
-const Home = ({ navigation, drawerRef }) => {
-  console.log("drawRef", drawerRef);
+const Home = ({ drawerRef, navigation }) => {
+  const { width } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCategories, setFilterCategories] = useState([]);
   const [openSearch, setOpenSearch] = useState(true);
   const [filter, setFilter] = useState(defaultFilter);
-  const { width } = useWindowDimensions();
+
+  React.useEffect(() => {
+    if (!isEmpty(filter.searchText.trim())) {
+      setOpenSearch(true);
+    } else {
+      setOpenSearch(false);
+    }
+  });
   return (
     <View>
       <View style={[styles.container, { width }]}>
@@ -48,7 +56,8 @@ const Home = ({ navigation, drawerRef }) => {
           onFocus={() => !isNull(filter.searchText) && setOpenSearch(true)}
           onBlur={() => setOpenSearch(false)}
         />
-
+        {!openSearch ? (
+          <View>
         <View>
           {!openSearch && (
             <ScrollView
@@ -67,62 +76,12 @@ const Home = ({ navigation, drawerRef }) => {
                 />
               ))}
             </ScrollView>
-          )}
-          {/* <SpaceBetween style={styles.header}>
-            <>
+            <SpaceBetween style={styles.header}>
               <Text style={styles.headerTitle}>NEW ARRIVAL</Text>
               <Text style={styles.headerLink}>See all</Text>
-            </>
-          </SpaceBetween> */}
-          <SpaceBetween style={styles.header}>
-            {openSearch ? (
-              <>
-                <Text style={{ fontSize: 20, fontWeight: "500" }}>
-                  Recent Searches
-                </Text>
-                <Icon name="navigate-next" size={25} color={theme.primary} />
-              </>
-            ) : (
-              <>
-                <Text style={styles.headerTitle}>NEW ARRIVAL</Text>
-                <Text style={styles.headerLink}>See all</Text>
-              </>
-            )}
-          </SpaceBetween>
-          <SpaceBetween style={{ marginBottom: 10 }}>
-            {openSearch && (
-              <>
-                <Text style={{ fontSize: 20, fontWeight: "500" }}>
-                  Search Result showing for "{filter.searchText}"
-                </Text>
-              </>
-            )}
-          </SpaceBetween>
-          <View style={styles.productContainer}>
-            <ScrollView
-              horizontal={openSearch ? false : true}
-              vertical={openSearch ? true : false}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              style={{ display: "flex", width: 500 }}
-            >
-              {products.map((item, index) => (
-                <ProductItem
-                  key={index}
-                  name={item.name}
-                  price={item.price}
-                  imageSource={item.imageSource}
-                  backgroundColor={item.backgroundColor}
-                  onPress={() => {
-                    alert("Vào detail page");
-                  }}
-                />
-              ))}
-            </ScrollView>
-          </View>
-          {/* {openSearch && (
-            <ScrollView vertical showsVerticalScrollIndicator={false}>
-              <View style={styles.productContainers}>
+            </SpaceBetween>
+            <View style={styles.productContainer}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 {products.map((item, index) => (
                   <ProductItem
                     key={index}
@@ -131,14 +90,20 @@ const Home = ({ navigation, drawerRef }) => {
                     imageSource={item.imageSource}
                     backgroundColor={item.backgroundColor}
                     onPress={() => {
-                      alert("Vào detail page");
+                      navigation.navigate("Detail", { productId: item.id });
                     }}
                   />
                 ))}
-              </View>
-            </ScrollView>
-          )} */}
-        </View>
+              </ScrollView>
+            </View>
+          </View>
+        ) : (
+          <Search
+            navigation={navigation}
+            products={products || []}
+            filter={filter}
+          />
+        )}
       </View>
     </View>
   );
@@ -158,7 +123,7 @@ const styles = StyleSheet.create({
   },
   slogan: {
     fontSize: 18,
-    color: "#b1b1b2",
+    color: "#b1b1b1",
     marginBottom: 20,
   },
   category: {
@@ -177,10 +142,6 @@ const styles = StyleSheet.create({
     color: "#7e7e80",
   },
   productContainer: {
-    height: "auto",
-  },
-  productContainers: {
-    height: 500,
-    display: "flex",
+    justifyContent: "center",
   },
 });

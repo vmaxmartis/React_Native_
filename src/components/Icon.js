@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import PropTypes from "prop-types";
-import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { theme } from "./../theme/theme";
 
 function Icon({ iconComponent: Icon, name, size, color, style }) {
@@ -22,7 +22,7 @@ Icon.propTypes = {
 
 Icon.defaultProps = {
   style: {},
-  iconComponent: FontAwesomeIcon,
+  iconComponent: Ionicons,
   name: "",
   size: 24,
   color: theme.primary,

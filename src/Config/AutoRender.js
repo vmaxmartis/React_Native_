@@ -40,6 +40,7 @@ function AutoRender(props) {
                 selected={item.selected}
                 onPress={item.handle}
                 title={item.title}
+                view={item.view}
               />
             );
           }

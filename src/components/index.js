@@ -1,3 +1,4 @@
+
 import SearchBox from "./SearchBox";
 import SpaceBetween from "./SpaceBw";
 import BaseText from "./BaseText";
@@ -13,12 +14,14 @@ import BaseCheckbox from "./BaseCheckBox";
 import BaseInputField from "./BaseInputField";
 import BaseButton from "./BaseButton";
 import RangeSliderFilter from "./RangeSlideFilter/index";
+import HeaderApp from "./HeaderProduct";
+// import Carousel from "./Carousel";
+import Loadding from "./Loadding";
 
 export {
   LoginWithSocial,
   NonAccount,
   TermConditions,
-  SearchBox,
   SpaceBetween,
   BaseText,
   BaseTouchable,
@@ -30,4 +33,7 @@ export {
   BaseInputField,
   BaseButton,
   RangeSliderFilter,
+  HeaderApp,
+  //   Carousel,
+  Loadding,
 };

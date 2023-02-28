@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import PropTypes from "prop-types";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { theme } from "./../../../../theme/theme";
 
 const ProductItem = ({
   favorite,
@@ -13,6 +14,7 @@ const ProductItem = ({
   onPress,
   backgroundColor,
 }) => {
+  const [isFavorite, setIsFavorite] = React.useState(false);
   return (
     <TouchableOpacity
       style={[styles.container, style]}
@@ -25,11 +27,22 @@ const ProductItem = ({
           source={imageSource}
         />
       </View>
-      {favorite && (
+      {/* {favorite && (
         <View style={styles.favorite}>
-          <Icon name="favorite" color="red" size={15} />
+          <Icon name="favorite" color={theme.primary} size={15} />
         </View>
-      )}
+      )} */}
+
+      <TouchableOpacity
+        onPress={() => setIsFavorite(!isFavorite)}
+        style={styles.favorite}
+      >
+        <Icon
+          name="favorite"
+          color={isFavorite ? theme.primary : theme.primaryDisabled}
+          size={15}
+        />
+      </TouchableOpacity>
       <Text style={styles.name}>{name}</Text>
       <Text style={styles.price}>
         {prefix}
@@ -65,7 +78,7 @@ export default ProductItem;
 
 const styles = StyleSheet.create({
   container: {
-    width: 160,
+    width: 170,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 10,
@@ -75,21 +88,21 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
-    width: 145,
-    height: 145,
+    width: 150,
+    height: 150,
     borderRadius: 20,
   },
-  //   favorite: {
-  //     backgroundColor: "#fff",
-  //     borderRadius: 30,
-  //     width: 30,
-  //     height: 30,
-  //     position: "absolute",
-  //     top: 15,
-  //     right: 25,
-  //     justifyContent: "center",
-  //     alignItems: "center",
-  //   },
+  favorite: {
+    backgroundColor: "#fff",
+    borderRadius: 30,
+    width: 30,
+    height: 30,
+    position: "absolute",
+    top: 15,
+    right: 25,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   name: {
     marginTop: 5,
     textAlign: "center",
