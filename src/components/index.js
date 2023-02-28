@@ -1,3 +1,5 @@
+
+import SearchBox from "./SearchBox";
 import SpaceBetween from "./SpaceBw";
 import BaseText from "./BaseText";
 import CustomImage from "./CustomImage";
