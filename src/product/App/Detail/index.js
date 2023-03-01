@@ -47,7 +47,7 @@ const Detail = ({ route, navigation }) => {
           />
           <InfoProduct
             product={prod}
-            onPressButton={() => navigation.navigate("Checkout")}
+            onPressButton={() => navigation.navigate("Cart")}
           />
         </>
       )}

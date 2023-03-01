@@ -5,10 +5,11 @@ import { HeaderApp, BaseButton } from "../../../components";
 import { theme } from "./../../../theme/theme";
 import CartItem from "../../../components/CartItem/index";
 import { getData } from "../../../utils/getData";
+
+const screenWidth = Dimensions.get("window").width - 50;
+
 function Cart({ navigation }) {
-  console.log("navigation cart:", navigation);
   const carts = getData("product");
-  const screenWidth = Dimensions.get("window").width - 50;
   const handleCheckout = () => {
     navigation.navigate("Checkout");
   };
@@ -28,8 +29,7 @@ function Cart({ navigation }) {
               <CartItem
                 style={{ marginBottom: 5 }}
                 key={i}
-                imageSource={item.imageSource}
-                name={item.name}
+                data={item}
                 color={item.options}
                 quantity={3}
               />
@@ -38,25 +38,11 @@ function Cart({ navigation }) {
         </View>
       </ScrollView>
       <View>
-        <View
-          style={{
-            justifyContent: "space-between",
-            flexDirection: "row",
-            width: screenWidth,
-            marginVertical: 5,
-          }}
-        >
+        <View style={styles.subtotal}>
           <Text style={{ fontSize: 17 }}>Sub total</Text>
           <Text style={{ fontSize: 17, fontWeight: "bold" }}>$ 1000</Text>
         </View>
-        <View
-          style={{
-            height: 70,
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: 15,
-          }}
-        >
+        <View style={styles.checkoutBtn}>
           <BaseButton onPress={handleCheckout} title="Checkout" />
         </View>
       </View>
@@ -81,5 +67,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  subtotal: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    width: screenWidth,
+    marginVertical: 5,
+  },
+  checkoutBtn: {
+    height: 70,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 15,
+    marginBottom: 30,
   },
 });
