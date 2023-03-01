@@ -1,21 +1,42 @@
-import { StyleSheet, View, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import React from "react";
 import { HeaderApp } from "../../../components";
 import { theme } from "./../../../../src/theme/theme";
 import WithSafeArea from "../../../Config/safeArea";
 import CarouselSlider from "./CarouselSlider";
 import InfoProduct from "./InfoProduct/index";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setFavorite, getProduct } from "../../../redux/slide/productSlide";
-import { Button } from "@rneui/base";
+import { addToCart } from "../../../redux/slide/cartSlide";
+import { getData } from "./../../../utils/getData";
+import ConfirmAlert from "../../../utils/alert";
 
 const Detail = ({ route, navigation }) => {
   const { productId } = route.params;
-  const prod = useSelector((state) => state.product.productDetail); // []
+  const prod = getData("productDetail");
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(getProduct(productId));
   }, []);
+  const [color, getColor] = React.useState(theme.primary);
+
+  const handleAddtoCart = () => {
+    const payload = {
+      id: prod.id,
+      name: prod.name,
+      description: prod.description,
+      price: prod.price,
+    };
+    Object.assign(payload, { color: color, quanlity: 1 });
+    ConfirmAlert({
+      title: `Bạn chắc chắn thêm  ${payload.name} với giá ${payload.price}$ vào giỏ hàng?`,
+      message: `Màu sắc bạn đã lựa chọn : ${payload.color}`,
+      onPressOk: () => {
+        dispatch(addToCart(payload));
+        navigation.navigate("Cart");
+      },
+    });
+  };
 
   const handleToggleFavorite = () => {
     const payload = {
@@ -46,8 +67,9 @@ const Detail = ({ route, navigation }) => {
             ]}
           />
           <InfoProduct
+            getColor={getColor}
             product={prod}
-            onPressButton={() => navigation.navigate("Cart")}
+            onPressButton={handleAddtoCart}
           />
         </>
       )}

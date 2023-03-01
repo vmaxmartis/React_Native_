@@ -4,7 +4,7 @@ import { theme } from "../../../../theme/theme";
 import ColorButton from "./../ColorButton/index";
 import { BaseButton, SpaceBetween } from "../../../../components";
 
-function InfoProduct({ product, onPressButton }) {
+function InfoProduct({ product, onPressButton, getColor }) {
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
   const colors = product.options;
 
@@ -23,7 +23,10 @@ function InfoProduct({ product, onPressButton }) {
             name={color.color}
             color={color.color}
             selected={selectedColorIndex === index}
-            onPress={() => setSelectedColorIndex(index)}
+            onPress={() => {
+              setSelectedColorIndex(index);
+              getColor(color.color);
+            }}
           />
         ))}
       </View>

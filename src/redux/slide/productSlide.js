@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import products from "../../FakeData/products";
 import filterProducts from "../../utils/filterProduct";
-import { getData } from "../../utils/getData";
 
 const productSlice = createSlice({
   name: "product",

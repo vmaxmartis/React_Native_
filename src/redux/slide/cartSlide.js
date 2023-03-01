@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import checkAndUpdateListCart from "./../../utils/checkExisting";
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -7,7 +8,7 @@ export const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      // state.data.push(action.payload);
+      state.data = checkAndUpdateListCart(action.payload, state.data);
     },
   },
 });
