@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { isEmpty } from "lodash";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import PropTypes from "prop-types";
 import { HeaderApp, Loadding, SpaceBetween } from "./../../../components";
@@ -8,20 +9,20 @@ import { theme } from "../../../theme/theme";
 import SearchBox from "../../../components/SearchBox";
 import WithSafeArea from "./../../../Config/safeArea";
 import { getData } from "./../../../utils/getData";
-import { useDispatch } from "react-redux";
 import { filterResult } from "../../../redux/slide/productSlide";
+import filterByName from "../../../utils/filterByName";
 
 const Search = ({ navigation, route }) => {
   const DataResults = getData("ressultFilter");
+  const product = getData("product");
   const [searchText, setSearchText] = React.useState("");
   const [resultProducts, setResultProducts] = React.useState([]);
-  console.log("resultProducts:", resultProducts);
-  const dispatch = useDispatch();
+
   useEffect(() => {
     setSearchText(route.params.filter.searchText);
   }, []);
   useEffect(() => {
-    dispatch(filterResult({ searchText: searchText }));
+    setResultProducts(filterByName(product, searchText));
   }, [searchText]);
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const Search = ({ navigation, route }) => {
       </View>
       {(searchText.trim().length != "" || filterResult) && (
         <>
-          {resultProducts.length > 0 ? (
+          {!isEmpty(resultProducts) ? (
             <FlatList
               columnWrapperStyle={{ flex: 1, justifyContent: "space-between" }}
               data={resultProducts}
