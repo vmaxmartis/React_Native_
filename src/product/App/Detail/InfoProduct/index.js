@@ -1,6 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-// import { SpaceBetween, BaseButton } from "../../../../components/index";
 import { theme } from "../../../../theme/theme";
 import ColorButton from "./../ColorButton/index";
 import { BaseButton, SpaceBetween } from "../../../../components";

@@ -1,78 +1,64 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, Dimensions, Text, ScrollView } from "react-native";
 import WithSafeArea from "./../../../Config/safeArea";
-import { HeaderApp } from "../../../components";
+import { HeaderApp, BaseButton } from "../../../components";
 import { theme } from "./../../../theme/theme";
-import CompletedCart from "./CompletedCart";
-
-function Cart() {
-  const [isActive, setIsActive] = useState(0);
-  const tabList = [
-    {
-      id: 0,
-      tabName: "Completed",
-      content: <CompletedCart />,
-    },
-    { id: 1, tabName: "Cancelled", content: <></> },
-  ];
+import CartItem from "../../../components/CartItem/index";
+import { getData } from "../../../utils/getData";
+function Cart({ navigation }) {
+  console.log("navigation cart:", navigation);
+  const carts = getData("product");
   const screenWidth = Dimensions.get("window").width - 50;
+  const handleCheckout = () => {
+    navigation.navigate("Checkout");
+  };
 
   return (
     <View style={styles.container}>
-      <HeaderApp title={"Orders"} />
-      <View
-        style={{
-          height: "7%",
-          width: screenWidth,
-          flexDirection: "row",
-          marginBottom: 10,
-        }}
-      >
-        {tabList.map((tab, i) => {
-          const active = isActive === i;
-          return (
-            <TouchableOpacity
-              key={i}
-              style={styles.tabBar}
-              onPress={() => {
-                setIsActive(i);
-              }}
-            >
-              <Text
-                style={{
-                  fontWeight: "600",
-                  fontSize: 15,
-                  color: active ? theme.primary : theme.textDarkGray,
-                }}
-              >
-                {tab.tabName}
-              </Text>
-              <View
-                style={{
-                  height: active ? 5 : 1.5,
-                  borderRadius: 2.5,
-                  width: "100%",
-                  marginTop: 10,
-                  backgroundColor: active
-                    ? theme.primary
-                    : theme.primaryDisabled,
-                }}
+      <HeaderApp title={"My Cart"} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View
+          style={{
+            width: screenWidth,
+            flexDirection: "column",
+          }}
+        >
+          {(carts.filter((item) => item.price > 100) || []).map((item, i) => {
+            return (
+              <CartItem
+                style={{ marginBottom: 5 }}
+                key={i}
+                imageSource={item.imageSource}
+                name={item.name}
+                color={item.options}
+                quantity={3}
               />
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-      <View style={{ flex: 1, width: screenWidth }}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {tabList[isActive].content}
-        </ScrollView>
+            );
+          })}
+        </View>
+      </ScrollView>
+      <View>
+        <View
+          style={{
+            justifyContent: "space-between",
+            flexDirection: "row",
+            width: screenWidth,
+            marginVertical: 5,
+          }}
+        >
+          <Text style={{ fontSize: 17 }}>Sub total</Text>
+          <Text style={{ fontSize: 17, fontWeight: "bold" }}>$ 1000</Text>
+        </View>
+        <View
+          style={{
+            height: 70,
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 15,
+          }}
+        >
+          <BaseButton onPress={handleCheckout} title="Checkout" />
+        </View>
       </View>
     </View>
   );

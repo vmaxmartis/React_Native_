@@ -8,14 +8,14 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Icons from "react-native-vector-icons/Ionicons";
 import { Icon } from "../../components";
 import { theme } from "../../theme/theme";
-import { Favorite, Main, Cart, Search } from "..";
+import { Favorite, Main, Cart, Search, Home } from "..";
 
-const CustomDrawerContent = ({ translation, navigation, ...props }) => {
+const CustomDrawerContent = ({ navigation, ...props }) => {
   const [isSelected, setSelection] = React.useState(NaN);
   const Tabs = [
     { lable: "Favorite", icon: "heart", navigate: "Favorite" },
     { lable: "Wallets", icon: "wallet", navigate: "Favorite" },
-    { lable: "My Orders", icon: "cart", navigate: "Favorite" },
+    { lable: "My Orders", icon: "cart", navigate: "Orders" },
     { lable: "About Us", icon: "people", navigate: "Favorite" },
     { lable: "Privacy Policy", icon: "lock-closed", navigate: "Favorite" },
   ];
@@ -94,6 +94,7 @@ export default function DrawerApp() {
         }}
         component={Main}
       />
+      <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Search" component={Search} />
     </Drawer.Navigator>
   );

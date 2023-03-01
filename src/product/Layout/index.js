@@ -32,10 +32,13 @@ function Main({ navigation }) {
     {
       label: "Home",
       screen: <Home navigation={navigation} />,
-      // screen: <Home drawerRef={drawer} navigation={navigation} />,
       iconName: "home",
     },
-    { label: "Cart", screen: <Cart />, iconName: "cart" },
+    {
+      label: "Cart",
+      screen: <Cart navigation={navigation} />,
+      iconName: "cart",
+    },
     {
       label: "Favorite",
       screen: <Favorite navigation={navigation} />,

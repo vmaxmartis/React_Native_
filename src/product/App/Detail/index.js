@@ -45,7 +45,10 @@ const Detail = ({ route, navigation }) => {
               prod.imageSource,
             ]}
           />
-          <InfoProduct product={prod} onPressButton={() => {}} />
+          <InfoProduct
+            product={prod}
+            onPressButton={() => navigation.navigate("Checkout")}
+          />
         </>
       )}
     </View>

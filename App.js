@@ -7,10 +7,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 import {
   Auth,
   Cart,
+  Checkout,
   Detail,
   Favorite,
   GetStarted,
   Main,
+  Orders,
+  Payment,
   Search,
 } from "./src/product";
 import DrawerApp from "./src/product/Layout/DrawerApp";
@@ -34,8 +37,11 @@ export default function App() {
             <Stack.Screen name="Auth" component={Auth} />
             <Stack.Screen name="Detail" component={Detail} />
             <Stack.Screen name="Favorite" component={Favorite} />
+            <Stack.Screen name="Orders" component={Orders} />
             <Stack.Screen name="Cart" component={Cart} />
             <Stack.Screen name="Search" component={Search} />
+            <Stack.Screen name="Payment" component={Payment} />
+            <Stack.Screen name="Checkout" component={Checkout} />
             <Stack.Screen name="DrawerApp" component={DrawerApp} />
           </Stack.Navigator>
         </NavigationContainer>
