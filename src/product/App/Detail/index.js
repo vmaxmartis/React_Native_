@@ -75,44 +75,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 30,
   },
-  productName: {
-    fontSize: 26,
-    fontWeight: "bold",
-  },
-  productPrice: {
-    fontSize: 26,
-    fontWeight: "bold",
-  },
-  productDescription: {
-    minHeight: 100,
-    maxHeight: 100,
-    marginTop: 10,
-    marginBottom: 15,
-  },
-  productDescriptionText: {
-    color: theme.textDarkGray,
-    lineHeight: 22,
-  },
-  quantityLabel: {
-    marginBottom: 5,
-    color: theme.textDarkGray,
-  },
-  quantityNumber: {
-    fontWeight: "bold",
-    color: "#000",
-  },
-  colorLabel: {
-    marginTop: 10,
-    fontSize: 18,
-    color: theme.textDarkGray,
-  },
-  colorContainer: {
-    flexDirection: "row",
-    marginVertical: 10,
-  },
-  addToCart: {
-    height: "20%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
 });

@@ -12,7 +12,6 @@ import WithSafeArea from "../../../Config/safeArea";
 import CategoryItem from "./CategoryItem";
 import ProductItem from "./ProductItem";
 import categories from "../../../FakeData/categories";
-import { theme } from "../../../theme/theme";
 import { getData } from "./../../../utils/getData";
 
 const defaultFilter = {
