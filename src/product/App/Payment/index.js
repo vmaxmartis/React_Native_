@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/Octicons";
 
 const Payment = ({ navigation }) => {
   const handleBackToHome = () => {
-    navigation.navigate("Main");
+    navigation.replace("Main");
   };
 
   return (
@@ -48,12 +48,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   iconOutter: {
-    width: 180,
-    height: 180,
+    width: 200,
+    height: 200,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 200,
-    borderWidth: 12,
+    borderWidth: 15,
     borderColor: theme.primary,
   },
   iconInner: {

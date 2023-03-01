@@ -41,7 +41,7 @@ const Profile = () => {
         <View style={styles.informationBox}>
           <Information label="Name" value={user.name} />
           <Information label="Mail" value={user.email} />
-          <Information label="Address" value={user.address} />
+          <Information label="Address" value={user.address.add} />
           <Information label="Phone" value={user.phone} />
         </View>
       </View>

@@ -23,7 +23,6 @@ const defaultFilter = {
 };
 
 const Home = ({ drawerRef, navigation }) => {
-  console.log("navigation:", navigation);
   const { width } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [openFilter, setOpenFilter] = useState(false);
