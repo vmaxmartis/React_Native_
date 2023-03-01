@@ -23,7 +23,6 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
     setIsVisible(!isVisible);
     setCategory([]);
   };
-  console.log("payload:", payload);
 
   const categories = [
     { id: 1, label: "New Arrival" },

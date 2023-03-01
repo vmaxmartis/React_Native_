@@ -16,15 +16,22 @@ const BaseButton = ({
   valueSelecteds,
   setValueSelecteds,
 }) => {
-  const [isSelected, setSelection] = React.useState(selected);
+  function removeItemFromArray(arr, x) {
+    const index = arr.indexOf(x);
+    if (index !== -1) {
+      arr.splice(index, 1);
+    }
+    return arr;
+  }
+
+  const [isSelected, setSelection] = React.useState(false);
   React.useEffect(() => {
-    if (isSelected === true) {
-      valueSelecteds.push(id); //[1,2]
+    if (isSelected) {
+      valueSelecteds.push(id);
       () => setValueSelecteds(valueSelecteds);
-    } else if (id) {
-      () => setValueSelecteds(valueSelecteds.filter((e) => e !== id));
     } else {
-      () => setValueSelecteds(valueSelecteds.filter((e) => e !== id));
+      const newArr = removeItemFromArray(valueSelecteds, id);
+      () => setValueSelecteds(newArr);
     }
   }, [isSelected]);
   const handleSelection = () => {

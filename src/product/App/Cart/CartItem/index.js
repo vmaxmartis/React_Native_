@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { SpaceBetween } from "../../../../components";
 import PropTypes from "prop-types";
 import { theme } from "../../../../theme/theme";
