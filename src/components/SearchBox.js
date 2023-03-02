@@ -28,9 +28,6 @@ const SearchBox = ({ value, onChangeText, handleSubmit }) => {
         placeholder={"Any text"}
         value={value}
         onChangeText={(text) => onChangeText(text)}
-        onBlur={(e) => {
-          setFocus(false);
-        }}
         onSubmitEditing={handleSubmit}
       />
 

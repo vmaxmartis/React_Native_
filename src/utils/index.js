@@ -44,7 +44,6 @@ function removeById(arr, id) {
   return arr.filter((item) => item.id !== id);
 }
 function increaseQuantityById(arr, id, key) {
-  console.log("key:", key);
   const existing = arr.find((item) => item.id === id);
   if (existing) {
     if (key === "add") {

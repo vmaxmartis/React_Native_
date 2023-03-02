@@ -12,7 +12,6 @@ export const cartSlice = createSlice({
       state.data = checkAndUpdateListCart(action.payload, state.data);
     },
     changeQuanlityCart: (state, action) => {
-      console.log("action hall:", action);
       newCartList = utils.increaseQuantityById(
         state.data,
         action.payload.id,

@@ -18,11 +18,15 @@ import { isEmpty } from "lodash";
 const screenWidth = Dimensions.get("window").width - 50;
 
 function Cart({ navigation }) {
-  console.log("navigation:", navigation);
   const carts = getData("cart");
   const subtotal = carts.reduce((acc, curr) => {
     return acc + curr.price * curr.quanlity;
   }, 0);
+  React.useEffect(() => {
+    setTimeout(() => {
+      isEmpty(carts) && navigation.navigate("Main");
+    }, 3000);
+  }, [carts]);
   const handleCheckout = () => {
     ConfirmAlert({
       title: `You want to pay ?`,
