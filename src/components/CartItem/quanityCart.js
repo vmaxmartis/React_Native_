@@ -6,24 +6,32 @@ import { getData } from "./../../utils/getData";
 import { useDispatch } from "react-redux";
 import { changeQuanlityCart } from "../../redux/slide/cartSlide";
 import ConfirmAlert from "../../utils/alert";
+import { deleteCart } from "../../redux/slide/cartSlide";
+import utils from "../../utils";
 
 function QuanityCart({ quantity, onDelete, id }) {
   const dispatch = useDispatch();
+  const carts = getData("cart");
   const handleAdd = () => {
     dispatch(changeQuanlityCart({ id: id, type: "add" }));
   };
+  const deleteCartItem = () => {
+    const newCart = utils.removeById(carts, id);
+    ConfirmAlert({
+      title: `you want to remove item from your order`,
+      onPressOk: () => {
+        dispatch(deleteCart(newCart));
+      },
+    });
+  };
   const handleSub = () => {
     if (quantity === 1) {
-      ConfirmAlert({
-        title: `you want to remove XX from your order`,
-        onPressOk: () => {
-          dispatch(deleteCart(newCart));
-        },
-      });
+      deleteCartItem();
     } else {
       dispatch(changeQuanlityCart({ id: id, type: "sub" }));
     }
   };
+
   return (
     <View style={styles.quantityContainer}>
       <TouchableOpacity
