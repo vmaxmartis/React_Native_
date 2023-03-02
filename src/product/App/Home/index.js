@@ -23,7 +23,6 @@ const defaultFilter = {
 
 const Home = ({ navigation }) => {
   const { width } = useWindowDimensions();
-  console.log("width:", width);
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [filter, setFilter] = useState(defaultFilter);
   const products = getData("product");

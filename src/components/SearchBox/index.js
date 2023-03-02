@@ -1,8 +1,8 @@
 import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import React, { useRef } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import FiltersBottomSheet from "../product/App/Home/FilterSheet";
-import { theme } from "../theme/theme";
+import FiltersBottomSheet from "./FilterSheet";
+import { theme } from "../../theme/theme";
 import PropTypes from "prop-types";
 
 const SearchBox = ({ value, onChangeText, handleSubmit }) => {
