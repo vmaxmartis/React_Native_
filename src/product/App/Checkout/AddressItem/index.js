@@ -25,7 +25,7 @@ const AddressItem = ({ style, selected, address, onEdit, onSelect }) => {
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.nameText}>{address.name}</Text>
-          <Text style={styles.phoneText}>{address.phone}</Text>
+          <Text style={styles.phoneText}>{address.number}</Text>
           <Text style={styles.addressText}>{address.add}</Text>
         </View>
         <View style={styles.editingContainer}>

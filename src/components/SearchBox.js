@@ -5,19 +5,11 @@ import FiltersBottomSheet from "../product/App/Home/FilterSheet";
 import { theme } from "../theme/theme";
 import PropTypes from "prop-types";
 
-const SearchBox = ({ value, onChangeText, onFocus, handleSubmit }) => {
+const SearchBox = ({ value, onChangeText, handleSubmit }) => {
   const inputRef = useRef(null);
-  const [isFocus, setFocus] = useState(false);
-
   const handlePress = () => {
     inputRef.current.focus();
   };
-
-  const handleFocus = (e) => {
-    setFocus(true);
-    onFocus(e);
-  };
-
   return (
     <TouchableOpacity
       onPress={handlePress}
@@ -39,7 +31,6 @@ const SearchBox = ({ value, onChangeText, onFocus, handleSubmit }) => {
         onBlur={(e) => {
           setFocus(false);
         }}
-        onFocus={handleFocus}
         onSubmitEditing={handleSubmit}
       />
 

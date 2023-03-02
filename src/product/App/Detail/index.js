@@ -32,8 +32,8 @@ const Detail = ({ route, navigation }) => {
     console.log("payload:", payload);
     Object.assign(payload, { color: color, quanlity: 1 });
     ConfirmAlert({
-      title: `Bạn chắc chắn thêm  ${payload.name} với giá ${payload.price}$ vào giỏ hàng?`,
-      message: `Màu sắc bạn đã lựa chọn : ${payload.color}`,
+      title: `Be sure to add ${payload.name} for ${payload.price}$ to your cart?`,
+      message: `Color of your choice : ${payload.color}`,
       onPressOk: () => {
         dispatch(addToCart(payload));
         navigation.navigate("Cart");

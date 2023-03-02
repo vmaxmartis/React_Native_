@@ -1,64 +1,85 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Dimensions, Text, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import WithSafeArea from "./../../../Config/safeArea";
 import { HeaderApp, BaseButton } from "../../../components";
 import { theme } from "./../../../theme/theme";
 import CartItem from "../../../components/CartItem/index";
 import { getData } from "../../../utils/getData";
 import ConfirmAlert from "../../../utils/alert";
+import { isEmpty } from "lodash";
 
 const screenWidth = Dimensions.get("window").width - 50;
 
 function Cart({ navigation }) {
+  console.log("navigation:", navigation);
   const carts = getData("cart");
-  console.log("carts:", carts);
   const subtotal = carts.reduce((acc, curr) => {
     return acc + curr.price * curr.quanlity;
   }, 0);
   const handleCheckout = () => {
     ConfirmAlert({
-      title: `Bạn muốn thanh toán ?`,
-      message: `Tổng đơn hàng của bạn là: ${subtotal} $`,
+      title: `You want to pay ?`,
+      message: `Your total order is: ${subtotal} $`,
       onPressOk: () => {
         navigation.navigate("Checkout", { subtotal: subtotal });
       },
     });
   };
-  console.log("subtotal:", subtotal);
 
   return (
     <View style={styles.container}>
       <HeaderApp title={"My Cart"} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            width: screenWidth,
-            flexDirection: "column",
-          }}
+      {isEmpty(carts) ? (
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Main")}
+          style={styles.noCart}
         >
-          {carts.map((item, i) => {
-            console.log("item:", item);
-            return (
-              <CartItem
-                style={{ marginBottom: 5 }}
-                key={i}
-                data={item}
-                color={item.options}
-                isCart={true}
-              />
-            );
-          })}
-        </View>
-      </ScrollView>
-      <View>
-        <View style={styles.subtotal}>
-          <Text style={{ fontSize: 17 }}>Sub total: </Text>
-          <Text style={{ fontSize: 17, fontWeight: "bold" }}>{subtotal} $</Text>
-        </View>
-        <View style={styles.checkoutBtn}>
-          <BaseButton onPress={handleCheckout} title="Checkout" />
-        </View>
-      </View>
+          <Text style={{ fontSize: 18 }}>
+            Your shopping cart is currently empty...
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View
+              style={{
+                width: screenWidth,
+                flexDirection: "column",
+              }}
+            >
+              {carts.map((item, i) => {
+                return (
+                  <CartItem
+                    style={{ marginBottom: 5 }}
+                    key={i}
+                    data={item}
+                    color={item.options}
+                    isCart={true}
+                  />
+                );
+              })}
+            </View>
+          </ScrollView>
+          <View>
+            <View style={styles.subtotal}>
+              <Text style={{ fontSize: 17 }}>Sub total: </Text>
+              <Text style={{ fontSize: 17, fontWeight: "bold" }}>
+                {subtotal} $
+              </Text>
+            </View>
+            <View style={styles.checkoutBtn}>
+              <BaseButton onPress={handleCheckout} title="Checkout" />
+            </View>
+          </View>
+        </>
+      )}
     </View>
   );
 }
@@ -93,5 +114,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 15,
     marginBottom: 30,
+  },
+  noCart: {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
   },
 });

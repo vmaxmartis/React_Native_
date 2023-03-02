@@ -40,13 +40,29 @@ function validatePassword(value) {
 function checkNullFormField(listCheck) {
   return !every(listCheck, (item) => item.trim().length > 0);
 }
-
+function removeById(arr, id) {
+  return arr.filter((item) => item.id !== id);
+}
+function increaseQuantityById(arr, id, key) {
+  console.log("key:", key);
+  const existing = arr.find((item) => item.id === id);
+  if (existing) {
+    if (key === "add") {
+      existing.quanlity++;
+    } else if (key === "sub") {
+      existing.quanlity--;
+    }
+  }
+  return arr;
+}
 const utils = {
   validateName,
   isValidEmail,
   validateEmail,
   validatePassword,
   checkNullFormField,
+  removeById,
+  increaseQuantityById,
 };
 
 export default utils;

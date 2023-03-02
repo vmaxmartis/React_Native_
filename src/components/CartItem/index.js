@@ -3,8 +3,24 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import SpaceBetween from "../SpaceBw";
 import PropTypes from "prop-types";
 import QuanityCart from "./quanityCart";
+import { useDispatch } from "react-redux";
+import { changeQuanlityCart, deleteCart } from "../../redux/slide/cartSlide";
+import utils from "./../../utils/index";
+import { getData } from "./../../utils/getData";
+import ConfirmAlert from "../../utils/alert";
 
-const CartItem = ({ isCart, style, data, onChangeQuantity, onDelete }) => {
+const CartItem = ({ isCart, style, data }) => {
+  const carts = getData("cart");
+  const dispatch = useDispatch();
+  const deleteCartItem = () => {
+    const newCart = utils.removeById(carts, data.id);
+    ConfirmAlert({
+      title: `you want to remove ${data.name} from your order`,
+      onPressOk: () => {
+        dispatch(deleteCart(newCart));
+      },
+    });
+  };
   return (
     <SpaceBetween style={[styles.container, style]}>
       <View style={styles.imageContainer}>
@@ -19,8 +35,8 @@ const CartItem = ({ isCart, style, data, onChangeQuantity, onDelete }) => {
       </View>
       {isCart && (
         <QuanityCart
-          onDelete={onDelete}
-          onChangeQuantity={onChangeQuantity}
+          onDelete={deleteCartItem}
+          id={data.id}
           quantity={data.quanlity}
         />
       )}

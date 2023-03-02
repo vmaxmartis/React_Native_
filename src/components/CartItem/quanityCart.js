@@ -2,13 +2,34 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/EvilIcons";
 import { theme } from "../../theme/theme";
-function QuanityCart({ quantity, onDelete, onChangeQuantity }) {
+import { getData } from "./../../utils/getData";
+import { useDispatch } from "react-redux";
+import { changeQuanlityCart } from "../../redux/slide/cartSlide";
+import ConfirmAlert from "../../utils/alert";
+
+function QuanityCart({ quantity, onDelete, id }) {
+  const dispatch = useDispatch();
+  const handleAdd = () => {
+    dispatch(changeQuanlityCart({ id: id, type: "add" }));
+  };
+  const handleSub = () => {
+    if (quantity === 1) {
+      ConfirmAlert({
+        title: `you want to remove XX from your order`,
+        onPressOk: () => {
+          dispatch(deleteCart(newCart));
+        },
+      });
+    } else {
+      dispatch(changeQuanlityCart({ id: id, type: "sub" }));
+    }
+  };
   return (
     <View style={styles.quantityContainer}>
       <TouchableOpacity
         style={styles.quantityButton}
         activeOpacity={0.8}
-        onPress={() => onChangeQuantity(Math.max(1, quantity - 1))}
+        onPress={handleSub}
       >
         <Text style={styles.quantityButtonLabel}>-</Text>
       </TouchableOpacity>
@@ -16,7 +37,7 @@ function QuanityCart({ quantity, onDelete, onChangeQuantity }) {
       <TouchableOpacity
         style={styles.quantityButton}
         activeOpacity={0.8}
-        onPress={() => onChangeQuantity(Math.min(quantity + 1, color.quantity))}
+        onPress={handleAdd}
       >
         <Text style={styles.quantityButtonLabel}>+</Text>
       </TouchableOpacity>
@@ -77,6 +98,7 @@ const styles = StyleSheet.create({
   },
   quantityButtonLabel: {
     color: theme.primary,
+    paddingHorizontal: 2,
   },
   quantityLabel: {
     marginHorizontal: 5,

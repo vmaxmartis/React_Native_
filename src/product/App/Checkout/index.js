@@ -34,6 +34,7 @@ const paymentMethods = [
 const Checkout = ({ navigation, route }) => {
   const subtotal = route.params.subtotal;
   const user = getData("user");
+  console.log("user:", user);
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(0);
   const [selectedPaymentMethodIndex, setSelectedPaymentMethodIndex] =
     useState(0);
@@ -52,7 +53,7 @@ const Checkout = ({ navigation, route }) => {
             return (
               <AddressItem
                 style={styles.addressItem}
-                key={1}
+                key={i}
                 address={item}
                 selected={selectedAddressIndex === i}
                 onSelect={() => setSelectedAddressIndex(i)}
