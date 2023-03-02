@@ -76,7 +76,7 @@ const Search = ({ navigation, route }) => {
           ) : (
             <View style={styles.nonProduct}>
               <Text style={{ fontSize: 15, fontWeight: "100" }}>
-                Currently, there are no products that match the above keywords{" "}
+                Currently, there are no products that match the above keywords
               </Text>
             </View>
           )}

@@ -5,7 +5,7 @@ import { HeaderApp, BaseButton, SpaceBetween } from "../../../components";
 import AddressItem from "./AddressItem/index";
 import BillingInformation from "./BillingInformation";
 import PaymentMethod from "./PaymentMethod";
-// import SwipeButton from "./SwipeButton/index";
+import { StackActions } from "@react-navigation/native";
 import { getData } from "./../../../utils/getData";
 
 const paymentMethods = [
@@ -39,7 +39,7 @@ const Checkout = ({ navigation, route }) => {
     useState(0);
 
   const handlePlaceOrder = () => {
-    navigation.navigate("Payment");
+    navigation.dispatch(StackActions.replace("Payment"));
   };
 
   return (

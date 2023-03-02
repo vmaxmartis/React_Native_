@@ -52,7 +52,7 @@ function ListCart({ navigation }) {
           >
             Add more item
           </Text>
-          <Icons size={20} color={theme.primary} name={"add"} />
+          <Icons size={20} color={theme.primary} name={"navigate-next"} />
         </TouchableOpacity>
       </View>
     </ScrollView>
