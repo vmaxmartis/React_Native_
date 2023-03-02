@@ -4,14 +4,14 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from "@react-navigation/drawer";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import Icons from "react-native-vector-icons/Ionicons";
 import { Icon } from "../../components";
 import { theme } from "../../theme/theme";
 import { Favorite, Main, Cart, Search, Home } from "..";
-
+const Drawer = createDrawerNavigator();
 const CustomDrawerContent = ({ navigation, ...props }) => {
   const [isSelected, setSelection] = React.useState(NaN);
+  console.log("isSelected:", isSelected);
   const Tabs = [
     { lable: "Favorite", icon: "heart", navigate: "Favorite" },
     { lable: "Wallets", icon: "wallet", navigate: "Favorite" },
@@ -76,7 +76,6 @@ const CustomDrawerContent = ({ navigation, ...props }) => {
     </DrawerContentScrollView>
   );
 };
-const Drawer = createDrawerNavigator();
 
 export default function DrawerApp() {
   return (
@@ -87,14 +86,10 @@ export default function DrawerApp() {
         headerShown: false,
       }}
     >
-      <Drawer.Screen
-        name="Main"
-        options={{
-          drawerIcon: () => <Icon name="home" iconComponent={Ionicons} />,
-        }}
-        component={Main}
-      />
+      <Drawer.Screen name="Main" component={Main} />
       <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="Cart" component={Cart} />
+      <Drawer.Screen name="Favorite" component={Favorite} />
       <Drawer.Screen name="Search" component={Search} />
     </Drawer.Navigator>
   );

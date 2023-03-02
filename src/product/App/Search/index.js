@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { isEmpty } from "lodash";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import PropTypes from "prop-types";
-import { HeaderApp, Loadding, SpaceBetween } from "./../../../components";
+import { HeaderApp, SpaceBetween } from "./../../../components";
 import ProductItem from "../Home/ProductItem";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { theme } from "../../../theme/theme";
@@ -10,7 +10,7 @@ import SearchBox from "../../../components/SearchBox";
 import WithSafeArea from "./../../../Config/safeArea";
 import { getData } from "./../../../utils/getData";
 import { filterResult } from "../../../redux/slide/productSlide";
-import filterByName from "../../../utils/filterByName";
+import utils from "../../../utils";
 
 const Search = ({ navigation, route }) => {
   const DataResults = getData("ressultFilter");
@@ -22,7 +22,7 @@ const Search = ({ navigation, route }) => {
     setSearchText(route.params.filter.searchText);
   }, []);
   useEffect(() => {
-    setResultProducts(filterByName(product, searchText));
+    setResultProducts(utils.filterByName(product, searchText));
   }, [searchText]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Search = ({ navigation, route }) => {
         title={"15/2 Texas"}
         isButton
         iconLeft={"md-menu-outline"}
-        onPressLeftIcon={() => route.params.drawer.openDrawer()}
+        onPressLeftIcon={() => navigation.openDrawer()}
         iconRight={"notifications"}
       />
       <SearchBox

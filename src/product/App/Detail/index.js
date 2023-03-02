@@ -29,7 +29,6 @@ const Detail = ({ route, navigation }) => {
       imageSource: prod.imageSource,
       backgroundColor: prod.backgroundColor,
     };
-    console.log("payload:", payload);
     Object.assign(payload, { color: color, quanlity: 1 });
     ConfirmAlert({
       title: `Be sure to add ${payload.name} for ${payload.price}$ to your cart?`,

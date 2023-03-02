@@ -11,6 +11,7 @@ import {
   Detail,
   Favorite,
   GetStarted,
+  Home,
   Main,
   Orders,
   Payment,
@@ -40,6 +41,7 @@ export default function App() {
             <Stack.Screen name="Favorite" component={Favorite} />
             <Stack.Screen name="Orders" component={Orders} />
             <Stack.Screen name="Cart" component={Cart} />
+            <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Search" component={Search} />
             <Stack.Screen name="Payment" component={Payment} />
             <Stack.Screen name="Checkout" component={Checkout} />

@@ -37,6 +37,24 @@ function validatePassword(value) {
     return;
   }
 }
+function checkAndUpdateListCart(ob, arr) {
+  //   const existing = some(arr, (item) => item.id === ob.id);
+  const existing = arr.find((item) => item.id === ob.id);
+  if (existing) {
+    existing.quanlity++;
+  } else {
+    arr.push(ob);
+  }
+  return arr;
+}
+function filterByName(arr, keyword) {
+  if (keyword) {
+    return arr.filter((item) =>
+      item.name.toLowerCase().includes(keyword.toLowerCase())
+    );
+  }
+}
+
 function checkNullFormField(listCheck) {
   return !every(listCheck, (item) => item.trim().length > 0);
 }
@@ -62,6 +80,8 @@ const utils = {
   checkNullFormField,
   removeById,
   increaseQuantityById,
+  checkAndUpdateListCart,
+  filterByName,
 };
 
 export default utils;

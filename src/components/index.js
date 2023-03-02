@@ -1,4 +1,3 @@
-import SearchBox from "./SearchBox";
 import SpaceBetween from "./SpaceBw";
 import BaseText from "./BaseText";
 import CustomImage from "./CustomImage";
@@ -15,6 +14,7 @@ import RangeSliderFilter from "./RangeSlideFilter/index";
 import HeaderApp from "./HeaderProduct";
 import Loadding from "./Loadding";
 import CartItem from "./CartItem";
+import SearchBox from "./SearchBox/index";
 
 export {
   LoginWithSocial,
@@ -34,4 +34,5 @@ export {
   //   Carousel,
   Loadding,
   CartItem,
+  SearchBox,
 };
