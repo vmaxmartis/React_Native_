@@ -1,17 +1,15 @@
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import SpaceBetween from "../SpaceBw";
 import PropTypes from "prop-types";
-import Icon from "react-native-vector-icons/EvilIcons";
-import { theme } from "../../theme/theme";
 import QuanityCart from "./quanityCart";
 
-const CartItem = ({ style, data, quantity, onChangeQuantity, onDelete }) => {
+const CartItem = ({ isCart, style, data, onChangeQuantity, onDelete }) => {
   return (
     <SpaceBetween style={[styles.container, style]}>
       <View style={styles.imageContainer}>
         <Image
-          style={[styles.image, { backgroundColor: data.imageBackgroundColor }]}
+          style={[styles.image, { backgroundColor: data.backgroundColor }]}
           source={data.imageSource}
         />
       </View>
@@ -19,11 +17,11 @@ const CartItem = ({ style, data, quantity, onChangeQuantity, onDelete }) => {
         <Text style={styles.nameText}>{data.name}</Text>
         <Text style={styles.priceText}>${data.price}</Text>
       </View>
-      {quantity > 0 && (
+      {isCart && (
         <QuanityCart
           onDelete={onDelete}
           onChangeQuantity={onChangeQuantity}
-          quantity={quantity}
+          quantity={data.quanlity}
         />
       )}
     </SpaceBetween>
@@ -37,6 +35,7 @@ CartItem.propTypes = {
   maxQuantity: PropTypes.number,
   onChangeQuantity: PropTypes.func,
   onDelete: PropTypes.func,
+  isCart: PropTypes.bool,
 };
 
 CartItem.defaultProps = {
@@ -51,6 +50,7 @@ CartItem.defaultProps = {
   maxQuantity: 1,
   onChangeQuantity: () => {},
   onDelete: () => {},
+  isCart: false,
 };
 
 export default CartItem;
@@ -74,39 +74,13 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 0.4,
+    paddingLeft: 20,
   },
   nameText: {
     color: "#808080",
   },
-  colorText: {
-    color: "#424242",
-    fontStyle: "italic",
-    fontSize: 13,
-    marginBottom: 5,
-  },
   priceText: {
     fontSize: 16,
     fontWeight: "bold",
-  },
-  quantityContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  quantityButton: {
-    backgroundColor: "#feebe5",
-    paddingHorizontal: 10,
-    borderRadius: 10,
-  },
-  quantityButtonLabel: {
-    color: theme.primary,
-  },
-  quantityLabel: {
-    marginHorizontal: 5,
-  },
-  deleteButton: {
-    marginLeft: 10,
-  },
-  deleteIcon: {
-    color: theme.primary,
   },
 });

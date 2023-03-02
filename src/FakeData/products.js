@@ -12,8 +12,7 @@ export default [
       { color: "black", quantity: 10 },
       { color: "white", quantity: 0 },
     ],
-    backgroundColor: "#a8f9f8",
-    quantity: 5,
+    backgroundColor: "red",
     imageSource: require("../../assets/Home/Products/t-shirt-1.png"),
   },
   {
@@ -28,7 +27,6 @@ export default [
       { color: "black", quantity: 10 },
       { color: "white", quantity: 10 },
     ],
-    quantity: 5,
     imageSource: require("../../assets/Home/Products/t-shirt-1.png"),
     backgroundColor: "#fffcfb",
   },

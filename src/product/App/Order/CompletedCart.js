@@ -2,7 +2,7 @@ import React from "react";
 import { getData } from "./../../../utils/getData";
 import { CartItem } from "../../../components";
 function CompletedCart() {
-  const carts = getData("product");
+  const carts = getData("cart");
   return (
     <>
       {carts.map((item, i) => {

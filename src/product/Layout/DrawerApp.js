@@ -17,7 +17,7 @@ const CustomDrawerContent = ({ navigation, ...props }) => {
     { lable: "Wallets", icon: "wallet", navigate: "Favorite" },
     { lable: "My Orders", icon: "cart", navigate: "Orders" },
     { lable: "About Us", icon: "people", navigate: "Favorite" },
-    { lable: "Privacy Policy", icon: "lock-closed", navigate: "Favorite" },
+    { lable: "Privacy Policy", icon: "lock-closed", navigate: "Settings" },
   ];
   return (
     <DrawerContentScrollView {...props}>

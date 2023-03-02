@@ -5,14 +5,26 @@ import { HeaderApp, BaseButton } from "../../../components";
 import { theme } from "./../../../theme/theme";
 import CartItem from "../../../components/CartItem/index";
 import { getData } from "../../../utils/getData";
+import ConfirmAlert from "../../../utils/alert";
 
 const screenWidth = Dimensions.get("window").width - 50;
 
 function Cart({ navigation }) {
-  const carts = getData("product");
+  const carts = getData("cart");
+  console.log("carts:", carts);
+  const subtotal = carts.reduce((acc, curr) => {
+    return acc + curr.price * curr.quanlity;
+  }, 0);
   const handleCheckout = () => {
-    navigation.navigate("Checkout");
+    ConfirmAlert({
+      title: `Bạn muốn thanh toán ?`,
+      message: `Tổng đơn hàng của bạn là: ${subtotal} $`,
+      onPressOk: () => {
+        navigation.navigate("Checkout", { subtotal: subtotal });
+      },
+    });
   };
+  console.log("subtotal:", subtotal);
 
   return (
     <View style={styles.container}>
@@ -24,14 +36,15 @@ function Cart({ navigation }) {
             flexDirection: "column",
           }}
         >
-          {(carts.filter((item) => item.price > 100) || []).map((item, i) => {
+          {carts.map((item, i) => {
+            console.log("item:", item);
             return (
               <CartItem
                 style={{ marginBottom: 5 }}
                 key={i}
                 data={item}
                 color={item.options}
-                quantity={3}
+                isCart={true}
               />
             );
           })}
@@ -39,8 +52,8 @@ function Cart({ navigation }) {
       </ScrollView>
       <View>
         <View style={styles.subtotal}>
-          <Text style={{ fontSize: 17 }}>Sub total</Text>
-          <Text style={{ fontSize: 17, fontWeight: "bold" }}>$ 1000</Text>
+          <Text style={{ fontSize: 17 }}>Sub total: </Text>
+          <Text style={{ fontSize: 17, fontWeight: "bold" }}>{subtotal} $</Text>
         </View>
         <View style={styles.checkoutBtn}>
           <BaseButton onPress={handleCheckout} title="Checkout" />

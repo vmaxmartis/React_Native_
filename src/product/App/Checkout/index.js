@@ -31,7 +31,8 @@ const paymentMethods = [
   },
 ];
 
-const Checkout = ({ navigation }) => {
+const Checkout = ({ navigation, route }) => {
+  const subtotal = route.params.subtotal;
   const user = getData("user");
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(0);
   const [selectedPaymentMethodIndex, setSelectedPaymentMethodIndex] =
@@ -60,7 +61,7 @@ const Checkout = ({ navigation }) => {
           })}
         </View>
         <Text style={styles.label}>Billing Information</Text>
-        <BillingInformation deliveryFee={50} subtotal={100} />
+        <BillingInformation deliveryFee={50} subtotal={subtotal} />
         <Text style={styles.label}>Payment method</Text>
         <SpaceBetween style={styles.paymentMethodContainer}>
           {paymentMethods.map((item, index) => (
@@ -79,7 +80,6 @@ const Checkout = ({ navigation }) => {
           title="Checkout"
           onPress={handlePlaceOrder}
         />
-        {/* <SwipeButton text="Helle" /> */}
       </View>
     </View>
   );
@@ -115,6 +115,6 @@ const styles = StyleSheet.create({
   swipeBtn: {
     alignItems: "center",
     justifyContent: "center",
-    height: 150,
+    height: 120,
   },
 });

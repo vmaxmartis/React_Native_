@@ -15,6 +15,7 @@ import {
   Orders,
   Payment,
   Search,
+  Settings,
 } from "./src/product";
 import DrawerApp from "./src/product/Layout/DrawerApp";
 
@@ -42,6 +43,7 @@ export default function App() {
             <Stack.Screen name="Search" component={Search} />
             <Stack.Screen name="Payment" component={Payment} />
             <Stack.Screen name="Checkout" component={Checkout} />
+            <Stack.Screen name="Settings" component={Settings} />
             <Stack.Screen name="DrawerApp" component={DrawerApp} />
           </Stack.Navigator>
         </NavigationContainer>

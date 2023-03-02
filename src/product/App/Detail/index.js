@@ -26,7 +26,10 @@ const Detail = ({ route, navigation }) => {
       name: prod.name,
       description: prod.description,
       price: prod.price,
+      imageSource: prod.imageSource,
+      backgroundColor: prod.backgroundColor,
     };
+    console.log("payload:", payload);
     Object.assign(payload, { color: color, quanlity: 1 });
     ConfirmAlert({
       title: `Bạn chắc chắn thêm  ${payload.name} với giá ${payload.price}$ vào giỏ hàng?`,

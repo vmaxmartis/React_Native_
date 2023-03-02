@@ -14,7 +14,6 @@ import Home from "../App/Home";
 import Cart from "../App/Cart";
 import Profile from "../App/Profile";
 import Favorite from "../App/Favorite";
-import NavigationView from "./NavigationView";
 import BottomTab from "./BottomTab";
 
 function Main({ navigation }) {
@@ -23,9 +22,6 @@ function Main({ navigation }) {
   function renderScreen(ar, lable) {
     let screen = find(ar, (item) => item.label === lable);
     return screen.screen;
-  }
-  function renderNavigation() {
-    return <NavigationView navigation={navigation} drawerRef={drawer} />;
   }
 
   const Screens = [
@@ -48,13 +44,6 @@ function Main({ navigation }) {
   ];
 
   return (
-    //  <DrawerLayoutAndroid
-    //    drawerWidth={250}
-    //    drawerPosition={"left"}
-    //    renderNavigationView={renderNavigation}
-    //    ref={drawer}
-    //    style={styles.drawerLayoutAndroid}
-    //  >
     <View style={styles.container}>
       <View style={styles.mainLayout}>
         {renderScreen(Screens, activeScreen)}
@@ -65,7 +54,6 @@ function Main({ navigation }) {
         setActiveScreen={setActiveScreen}
       />
     </View>
-    //  </DrawerLayoutAndroid>
   );
 }
 export default WithSafeArea(Main);
