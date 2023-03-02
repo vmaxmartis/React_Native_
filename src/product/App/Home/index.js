@@ -21,11 +21,10 @@ const defaultFilter = {
   distance: 0,
 };
 
-const Home = ({ drawerRef, navigation }) => {
+const Home = ({ navigation }) => {
   const { width } = useWindowDimensions();
+  console.log("width:", width);
   const [selectedCategory, setSelectedCategory] = useState(0);
-  const [openFilter, setOpenFilter] = useState(false);
-  const [filterCategories, setFilterCategories] = useState([]);
   const [filter, setFilter] = useState(defaultFilter);
   const products = getData("product");
 
@@ -48,7 +47,7 @@ const Home = ({ drawerRef, navigation }) => {
           value={filter.searchText}
           onChangeText={(text) => setFilter({ searchText: text })}
           handleSubmit={() =>
-            navigation.navigate("Search", { filter, drawer: navigation })
+            navigation.navigate("Search", { filter, navigation })
           }
         />
         <View>

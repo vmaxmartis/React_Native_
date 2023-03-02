@@ -52,7 +52,7 @@ function CardProfile() {
 export default CardProfile;
 const styles = StyleSheet.create({
   container: {
-    height: "22.5%",
+    height: "auto",
     flexDirection: "row",
     paddingHorizontal: 30,
     marginBottom: 10,

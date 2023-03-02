@@ -1,11 +1,4 @@
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import React from "react";
 import { HeaderApp, SpaceBetween } from "../../../components";
 import WithSafeArea from "../../../Config/safeArea";
@@ -25,27 +18,29 @@ const screenWidth = Dimensions.get("window").width + 25;
 const Profile = () => {
   const user = getData("user");
   return (
-    <ScrollView vertical showsVerticalScrollIndicator={false}>
-      <View style={styles.container}>
-        <HeaderApp
-          title="Profile"
-          selectedIcon
-          style={styles.header}
-          iconRight={"md-ellipsis-vertical"}
-        />
+    <View style={styles.container}>
+      <HeaderApp
+        title="Profile"
+        selectedIcon
+        style={styles.header}
+        iconRight={"md-ellipsis-vertical"}
+      />
+      <ScrollView vertical showsVerticalScrollIndicator={false}>
         <HeaderProfile user={user} />
         <CardProfile />
-        <View style={{ justifyContent: "flex-start", width: 300 }}>
-          <Text style={styles.label}>Information</Text>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <View style={{ justifyContent: "flex-start", width: 300 }}>
+            <Text style={styles.label}>Information</Text>
+          </View>
+          <View style={styles.informationBox}>
+            <Information label="Name" value={user.name} />
+            <Information label="Mail" value={user.email} />
+            <Information label="Address" value={user.address[0].add} />
+            <Information label="Phone" value={user.address[0].number} />
+          </View>
         </View>
-        <View style={styles.informationBox}>
-          <Information label="Name" value={user.name} />
-          <Information label="Mail" value={user.email} />
-          <Information label="Address" value={user.address.add} />
-          <Information label="Phone" value={user.phone} />
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 

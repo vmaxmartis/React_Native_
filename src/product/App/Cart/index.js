@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   View,
   Dimensions,
   Text,
-  ScrollView,
   TouchableOpacity,
 } from "react-native";
 import WithSafeArea from "./../../../Config/safeArea";
 import { HeaderApp, BaseButton } from "../../../components";
 import { theme } from "./../../../theme/theme";
-import CartItem from "../../../components/CartItem/index";
 import { getData } from "../../../utils/getData";
 import ConfirmAlert from "../../../utils/alert";
 import { isEmpty } from "lodash";
+import ListCart from "./ListCart";
 
 const screenWidth = Dimensions.get("window").width - 50;
 
@@ -51,26 +50,7 @@ function Cart({ navigation }) {
         </TouchableOpacity>
       ) : (
         <>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View
-              style={{
-                width: screenWidth,
-                flexDirection: "column",
-              }}
-            >
-              {carts.map((item, i) => {
-                return (
-                  <CartItem
-                    style={{ marginBottom: 5 }}
-                    key={i}
-                    data={item}
-                    color={item.options}
-                    isCart={true}
-                  />
-                );
-              })}
-            </View>
-          </ScrollView>
+          <ListCart navigation={navigation} />
           <View>
             <View style={styles.subtotal}>
               <Text style={{ fontSize: 17 }}>Sub total: </Text>
@@ -95,16 +75,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     paddingHorizontal: 15,
-  },
-  tabBar: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  tabContent: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
   subtotal: {
     justifyContent: "space-between",

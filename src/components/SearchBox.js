@@ -1,5 +1,5 @@
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
-import React, { useRef, useState } from "react";
+import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import React, { useRef } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FiltersBottomSheet from "../product/App/Home/FilterSheet";
 import { theme } from "../theme/theme";
