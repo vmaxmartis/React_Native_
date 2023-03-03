@@ -13,14 +13,15 @@ import { filterResult } from "../../../redux/slide/productSlide";
 import utils from "../../../utils";
 
 const Search = ({ navigation, route }) => {
+  const param = route.params.filter.searchText;
   const DataResults = getData("ressultFilter");
-  console.log("DataResults:", DataResults);
   const product = getData("product");
   const [searchText, setSearchText] = React.useState("");
+  console.log("searchText:", searchText);
   const [resultProducts, setResultProducts] = React.useState([]);
 
   useEffect(() => {
-    setSearchText(route.params.filter.searchText);
+    setSearchText(param);
   }, []);
   useEffect(() => {
     setResultProducts(utils.filterByName(product, searchText));

@@ -23,8 +23,12 @@ const productSlice = createSlice({
     filterResult: (state, action) => {
       state.ressultFilter = filterProducts(state.data, action.payload);
     },
+    filterBySearch: (state, action) => {
+      state.ressultFilter = action.payload;
+    },
   },
 });
 
-export const { setFavorite, getProduct, filterResult } = productSlice.actions;
+export const { setFavorite, getProduct, filterResult, filterBySearch } =
+  productSlice.actions;
 export default productSlice.reducer;

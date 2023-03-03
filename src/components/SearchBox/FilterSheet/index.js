@@ -49,7 +49,12 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
     setDistance(defaulValue.distance);
     setPrice(defaulValue.price);
   };
-  const data = { rangeSlides: rangeSlides, categories: categories };
+  const data = {
+    rangeSlides: rangeSlides,
+    categories: categories,
+    category: category,
+    setCategory: setCategory,
+  };
   return (
     <View style={styleEl}>
       <TouchableOpacity onPress={() => setIsVisible(true)}>
