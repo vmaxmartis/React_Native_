@@ -3,8 +3,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { theme } from "./../../../../theme/theme";
-import { useSelector, useDispatch } from "react-redux";
-import { getProduct, setFavorite } from "../../../../redux/slide/productSlide";
+import { useDispatch } from "react-redux";
+import { setFavorite } from "../../../../redux/slide/productSlide";
 
 const ProductItem = ({ data, prefix, style, onPress, hideFavorite }) => {
   const dispatch = useDispatch();

@@ -43,14 +43,14 @@ function Settings({ navigation }) {
   };
   const NavigateIcon = () => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push("Main")}>
         <Icons size={32} color={theme.textDarkGray} name={"navigate-next"} />
       </TouchableOpacity>
     );
   };
   const arr = [
     {
-      iconTab: "home",
+      iconTab: "mail",
       iconComponent: Icons,
       lable: "Email Support",
       rightIcon: <NavigateIcon />,

@@ -9,7 +9,8 @@ import {
 import { theme } from "./../../../theme/theme";
 import CartItem from "../../../components/CartItem/index";
 import { getData } from "../../../utils/getData";
-import Icons from "react-native-vector-icons/MaterialIcons";
+import Icons from "react-native-vector-icons/AntDesign";
+
 
 const screenWidth = Dimensions.get("window").width - 50;
 
@@ -48,11 +49,12 @@ function ListCart({ navigation }) {
               fontSize: 15,
               color: theme.primary,
               marginBottom: 3,
+              marginRight: 5,
             }}
           >
             Add more item
           </Text>
-          <Icons size={20} color={theme.primary} name={"add"} />
+          <Icons size={15} color={theme.primary} name={"doubleright"} />
         </TouchableOpacity>
       </View>
     </ScrollView>

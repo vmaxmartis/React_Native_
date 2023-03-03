@@ -49,13 +49,6 @@ function QuanityCart({ quantity, onDelete, id }) {
       >
         <Text style={styles.quantityButtonLabel}>+</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        style={styles.deleteButton}
-        onPress={onDelete}
-      >
-        <Icon name="trash" size={25} style={styles.deleteIcon} />
-      </TouchableOpacity>
     </View>
   );
 }
