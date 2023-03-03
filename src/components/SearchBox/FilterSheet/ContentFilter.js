@@ -3,6 +3,7 @@ import { Text, StyleSheet, View } from "react-native";
 import BaseButton from "../../BaseButton";
 import RangeSliderFilter from "../../RangeSlideFilter";
 
+
 function ContentFilter({ data }) {
   return (
     <>

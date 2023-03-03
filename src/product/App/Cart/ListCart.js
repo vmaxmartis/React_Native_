@@ -11,6 +11,7 @@ import CartItem from "../../../components/CartItem/index";
 import { getData } from "../../../utils/getData";
 import Icons from "react-native-vector-icons/AntDesign";
 
+
 const screenWidth = Dimensions.get("window").width - 50;
 
 function ListCart({ navigation }) {

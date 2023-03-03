@@ -74,10 +74,6 @@ function increaseQuantityById(arr, id, key) {
   return arr;
 }
 
-function Dispatch() {
-  const dispatch = useDispatch();
-  return dispatch;
-}
 const utils = {
   validateName,
   isValidEmail,
@@ -88,7 +84,6 @@ const utils = {
   increaseQuantityById,
   checkAndUpdateListCart,
   filterByName,
-  Dispatch,
 };
 
 export default utils;
