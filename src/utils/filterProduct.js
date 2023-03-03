@@ -1,6 +1,9 @@
+import { isEmpty } from "lodash";
 export default function filterProducts(arr, dataFilter) {
   const filterByCategory = arr.filter((item) =>
-    dataFilter.category.includes(item.categoryId)
+    dataFilter.category.lenght > 0
+      ? dataFilter.category.includes(item.categoryId)
+      : item.categoryId
   );
   const result = filterByCategory.filter((item) => {
     const price = dataFilter.price;

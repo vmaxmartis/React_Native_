@@ -5,7 +5,7 @@ import FiltersBottomSheet from "./FilterSheet";
 import { theme } from "../../theme/theme";
 import PropTypes from "prop-types";
 
-const SearchBox = ({ value, onChangeText, handleSubmit }) => {
+const SearchBox = ({ value, onChangeText, handleSubmit, setSearchText }) => {
   const inputRef = useRef(null);
   const handlePress = () => {
     inputRef.current.focus();
@@ -32,6 +32,7 @@ const SearchBox = ({ value, onChangeText, handleSubmit }) => {
       />
 
       <FiltersBottomSheet
+        setSearchText={setSearchText}
         styleEl={styles.filterButton}
         elOpenBottomSheet={
           <Ionicons name="filter-outline" size={23} color={theme.background} />
@@ -46,6 +47,7 @@ SearchBox.propTypes = {
   onFocus: PropTypes.func,
   value: PropTypes.string,
   handleSubmit: PropTypes.func,
+  setSearchText: PropTypes.func,
 };
 
 SearchBox.defaultProps = {
@@ -53,6 +55,7 @@ SearchBox.defaultProps = {
   onFocus: () => {},
   value: null,
   handleSubmit: () => {},
+  setSearchText: () => {},
 };
 
 export default SearchBox;

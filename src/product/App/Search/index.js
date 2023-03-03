@@ -15,9 +15,9 @@ import utils from "../../../utils";
 const Search = ({ navigation, route }) => {
   const param = route.params.filter.searchText;
   const DataResults = getData("ressultFilter");
+  console.log("DataResults:", DataResults);
   const product = getData("product");
   const [searchText, setSearchText] = React.useState("");
-  console.log("searchText:", searchText);
   const [resultProducts, setResultProducts] = React.useState([]);
 
   useEffect(() => {
@@ -45,6 +45,7 @@ const Search = ({ navigation, route }) => {
           setSearchText(text);
         }}
         value={searchText}
+        setSearchText={setSearchText}
       />
       <View style={styles.resultFor}>
         <SpaceBetween style={styles.recentSearch}>
@@ -52,7 +53,13 @@ const Search = ({ navigation, route }) => {
           <Icon name="navigate-next" size={25} color={theme.primary} />
         </SpaceBetween>
         <Text style={styles.text}>
-          {searchText ? "Search result for " + ` "${searchText}"` : ""}
+          {searchText
+            ? `Found ${
+                utils.filterByName(product, searchText).length
+              } results for " ${searchText} "`
+            : DataResults
+            ? `Found ${DataResults.length} products matching filter`
+            : ""}
         </Text>
       </View>
       {(searchText.trim().length != "" || filterResult) && (

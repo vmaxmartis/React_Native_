@@ -11,7 +11,7 @@ const defaulValue = {
   distance: { min: 0, max: 1000 },
 };
 
-const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
+const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl, setSearchText }) => {
   const [distance, setDistance] = useState(defaulValue.distance);
   const [price, setPrice] = useState(defaulValue.price);
   const [isVisible, setIsVisible] = useState(false);
@@ -19,6 +19,7 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl }) => {
   const dispatch = useDispatch();
   let payload = { price: price, distance: distance, category: category };
   const handleApply = () => {
+    setSearchText("");
     dispatch(filterResult(payload));
     setIsVisible(!isVisible);
     setCategory([]);
