@@ -31,7 +31,7 @@ function InfoProduct({ product, onPressButton, getColor }) {
         ))}
       </View>
       <Text style={styles.quantityLabel}>
-        Quantity:{" "}
+        Quantity:
         <Text style={styles.quantityNumber}>
           {colors[selectedColorIndex].quantity
             ? colors[selectedColorIndex].quantity
@@ -58,8 +58,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f7f7f8",
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
-    paddingHorizontal: 20,
-    paddingVertical: 30,
+    padding: 30,
   },
   productName: {
     fontSize: 26,
@@ -70,8 +69,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   productDescription: {
-    minHeight: 100,
-    maxHeight: 100,
     marginTop: 10,
     marginBottom: 15,
   },
@@ -100,5 +97,6 @@ const styles = StyleSheet.create({
     height: "20%",
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 20,
   },
 });

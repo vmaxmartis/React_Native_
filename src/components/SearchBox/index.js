@@ -10,6 +10,7 @@ const SearchBox = ({ value, onChangeText, handleSubmit, setSearchText }) => {
   const handlePress = () => {
     inputRef.current.focus();
   };
+
   return (
     <TouchableOpacity
       onPress={handlePress}

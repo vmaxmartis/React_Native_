@@ -6,6 +6,7 @@ import { BaseButton } from "../..";
 import { useDispatch } from "react-redux";
 import { filterResult } from "../../../redux/slide/productSlide";
 import ContentFilter from "./ContentFilter";
+import categories from "../../../FakeData/CategoryContent";
 const defaulValue = {
   price: { min: 0, max: 1000 },
   distance: { min: 0, max: 1000 },
@@ -24,12 +25,6 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl, setSearchText }) => {
     setIsVisible(!isVisible);
     setCategory([]);
   };
-
-  const categories = [
-    { id: 1, label: "New Arrival" },
-    { id: 2, label: "Top Tranding" },
-    { id: 3, label: "Feature Products" },
-  ];
   const rangeSlides = [
     {
       label: "Pricing",

@@ -15,12 +15,7 @@ function Favorite({ navigation }) {
 
   return (
     <View>
-      <HeaderApp
-        style={{ paddingHorizontal: 15 }}
-        title={"Favorite"}
-        isButton
-        route={navigation}
-      />
+      <HeaderApp title={"Favorite"} isButton route={navigation} />
       <View
         style={{
           flex: 1,
@@ -50,7 +45,6 @@ function Favorite({ navigation }) {
           )}
         />
       </View>
-
     </View>
   );
 }

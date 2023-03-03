@@ -1,4 +1,3 @@
-import { isEmpty } from "lodash";
 export default function filterProducts(arr, dataFilter) {
   const filterByCategory = arr.filter((item) =>
     dataFilter.category.lenght > 0

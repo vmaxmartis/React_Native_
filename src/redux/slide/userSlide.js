@@ -2,7 +2,7 @@ import user from "../../FakeData/user";
 import { createSlice } from "@reduxjs/toolkit";
 
 const DEFAULT_ID = 0;
-const DEFAULT_NAME = "name";
+const DEFAULT_NAME = "Vmax Martis";
 const DEFAULT_EMAIL = "a@gmail.com";
 const DEFAULT_ADDRESS = [
   { name: "Home", add: "12 Divitiny", number: "036451254" },

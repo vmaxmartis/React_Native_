@@ -6,13 +6,11 @@ import {
   useWindowDimensions,
 } from "react-native";
 import React, { useState } from "react";
-import { SpaceBetween, HeaderApp } from "../../../components/index";
+import { HeaderApp } from "../../../components/index";
 import SearchBox from "../../../components/SearchBox";
 import WithSafeArea from "../../../Config/safeArea";
 import CategoryItem from "./CategoryItem";
-import ProductItem from "./ProductItem";
 import categories from "../../../FakeData/categories";
-import { getData } from "./../../../utils/getData";
 import CategoryContent from "./CategoryContent";
 
 const defaultFilter = {
@@ -26,13 +24,6 @@ const Home = ({ navigation }) => {
   const { width } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [filter, setFilter] = useState(defaultFilter);
-  const products = getData("product");
-  const CategoryList = [
-    { lable: "NEW ARRIVAL" },
-    { lable: "TOP TRANDING" },
-    { lable: "BEST SALE" },
-    { lable: "OTHER" },
-  ];
 
   return (
     <View>
@@ -74,10 +65,7 @@ const Home = ({ navigation }) => {
                 />
               ))}
             </ScrollView>
-            <CategoryContent
-              navigation={navigation}
-              categoryList={CategoryList}
-            />
+            <CategoryContent navigation={navigation} />
           </ScrollView>
         </ScrollView>
       </View>

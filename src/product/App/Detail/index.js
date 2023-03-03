@@ -39,7 +39,6 @@ const Detail = ({ route, navigation }) => {
       },
     });
   };
-
   const handleToggleFavorite = () => {
     const payload = {
       id: prod.id,
