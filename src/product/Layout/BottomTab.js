@@ -27,19 +27,17 @@ function BottomTab({ tabs, activeScreen, setActiveScreen }) {
     !keyboardShown && (
       <View style={styles.bottomTabs}>
         {tabs.map((tab, i) => {
+          const isActive = tab.label === activeScreen;
           return (
             <TouchableOpacity
               onPress={() => setActiveScreen(tab.label)}
               key={i}
             >
+              <View style={isActive && styles.activeTab} />
               <Icon
-                style={{ backgroundColor: "#fff" }}
-                color={
-                  tab.label === activeScreen
-                    ? theme.primary
-                    : theme.primaryDisabled
-                }
-                name={tab.iconName}
+                style={{ backgroundColor: theme.white }}
+                color={isActive ? theme.primary : theme.primaryDisabled}
+                name={isActive ? tab.iconName : tab.iconName + `-outline`}
               />
             </TouchableOpacity>
           );
@@ -59,6 +57,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 20,
-    backgroundColor: "#fff",
+    backgroundColor: theme.white,
+  },
+  activeTab: {
+    backgroundColor: theme.primary,
+    width: 15,
+    height: 8,
+    borderBottomRightRadius: 7.5,
+    borderBottomLeftRadius: 7.5,
+    position: "absolute",
+    top: -15,
+    left: 21.5,
+    shadowColor: "#c55403e0",
+    shadowOffset: {
+      width: 10,
+      height: 10,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 70,
+    elevation: 20,
   },
 });

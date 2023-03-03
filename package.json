@@ -10,6 +10,7 @@
     "clear": "expo start --clear"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
     "@gorhom/bottom-sheet": "^4.4.5",
     "@ptomasroos/react-native-multi-slider": "^2.2.2",
     "@react-native-community/checkbox": "^0.5.14",

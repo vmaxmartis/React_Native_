@@ -1,4 +1,5 @@
-import { every, isEmpty } from "lodash";
+import { useDispatch } from "react-redux";
+import { every } from "lodash";
 function isValidEmail(value) {
   if (value.trim().length > 0) {
     const re =
@@ -72,6 +73,11 @@ function increaseQuantityById(arr, id, key) {
   }
   return arr;
 }
+
+function Dispatch() {
+  const dispatch = useDispatch();
+  return dispatch;
+}
 const utils = {
   validateName,
   isValidEmail,
@@ -82,6 +88,7 @@ const utils = {
   increaseQuantityById,
   checkAndUpdateListCart,
   filterByName,
+  Dispatch,
 };
 
 export default utils;
