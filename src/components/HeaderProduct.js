@@ -25,7 +25,7 @@ const HeaderApp = ({
   const styles = StyleSheet.create({
     container: {
       height: 40,
-      marginVertical: 10,
+      marginVertical: 15,
       alignItems: "center",
     },
     title: {

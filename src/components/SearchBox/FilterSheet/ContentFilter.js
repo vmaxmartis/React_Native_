@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View, ScrollView } from "react-native";
 import BaseButton from "../../BaseButton";
 import RangeSliderFilter from "../../RangeSlideFilter";
 
@@ -9,25 +9,27 @@ function ContentFilter({ data }) {
     <>
       <View style={styles.optionsFilter}>
         <Text style={{ fontSize: 20, fontWeight: "700" }}>Category</Text>
-        <View style={styles.categoryFilter}>
-          {data.categories.map((item, i) => {
-            return (
-              <BaseButton
-                key={i}
-                id={item.id}
-                selected={true}
-                title={item.label}
-                styleView={styles.btnCategory}
-                styleText={{
-                  fontSize: 15,
-                  fontWeight: "500",
-                }}
-                valueSelecteds={data.category}
-                setValueSelecteds={data.setCategory}
-              />
-            );
-          })}
-        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.categoryFilter}>
+            {data.categories.map((item, i) => {
+              return (
+                <BaseButton
+                  key={i}
+                  id={item.id}
+                  selected={true}
+                  title={item.lable}
+                  styleView={styles.btnCategory}
+                  styleText={{
+                    fontSize: 15,
+                    fontWeight: "500",
+                  }}
+                  valueSelecteds={data.category}
+                  setValueSelecteds={data.setCategory}
+                />
+              );
+            })}
+          </View>
+        </ScrollView>
       </View>
       {data.rangeSlides.map((item, i) => {
         return (
@@ -58,6 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     display: "flex",
     alignItems: "flex-start",
+    paddingHorizontal: 20,
   },
   btnCategory: {
     width: "auto",

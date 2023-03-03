@@ -4,19 +4,19 @@ import { SpaceBetween } from "../../../components/index";
 import ProductItem from "./ProductItem";
 import { getData } from "../../../utils/getData";
 import { PropTypes } from "prop-types";
+import categoryList from "../../../FakeData/CategoryContent";
 
-function CategoryContent({ categoryList, navigation }) {
-  console.log("navigation:", navigation);
+function CategoryContent({ navigation }) {
   const products = getData("product");
-
+  const contents = categoryList.slice(0, 3);
   return (
     <>
-      {(categoryList || []).map((item, index) => {
+      {contents.map((item, index) => {
         const categoryId = index;
         return (
           <View key={index}>
             <SpaceBetween style={styles.header}>
-              <Text style={styles.headerTitle}>{item.lable.toString()}</Text>
+              <Text style={styles.headerTitle}>{item.lable}</Text>
               <Text style={styles.headerLink}>See all</Text>
             </SpaceBetween>
             <View style={styles.productContainer}>
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   headerTitle: {
+    textTransform: "uppercase",
     fontSize: 23,
     fontWeight: "bold",
   },
