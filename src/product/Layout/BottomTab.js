@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TouchableOpacity, View, StyleSheet, Keyboard } from "react-native";
 import { theme } from "../../theme/theme";
 import Icon from "../../components/Icon";
+import { AntDesign } from "react-native-vector-icons/AntDesign";
 
 function BottomTab({ tabs, activeScreen, setActiveScreen }) {
   const [keyboardShown, setKeyboardShown] = useState(false);
@@ -35,6 +36,7 @@ function BottomTab({ tabs, activeScreen, setActiveScreen }) {
             >
               <View style={isActive && styles.activeTab} />
               <Icon
+                iconComponent={AntDesign}
                 style={{ backgroundColor: theme.white }}
                 color={isActive ? theme.primary : theme.primaryDisabled}
                 name={isActive ? tab.iconName : tab.iconName + `-outline`}

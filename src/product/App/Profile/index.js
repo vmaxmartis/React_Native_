@@ -29,7 +29,7 @@ const Profile = () => {
         <HeaderProfile user={user} />
         <CardProfile />
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <View style={{ justifyContent: "flex-start", width: 300 }}>
+          <View style={{ justifyContent: "flex-start", width: 330 }}>
             <Text style={styles.label}>Information</Text>
           </View>
           <View style={styles.informationBox}>
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.8,
     justifyContent: "space-between",
     borderColor: "#f0f0f2",
+    marginBottom: 20,
   },
   information: {
     marginBottom: 10,

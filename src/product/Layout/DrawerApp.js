@@ -11,7 +11,6 @@ import { Favorite, Main, Cart, Search, Home } from "..";
 const Drawer = createDrawerNavigator();
 const CustomDrawerContent = ({ navigation, ...props }) => {
   const [isSelected, setSelection] = React.useState(NaN);
-  console.log("isSelected:", isSelected);
   const Tabs = [
     { lable: "Favorite", icon: "heart", navigate: "Favorite" },
     { lable: "Wallets", icon: "wallet", navigate: "Favorite" },

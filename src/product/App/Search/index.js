@@ -14,6 +14,7 @@ import utils from "../../../utils";
 
 const Search = ({ navigation, route }) => {
   const DataResults = getData("ressultFilter");
+  console.log("DataResults:", DataResults);
   const product = getData("product");
   const [searchText, setSearchText] = React.useState("");
   const [resultProducts, setResultProducts] = React.useState([]);

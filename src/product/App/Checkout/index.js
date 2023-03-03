@@ -7,6 +7,9 @@ import BillingInformation from "./BillingInformation";
 import PaymentMethod from "./PaymentMethod";
 import { StackActions } from "@react-navigation/native";
 import { getData } from "./../../../utils/getData";
+import ConfirmAlert from "../../../utils/alert";
+import { useDispatch } from "react-redux";
+import { deleteCart } from "../../../redux/slide/cartSlide";
 
 const paymentMethods = [
   {
@@ -34,12 +37,23 @@ const paymentMethods = [
 const Checkout = ({ navigation, route }) => {
   const subtotal = route.params.subtotal;
   const user = getData("user");
+  const dispatch = useDispatch();
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(0);
   const [selectedPaymentMethodIndex, setSelectedPaymentMethodIndex] =
     useState(0);
 
   const handlePlaceOrder = () => {
-    navigation.dispatch(StackActions.replace("Payment"));
+    ConfirmAlert({
+      title: `Payment confirmation`,
+      message: `Your order: ${subtotal} $
+      
+Orders will be delivered to: ${user.address[selectedAddressIndex].name}, ${user.address[selectedAddressIndex].add}
+Recipient's phone number: ${user.address[selectedAddressIndex].number} `,
+      onPressOk: () => {
+        dispatch(deleteCart([]));
+        navigation.dispatch(StackActions.replace("Payment"));
+      },
+    });
   };
 
   return (
