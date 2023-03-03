@@ -34,7 +34,7 @@
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "~3.18.0",
     "react-native-swipeable": "^0.6.0",
-    "react-native-tab-view": "github:react-navigation/react-native-tab-view",
+    "react-navigation-drawer": "^2.7.2",
     "react-redux": "^8.0.5",
     "redux-persist": "^6.0.0",
     "toggle-switch-react-native": "^3.3.0"
