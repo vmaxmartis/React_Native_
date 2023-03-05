@@ -35,6 +35,7 @@ const paymentMethods = [
 ];
 
 const Checkout = ({ navigation, route }) => {
+  console.log("navigation checkout:", navigation);
   const subtotal = route.params.subtotal;
   const user = getData("user");
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ Orders will be delivered to: ${user.address[selectedAddressIndex].name}, ${user.
 Recipient's phone number: ${user.address[selectedAddressIndex].number} `,
       onPressOk: () => {
         dispatch(deleteCart([]));
-        navigation.dispatch(StackActions.replace("Payment"));
+        navigation.navigate("Payment");
       },
     });
   };

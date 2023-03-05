@@ -14,6 +14,7 @@ import Icons from "react-native-vector-icons/AntDesign";
 const screenWidth = Dimensions.get("window").width - 50;
 
 function ListCart({ navigation }) {
+  console.log("navigation Cart:", navigation);
   const carts = getData("cart");
   return (
     <ScrollView showsVerticalScrollIndicator={false}>

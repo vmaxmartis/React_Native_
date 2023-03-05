@@ -43,7 +43,7 @@ function Settings({ navigation }) {
   };
   const NavigateIcon = () => {
     return (
-      <TouchableOpacity onPress={() => navigation.push("Main")}>
+      <TouchableOpacity onPress={() => navigation.navigate("Main")}>
         <Icons size={32} color={theme.textDarkGray} name={"navigate-next"} />
       </TouchableOpacity>
     );

@@ -17,6 +17,7 @@ import Favorite from "../App/Favorite";
 import BottomTab from "./BottomTab";
 
 function Main({ navigation }) {
+  console.log("navigation Main:", navigation);
   const [activeScreen, setActiveScreen] = useState("Home");
   const drawer = useRef(null);
   function renderScreen(ar, lable) {
@@ -40,7 +41,11 @@ function Main({ navigation }) {
       screen: <Favorite navigation={navigation} />,
       iconName: "heart",
     },
-    { label: "Profile", screen: <Profile />, iconName: "people" },
+    {
+      label: "Profile",
+      screen: <Profile navigation={navigation} />,
+      iconName: "people",
+    },
   ];
 
   return (

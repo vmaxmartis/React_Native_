@@ -30,7 +30,7 @@ export default function App() {
           <Stack.Navigator
             initialRouteName="DrawerApp"
             screenOptions={{
-              gestureEnabled: true,
+              gestureEnabled: false,
               headerShown: false,
             }}
           >

@@ -15,7 +15,8 @@ const Information = ({ label, value }) => (
 );
 const screenWidth = Dimensions.get("window").width + 25;
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
+  console.log("navigation Profile:", navigation);
   const user = getData("user");
   return (
     <View style={styles.container}>

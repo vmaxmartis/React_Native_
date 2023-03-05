@@ -21,6 +21,7 @@ const defaultFilter = {
 };
 
 const Home = ({ navigation }) => {
+  console.log("navigation Homee:", navigation);
   const { width } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [filter, setFilter] = useState(defaultFilter);

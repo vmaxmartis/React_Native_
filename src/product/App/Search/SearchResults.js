@@ -5,6 +5,7 @@ import ProductItem from "../Home/ProductItem";
 import utils from "../../../utils";
 
 function SearchResults({ dataResult: e }) {
+  console.log("e.resultProducts:", e.resultProducts);
   return (
     <>
       {(e.searchText.trim().length != "" || e.resultProducts) && (

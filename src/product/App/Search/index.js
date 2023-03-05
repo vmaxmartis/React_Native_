@@ -8,10 +8,12 @@ import { getData } from "./../../../utils/getData";
 import utils from "../../../utils";
 import SearchResults from "./SearchResults";
 import RecentSearch from "./RecentSearch";
+import { isEmpty } from "lodash";
 
 const Search = ({ navigation, route }) => {
   const param = route.params.filter.searchText;
   const DataResults = getData("ressultFilter");
+  console.log("DataResults search:", DataResults);
   const product = getData("product");
   const [searchText, setSearchText] = React.useState("");
   const [resultProducts, setResultProducts] = React.useState([]);
@@ -19,7 +21,12 @@ const Search = ({ navigation, route }) => {
     setSearchText(param);
   }, []);
   useEffect(() => {
-    setResultProducts(utils.filterByName(product, searchText));
+    setResultProducts(
+      utils.filterByName(
+        isEmpty(DataResults) ? product : DataResults,
+        searchText
+      )
+    );
   }, [searchText]);
 
   useEffect(() => {

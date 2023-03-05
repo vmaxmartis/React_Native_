@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    marginLeft: 10,
+    marginLeft: 15,
     flex: 1,
     fontSize: 15,
   },
