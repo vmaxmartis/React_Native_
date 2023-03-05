@@ -13,7 +13,6 @@ import { isEmpty } from "lodash";
 const Search = ({ navigation, route }) => {
   const param = route.params.filter.searchText;
   const DataResults = getData("ressultFilter");
-  console.log("DataResults search:", DataResults);
   const product = getData("product");
   const [searchText, setSearchText] = React.useState("");
   const [resultProducts, setResultProducts] = React.useState([]);
@@ -33,7 +32,7 @@ const Search = ({ navigation, route }) => {
     setResultProducts(DataResults);
   }, [DataResults]);
 
-  const dataResult = {
+  const data = {
     searchText: searchText,
     product: product,
     resultProducts: resultProducts,
@@ -57,7 +56,7 @@ const Search = ({ navigation, route }) => {
         setSearchText={setSearchText}
       />
       <RecentSearch setSearchText={setSearchText} />
-      <SearchResults dataResult={dataResult} />
+      <SearchResults dataResult={data} />
     </View>
   );
 };

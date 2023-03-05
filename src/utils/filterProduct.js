@@ -1,12 +1,17 @@
-import { some } from "lodash";
+import { some, isEmpty } from "lodash";
 export default function filterProducts(arr, dataFilter) {
   const selectedCategory = dataFilter.category;
   console.log("selectedCategory:", selectedCategory);
   const filterByCategory = arr.filter((item) =>
     selectedCategory.includes(item.categoryId)
   );
-  console.log("filterByCategory:", filterByCategory);
-  const result = (selectedCategory > 0 ? filterByCategory : arr).filter(
+  console.log(
+    "filterByCategory:",
+    filterByCategory,
+    "check",
+    isEmpty(selectedCategory)
+  );
+  const result = (isEmpty(selectedCategory) ? arr : filterByCategory).filter(
     (item) => {
       const price = dataFilter.price;
       const distance = dataFilter.distance;

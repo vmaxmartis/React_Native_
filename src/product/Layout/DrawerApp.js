@@ -79,7 +79,7 @@ const CustomDrawerContent = ({ navigation, ...props }) => {
 export default function DrawerApp() {
   return (
     <Drawer.Navigator
-      initialRouteName="Home"
+      initialRouteName="Main"
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerShown: false,
