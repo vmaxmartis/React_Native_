@@ -1,5 +1,11 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { SpaceBetween } from "../../../components/index";
 import ProductItem from "./ProductItem";
 import { getData } from "../../../utils/getData";
@@ -13,28 +19,37 @@ function CategoryContent({ navigation }) {
     <>
       {contents.map((item, index) => {
         const categoryId = index;
+        const prod = products.filter((prod) => prod.categoryId === categoryId);
         return (
           <View key={index}>
             <SpaceBetween style={styles.header}>
               <Text style={styles.headerTitle}>{item.lable}</Text>
-              <Text style={styles.headerLink}>See all</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("CategoryList", {
+                    id: categoryId,
+                    lable: item.lable,
+                    prod: prod,
+                  })
+                }
+              >
+                <Text style={styles.headerLink}>See all</Text>
+              </TouchableOpacity>
             </SpaceBetween>
             <View style={styles.productContainer}>
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {products
-                  .filter((prod) => prod.categoryId === categoryId)
-                  .map((prod, i) => (
-                    <ProductItem
-                      key={i}
-                      data={prod}
-                      onPress={() => {
-                        navigation.navigate("Detail", {
-                          productId: prod.id,
-                        });
-                      }}
-                      hideFavorite={true}
-                    />
-                  ))}
+                {prod.map((prod, i) => (
+                  <ProductItem
+                    key={i}
+                    data={prod}
+                    onPress={() => {
+                      navigation.navigate("Detail", {
+                        productId: prod.id,
+                      });
+                    }}
+                    hideFavorite={true}
+                  />
+                ))}
               </ScrollView>
             </View>
           </View>

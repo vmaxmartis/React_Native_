@@ -7,6 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import {
   Auth,
   Cart,
+  CategoryList,
   Checkout,
   Detail,
   Favorite,
@@ -15,6 +16,7 @@ import {
   Main,
   Orders,
   Payment,
+  Profile,
   Search,
   Settings,
 } from "./src/product";
@@ -42,6 +44,8 @@ export default function App() {
             <Stack.Screen name="Orders" component={Orders} />
             <Stack.Screen name="Cart" component={Cart} />
             <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="CategoryList" component={CategoryList} />
+            <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Search" component={Search} />
             <Stack.Screen name="Payment" component={Payment} />
             <Stack.Screen name="Checkout" component={Checkout} />

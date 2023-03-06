@@ -3,13 +3,30 @@ import React, { useRef } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FiltersBottomSheet from "./FilterSheet";
 import { theme } from "../../theme/theme";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { addRecents } from "../../redux/slide/recentSlide";
 
 const SearchBox = ({ value, onChangeText, handleSubmit, setSearchText }) => {
   const inputRef = useRef(null);
+  const dispatch = useDispatch();
+  const [isBlur, setIsBlur] = React.useState(false);
   const handlePress = () => {
     inputRef.current.focus();
   };
+  React.useEffect(() => {
+    let searchTextTimeout;
+    if (value.trim().length >= 4) {
+      clearTimeout(searchTextTimeout);
+      setTimeout(() => {
+        isBlur && dispatch(addRecents(value));
+        setIsBlur(false);
+      }, 3000);
+    }
+    return () => {
+      clearTimeout(searchTextTimeout);
+    };
+  }, [isBlur]);
 
   return (
     <TouchableOpacity
@@ -30,6 +47,7 @@ const SearchBox = ({ value, onChangeText, handleSubmit, setSearchText }) => {
         value={value}
         onChangeText={(text) => onChangeText(text)}
         onSubmitEditing={handleSubmit}
+        onBlur={() => setIsBlur(true)}
       />
 
       <FiltersBottomSheet

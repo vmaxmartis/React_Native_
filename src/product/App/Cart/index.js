@@ -21,11 +21,6 @@ function Cart({ navigation }) {
   const subtotal = carts.reduce((acc, curr) => {
     return acc + curr.price * curr.quanlity;
   }, 0);
-  React.useEffect(() => {
-    setTimeout(() => {
-      isEmpty(carts) && navigation.navigate("Main");
-    }, 3000);
-  }, [carts]);
   const handleCheckout = () => {
     ConfirmAlert({
       title: `You want to pay ?`,

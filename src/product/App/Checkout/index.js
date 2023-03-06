@@ -47,12 +47,11 @@ const Checkout = ({ navigation, route }) => {
     ConfirmAlert({
       title: `Payment confirmation`,
       message: `Your order: ${subtotal} $
-      
 Orders will be delivered to: ${user.address[selectedAddressIndex].name}, ${user.address[selectedAddressIndex].add}
 Recipient's phone number: ${user.address[selectedAddressIndex].number} `,
       onPressOk: () => {
         dispatch(deleteCart([]));
-        navigation.navigate("Payment");
+        navigation.push("Payment");
       },
     });
   };

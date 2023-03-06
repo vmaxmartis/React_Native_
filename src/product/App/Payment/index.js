@@ -6,9 +6,8 @@ import { theme } from "../../../theme/theme";
 import Icon from "react-native-vector-icons/Octicons";
 
 const Payment = ({ navigation }) => {
-  console.log("navigation Payment:", navigation);
   const handleBackToHome = () => {
-    navigation.replace("Home");
+    navigation.navigate("DrawerApp");
   };
 
   return (
