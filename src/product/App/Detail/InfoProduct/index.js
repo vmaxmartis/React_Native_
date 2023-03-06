@@ -4,7 +4,7 @@ import { theme } from "../../../../theme/theme";
 import ColorButton from "./../ColorButton/index";
 import { BaseButton, SpaceBetween } from "../../../../components";
 
-function InfoProduct({ product, onPressButton, getColor }) {
+function InfoProduct({ product, onPressButton, getColor, navigate }) {
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
   const colors = product.options;
 

@@ -8,7 +8,9 @@ function ContentFilter({ data }) {
   return (
     <>
       <View style={styles.optionsFilter}>
-        <Text style={{ fontSize: 20, fontWeight: "700" }}>Category</Text>
+        <Text style={{ fontSize: 20, fontWeight: "700", marginLeft: 20 }}>
+          Category
+        </Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={styles.categoryFilter}>
             {data.categories.map((item, i) => {

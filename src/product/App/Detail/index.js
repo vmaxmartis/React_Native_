@@ -68,6 +68,7 @@ const Detail = ({ route, navigation }) => {
             ]}
           />
           <InfoProduct
+            navigate={navigation}
             getColor={getColor}
             product={prod}
             onPressButton={handleAddtoCart}

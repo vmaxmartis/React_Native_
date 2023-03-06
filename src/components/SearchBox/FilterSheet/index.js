@@ -16,7 +16,7 @@ const FiltersBottomSheet = ({ elOpenBottomSheet, styleEl, setSearchText }) => {
   const [distance, setDistance] = useState(defaulValue.distance);
   const [price, setPrice] = useState(defaulValue.price);
   const [isVisible, setIsVisible] = useState(false);
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState([1, 2, 3]);
   const dispatch = useDispatch();
   let payload = { price: price, distance: distance, category: category };
   const handleApply = () => {

@@ -7,7 +7,7 @@ export const recentSlice = createSlice({
   },
   reducers: {
     addRecents: (state, action) => {
-      state.data.push({ recent: action.payload });
+      state.data.unshift({ recent: action.payload });
     },
   },
 });

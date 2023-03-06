@@ -35,6 +35,7 @@ const paymentMethods = [
 ];
 
 const Checkout = ({ navigation, route }) => {
+  console.log("navigation checkout:", navigation);
   const subtotal = route.params.subtotal;
   const user = getData("user");
   const dispatch = useDispatch();
@@ -46,12 +47,11 @@ const Checkout = ({ navigation, route }) => {
     ConfirmAlert({
       title: `Payment confirmation`,
       message: `Your order: ${subtotal} $
-      
 Orders will be delivered to: ${user.address[selectedAddressIndex].name}, ${user.address[selectedAddressIndex].add}
 Recipient's phone number: ${user.address[selectedAddressIndex].number} `,
       onPressOk: () => {
         dispatch(deleteCart([]));
-        navigation.dispatch(StackActions.replace("Payment"));
+        navigation.push("Payment");
       },
     });
   };

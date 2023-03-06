@@ -8,6 +8,7 @@ import { getData } from "./../../../utils/getData";
 import utils from "../../../utils";
 import SearchResults from "./SearchResults";
 import RecentSearch from "./RecentSearch";
+import { isEmpty } from "lodash";
 
 const Search = ({ navigation, route }) => {
   const param = route.params.filter.searchText;
@@ -19,14 +20,19 @@ const Search = ({ navigation, route }) => {
     setSearchText(param);
   }, []);
   useEffect(() => {
-    setResultProducts(utils.filterByName(product, searchText));
+    setResultProducts(
+      utils.filterByName(
+        isEmpty(DataResults) ? product : DataResults,
+        searchText
+      )
+    );
   }, [searchText]);
 
   useEffect(() => {
     setResultProducts(DataResults);
   }, [DataResults]);
 
-  const dataResult = {
+  const data = {
     searchText: searchText,
     product: product,
     resultProducts: resultProducts,
@@ -50,7 +56,7 @@ const Search = ({ navigation, route }) => {
         setSearchText={setSearchText}
       />
       <RecentSearch setSearchText={setSearchText} />
-      <SearchResults dataResult={dataResult} />
+      <SearchResults dataResult={data} />
     </View>
   );
 };

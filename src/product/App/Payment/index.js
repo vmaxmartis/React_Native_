@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/Octicons";
 
 const Payment = ({ navigation }) => {
   const handleBackToHome = () => {
-    navigation.replace("Main");
+    navigation.navigate("DrawerApp");
   };
 
   return (

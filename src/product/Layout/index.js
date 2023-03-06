@@ -1,14 +1,7 @@
-import React, { useState, useRef } from "react";
-import {
-  TouchableOpacity,
-  View,
-  StyleSheet,
-  DrawerLayoutAndroid,
-  Keyboard,
-} from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
 import WithSafeArea from "./../../Config/safeArea";
 import { theme } from "../../theme/theme";
-import Icon from "../../components/Icon";
 import { find } from "lodash";
 import Home from "../App/Home";
 import Cart from "../App/Cart";
@@ -18,7 +11,6 @@ import BottomTab from "./BottomTab";
 
 function Main({ navigation }) {
   const [activeScreen, setActiveScreen] = useState("Home");
-  const drawer = useRef(null);
   function renderScreen(ar, lable) {
     let screen = find(ar, (item) => item.label === lable);
     return screen.screen;
@@ -40,7 +32,11 @@ function Main({ navigation }) {
       screen: <Favorite navigation={navigation} />,
       iconName: "heart",
     },
-    { label: "Profile", screen: <Profile />, iconName: "people" },
+    {
+      label: "Profile",
+      screen: <Profile navigation={navigation} />,
+      iconName: "people",
+    },
   ];
 
   return (

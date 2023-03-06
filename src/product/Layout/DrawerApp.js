@@ -7,18 +7,27 @@ import {
 import Icons from "react-native-vector-icons/Ionicons";
 import { Icon } from "../../components";
 import { theme } from "../../theme/theme";
-import { Favorite, Main, Cart, Search, Home } from "..";
+import { Favorite, Main, Cart, Search, Home, Checkout, Payment } from "..";
+import ConfirmAlert from "../../utils/alert";
 const Drawer = createDrawerNavigator();
 const CustomDrawerContent = ({ navigation, ...props }) => {
   const [isSelected, setSelection] = React.useState(NaN);
   console.log("isSelected:", isSelected);
   const Tabs = [
-    { lable: "Favorite", icon: "heart", navigate: "Favorite" },
-    { lable: "Wallets", icon: "wallet", navigate: "Favorite" },
+    { lable: "Favorite", icon: "heart", navigate: "Profile" },
+    { lable: "Wallets", icon: "wallet", navigate: "Settings" },
     { lable: "My Orders", icon: "cart", navigate: "Orders" },
-    { lable: "About Us", icon: "people", navigate: "Favorite" },
+    { lable: "About Us", icon: "people", navigate: "Profile" },
     { lable: "Privacy Policy", icon: "lock-closed", navigate: "Settings" },
   ];
+  const handleLogOut = () => {
+    ConfirmAlert({
+      title: `You want to sign out?`,
+      onPressOk: () => {
+        navigation.replace("Auth");
+      },
+    });
+  };
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawer}>
@@ -61,12 +70,7 @@ const CustomDrawerContent = ({ navigation, ...props }) => {
             );
           })}
         </View>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.replace("Auth");
-          }}
-          style={styles.logout}
-        >
+        <TouchableOpacity onPress={handleLogOut} style={styles.logout}>
           <View style={styles.styleViewIcon}>
             <Icons name={"log-out"} size={18} color={theme.primary} />
           </View>
@@ -86,9 +90,11 @@ export default function DrawerApp() {
         headerShown: false,
       }}
     >
-      <Drawer.Screen name="Main" component={Main} />
       <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="Main" component={Main} />
       <Drawer.Screen name="Cart" component={Cart} />
+      <Drawer.Screen name="Checkout" component={Checkout} />
+      <Drawer.Screen name="Payment" component={Payment} />
       <Drawer.Screen name="Favorite" component={Favorite} />
       <Drawer.Screen name="Search" component={Search} />
     </Drawer.Navigator>

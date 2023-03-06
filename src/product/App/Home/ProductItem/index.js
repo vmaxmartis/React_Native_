@@ -34,7 +34,7 @@ const ProductItem = ({ data, prefix, style, onPress, hideFavorite }) => {
           style={styles.favorite}
         >
           <Icon
-            name="favorite"
+            name={data.favorite ? "favorite" : "favorite-outline"}
             color={data.favorite ? theme.primary : theme.primaryDisabled}
             size={15}
           />
