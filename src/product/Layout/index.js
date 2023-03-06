@@ -1,77 +1,55 @@
-import React, { useState, useRef } from "react";
-import {
-  TouchableOpacity,
-  View,
-  StyleSheet,
-  DrawerLayoutAndroid,
-  Text,
-  Button,
-} from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
 import WithSafeArea from "./../../Config/safeArea";
 import { theme } from "../../theme/theme";
-import Icon from "../../components/Icon";
 import { find } from "lodash";
 import Home from "../App/Home";
 import Cart from "../App/Cart";
 import Profile from "../App/Profile";
 import Favorite from "../App/Favorite";
+import BottomTab from "./BottomTab";
 
-function Main() {
+function Main({ navigation }) {
   const [activeScreen, setActiveScreen] = useState("Home");
-  const drawer = useRef(null);
   function renderScreen(ar, lable) {
     let screen = find(ar, (item) => item.label === lable);
     return screen.screen;
   }
+
   const Screens = [
-    { label: "Home", screen: <Home drawerRef={drawer} />, iconName: "home" },
-    { label: "Cart", screen: <Cart />, iconName: "shopping-cart" },
-    { label: "Favorite", screen: <Favorite />, iconName: "heart" },
-    { label: "Profile", screen: <Profile />, iconName: "user" },
+    {
+      label: "Home",
+      screen: <Home navigation={navigation} />,
+      iconName: "home",
+    },
+    {
+      label: "Cart",
+      screen: <Cart navigation={navigation} />,
+      iconName: "cart",
+    },
+    {
+      label: "Favorite",
+      screen: <Favorite navigation={navigation} />,
+      iconName: "heart",
+    },
+    {
+      label: "Profile",
+      screen: <Profile navigation={navigation} />,
+      iconName: "people",
+    },
   ];
-  const navigationView = () => (
-    <View style={[styles.drawer, styles.navigationDrawer]}>
-      <Text style={styles.paragraph}>I'm in the Drawer!</Text>
-      <Button
-        title="Close drawer"
-        onPress={() => drawer.current.closeDrawer()}
-      />
-    </View>
-  );
 
   return (
-    <DrawerLayoutAndroid
-      drawerWidth={250}
-      drawerPosition={"left"}
-      renderNavigationView={navigationView}
-      ref={drawer}
-    >
-      <View style={styles.container}>
-        <View style={styles.mainLayout}>
-          {renderScreen(Screens, activeScreen)}
-        </View>
-        <View style={styles.bottomTabs}>
-          {Screens.map((tab, i) => {
-            return (
-              <TouchableOpacity
-                onPress={() => setActiveScreen(tab.label)}
-                key={i}
-              >
-                <Icon
-                  style={{ backgroundColor: "#fff" }}
-                  color={
-                    tab.label === activeScreen
-                      ? theme.primary
-                      : theme.primaryDisabled
-                  }
-                  name={tab.iconName}
-                />
-              </TouchableOpacity>
-            );
-          })}
-        </View>
+    <View style={styles.container}>
+      <View style={styles.mainLayout}>
+        {renderScreen(Screens, activeScreen)}
       </View>
-    </DrawerLayoutAndroid>
+      <BottomTab
+        tabs={Screens}
+        activeScreen={activeScreen}
+        setActiveScreen={setActiveScreen}
+      />
+    </View>
   );
 }
 export default WithSafeArea(Main);
@@ -86,7 +64,6 @@ const styles = StyleSheet.create({
   },
   mainLayout: {
     flex: 1,
-    padding: 20,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -99,13 +76,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: "#fff",
   },
-  drawer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 16,
-  },
-  navigationDrawer: {
-    backgroundColor: theme.background,
+  drawerLayoutAndroid: {
+    backgroundColor: "red",
   },
 });

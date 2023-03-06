@@ -6,51 +6,50 @@ import {
   useWindowDimensions,
 } from "react-native";
 import React, { useState } from "react";
-import { SearchBox, SpaceBetween } from "../../../components/index";
+import { HeaderApp } from "../../../components/index";
+import SearchBox from "../../../components/SearchBox";
 import WithSafeArea from "../../../Config/safeArea";
 import CategoryItem from "./CategoryItem";
-import ProductItem from "./ProductItem";
-import Header from "./Header";
-import products from "./../../../FakeData/products";
 import categories from "../../../FakeData/categories";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import { theme } from "../../../theme/theme";
-import { isEmpty, isNull } from "lodash";
+import CategoryContent from "./CategoryContent";
 
 const defaultFilter = {
   category: "",
   searchText: "",
-  pricing: null,
-  distance: null,
+  pricing: 0,
+  distance: 0,
 };
 
-const Home = ({ navigation, drawerRef }) => {
-  console.log("drawRef", drawerRef);
-  const [selectedCategory, setSelectedCategory] = useState(0);
-  const [openFilter, setOpenFilter] = useState(false);
-  const [filterCategories, setFilterCategories] = useState([]);
-  const [openSearch, setOpenSearch] = useState(true);
-  const [filter, setFilter] = useState(defaultFilter);
+const Home = ({ navigation }) => {
+  console.log("navigation Homee:", navigation);
   const { width } = useWindowDimensions();
+  const [selectedCategory, setSelectedCategory] = useState(0);
+  const [filter, setFilter] = useState(defaultFilter);
+
   return (
     <View>
       <View style={[styles.container, { width }]}>
-        <Header onPressMenu={() => drawerRef.current.openDrawer()} />
-        {!openSearch && (
+        <HeaderApp
+          title={"15/2 Texas"}
+          styleTitle={{}}
+          isButton
+          iconLeft={"md-menu-outline"}
+          onPressLeftIcon={() => navigation.openDrawer()}
+          iconRight={"notifications"}
+        />
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View>
             <Text style={styles.title}>Title</Text>
             <Text style={styles.slogan}>Slogan</Text>
           </View>
-        )}
-        <SearchBox
-          value={filter.searchText}
-          onChangeText={(text) => setFilter({ searchText: text })}
-          onFocus={() => !isNull(filter.searchText) && setOpenSearch(true)}
-          onBlur={() => setOpenSearch(false)}
-        />
-
-        <View>
-          {!openSearch && (
+          <SearchBox
+            value={filter.searchText}
+            onChangeText={(text) => setFilter({ searchText: text })}
+            handleSubmit={() =>
+              navigation.navigate("Search", { filter, navigation })
+            }
+          />
+          <ScrollView>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -67,78 +66,9 @@ const Home = ({ navigation, drawerRef }) => {
                 />
               ))}
             </ScrollView>
-          )}
-          {/* <SpaceBetween style={styles.header}>
-            <>
-              <Text style={styles.headerTitle}>NEW ARRIVAL</Text>
-              <Text style={styles.headerLink}>See all</Text>
-            </>
-          </SpaceBetween> */}
-          <SpaceBetween style={styles.header}>
-            {openSearch ? (
-              <>
-                <Text style={{ fontSize: 20, fontWeight: "500" }}>
-                  Recent Searches
-                </Text>
-                <Icon name="navigate-next" size={25} color={theme.primary} />
-              </>
-            ) : (
-              <>
-                <Text style={styles.headerTitle}>NEW ARRIVAL</Text>
-                <Text style={styles.headerLink}>See all</Text>
-              </>
-            )}
-          </SpaceBetween>
-          <SpaceBetween style={{ marginBottom: 10 }}>
-            {openSearch && (
-              <>
-                <Text style={{ fontSize: 20, fontWeight: "500" }}>
-                  Search Result showing for "{filter.searchText}"
-                </Text>
-              </>
-            )}
-          </SpaceBetween>
-          <View style={styles.productContainer}>
-            <ScrollView
-              horizontal={openSearch ? false : true}
-              vertical={openSearch ? true : false}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              style={{ display: "flex", width: 500 }}
-            >
-              {products.map((item, index) => (
-                <ProductItem
-                  key={index}
-                  name={item.name}
-                  price={item.price}
-                  imageSource={item.imageSource}
-                  backgroundColor={item.backgroundColor}
-                  onPress={() => {
-                    alert("Vào detail page");
-                  }}
-                />
-              ))}
-            </ScrollView>
-          </View>
-          {/* {openSearch && (
-            <ScrollView vertical showsVerticalScrollIndicator={false}>
-              <View style={styles.productContainers}>
-                {products.map((item, index) => (
-                  <ProductItem
-                    key={index}
-                    name={item.name}
-                    price={item.price}
-                    imageSource={item.imageSource}
-                    backgroundColor={item.backgroundColor}
-                    onPress={() => {
-                      alert("Vào detail page");
-                    }}
-                  />
-                ))}
-              </View>
-            </ScrollView>
-          )} */}
-        </View>
+            <CategoryContent navigation={navigation} />
+          </ScrollView>
+        </ScrollView>
       </View>
     </View>
   );
@@ -158,29 +88,11 @@ const styles = StyleSheet.create({
   },
   slogan: {
     fontSize: 18,
-    color: "#b1b1b2",
+    color: "#b1b1b1",
     marginBottom: 20,
   },
   category: {
     marginTop: 20,
     marginBottom: 20,
-  },
-  header: {
-    marginVertical: 20,
-  },
-  headerTitle: {
-    fontSize: 23,
-    fontWeight: "bold",
-  },
-  headerLink: {
-    fontSize: 16,
-    color: "#7e7e80",
-  },
-  productContainer: {
-    height: "auto",
-  },
-  productContainers: {
-    height: 500,
-    display: "flex",
   },
 });

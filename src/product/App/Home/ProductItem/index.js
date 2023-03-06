@@ -2,17 +2,20 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import PropTypes from "prop-types";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { theme } from "./../../../../theme/theme";
+import { useDispatch } from "react-redux";
+import { setFavorite } from "../../../../redux/slide/productSlide";
 
-const ProductItem = ({
-  favorite,
-  imageSource,
-  name,
-  price,
-  prefix,
-  style,
-  onPress,
-  backgroundColor,
-}) => {
+const ProductItem = ({ data, prefix, style, onPress, hideFavorite }) => {
+  const dispatch = useDispatch();
+  const handleToggleFavorite = () => {
+    const payload = {
+      id: data.id,
+      favorite: !data.favorite,
+    };
+    dispatch(setFavorite(payload));
+  };
+
   return (
     <TouchableOpacity
       style={[styles.container, style]}
@@ -21,51 +24,62 @@ const ProductItem = ({
     >
       <View style={{}}>
         <Image
-          style={[styles.image, { backgroundColor: backgroundColor }]}
-          source={imageSource}
+          style={[styles.image, { backgroundColor: data.backgroundColor }]}
+          source={data.imageSource}
         />
       </View>
-      {favorite && (
-        <View style={styles.favorite}>
-          <Icon name="favorite" color="red" size={15} />
-        </View>
+      {!hideFavorite && (
+        <TouchableOpacity
+          onPress={handleToggleFavorite}
+          style={styles.favorite}
+        >
+          <Icon
+            name={data.favorite ? "favorite" : "favorite-outline"}
+            color={data.favorite ? theme.primary : theme.primaryDisabled}
+            size={15}
+          />
+        </TouchableOpacity>
       )}
-      <Text style={styles.name}>{name}</Text>
+
+      <Text style={styles.name}>{data.name}</Text>
       <Text style={styles.price}>
         {prefix}
-        {price}
+        {data.price}
       </Text>
     </TouchableOpacity>
   );
 };
 
 ProductItem.propTypes = {
+  data: PropTypes.object,
   favorite: PropTypes.bool,
-  imageSource: PropTypes.any,
-  name: PropTypes.string,
-  price: PropTypes.number,
   prefix: PropTypes.string,
   style: PropTypes.object,
   onPress: PropTypes.func,
-  backgroundColor: PropTypes.string,
+  hideFavorite: PropTypes.bool,
 };
 
 ProductItem.defaultProps = {
+  data: {
+    id: 100,
+    name: "",
+    price: 1000,
+    imageSource: "",
+    backgroundColor: "#efeef3",
+  },
   favorite: false,
-  imageSource: "",
-  name: "",
-  price: 0,
   prefix: "$",
   style: {},
   onPress: () => {},
   backgroundColor: "#efeef3",
+  hideFavorite: false,
 };
 
 export default ProductItem;
 
 const styles = StyleSheet.create({
   container: {
-    width: 160,
+    width: 170,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 10,
@@ -75,21 +89,21 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
-    width: 145,
-    height: 145,
+    width: 150,
+    height: 150,
     borderRadius: 20,
   },
-  //   favorite: {
-  //     backgroundColor: "#fff",
-  //     borderRadius: 30,
-  //     width: 30,
-  //     height: 30,
-  //     position: "absolute",
-  //     top: 15,
-  //     right: 25,
-  //     justifyContent: "center",
-  //     alignItems: "center",
-  //   },
+  favorite: {
+    backgroundColor: "#fff",
+    borderRadius: 30,
+    width: 30,
+    height: 30,
+    position: "absolute",
+    top: 15,
+    right: 25,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   name: {
     marginTop: 5,
     textAlign: "center",

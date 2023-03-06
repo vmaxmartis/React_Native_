@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { View } from "react-native";
 import {
   CustomImage,
@@ -40,6 +40,8 @@ function AutoRender(props) {
                 selected={item.selected}
                 onPress={item.handle}
                 title={item.title}
+                view={item.view}
+                setValueSelecteds={item.setValueSelecteds}
               />
             );
           }
@@ -77,7 +79,7 @@ function AutoRender(props) {
             );
           }
           case "other": {
-            return <>{item.ordersComponnets}</>;
+            return <Fragment key={i}>{item.ordersComponnets}</Fragment>;
           }
           default: {
             return <View key={i}></View>;

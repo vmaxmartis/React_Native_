@@ -1,8 +1,14 @@
 export { default as Home } from "./App/Home/index";
+export { default as Search } from "./App/Search/index";
 export { default as Detail } from "./App/Detail/index";
 export { default as GetStarted } from "./Onboarding/index";
 export { default as Auth } from "./Auth/Index";
 export { default as Favorite } from "./App/Favorite/index";
 export { default as Cart } from "./App/Cart/index";
+export { default as Orders } from "./App/Order/index";
 export { default as Profile } from "./App/Profile/index";
+export { default as Payment } from "./App/Payment/index";
+export { default as Checkout } from "./App/Checkout/index";
 export { default as Main } from "./Layout/index";
+export { default as Settings } from "./App/Setting/index";
+export { default as CategoryList } from "./App/Home/CategoryList/index";

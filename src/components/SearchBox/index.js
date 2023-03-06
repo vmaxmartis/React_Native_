@@ -1,22 +1,32 @@
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
-import React, { useRef, useState } from "react";
+import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import React, { useRef } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import FiltersBottomSheet from "../product/App/Home/FilterSheet";
-import { theme } from "../theme/theme";
+import FiltersBottomSheet from "./FilterSheet";
+import { theme } from "../../theme/theme";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { addRecents } from "../../redux/slide/recentSlide";
 
-const SearchBox = ({ value, onChangeText, onBlur, onFocus }) => {
+const SearchBox = ({ value, onChangeText, handleSubmit, setSearchText }) => {
   const inputRef = useRef(null);
-  const [isFocus, setFocus] = useState(false);
-
+  const dispatch = useDispatch();
+  const [isBlur, setIsBlur] = React.useState(false);
   const handlePress = () => {
     inputRef.current.focus();
   };
-
-  const handleFocus = (e) => {
-    setFocus(true);
-    onFocus(e);
-  };
+  React.useEffect(() => {
+    let searchTextTimeout;
+    if (value.trim().length >= 4) {
+      clearTimeout(searchTextTimeout);
+      setTimeout(() => {
+        isBlur && dispatch(addRecents(value));
+        setIsBlur(false);
+      }, 3000);
+    }
+    return () => {
+      clearTimeout(searchTextTimeout);
+    };
+  }, [isBlur]);
 
   return (
     <TouchableOpacity
@@ -35,15 +45,13 @@ const SearchBox = ({ value, onChangeText, onBlur, onFocus }) => {
         style={styles.input}
         placeholder={"Any text"}
         value={value}
-        onChangeText={onChangeText}
-        onBlur={(e) => {
-          onBlur(e);
-          setFocus(false);
-        }}
-        onFocus={handleFocus}
+        onChangeText={(text) => onChangeText(text)}
+        onSubmitEditing={handleSubmit}
+        onBlur={() => setIsBlur(true)}
       />
 
       <FiltersBottomSheet
+        setSearchText={setSearchText}
         styleEl={styles.filterButton}
         elOpenBottomSheet={
           <Ionicons name="filter-outline" size={23} color={theme.background} />
@@ -52,21 +60,21 @@ const SearchBox = ({ value, onChangeText, onBlur, onFocus }) => {
     </TouchableOpacity>
   );
 };
-
 SearchBox.propTypes = {
   onChangeText: PropTypes.func,
-  onBlur: PropTypes.func,
   onFilterPress: PropTypes.func,
   onFocus: PropTypes.func,
   value: PropTypes.string,
+  handleSubmit: PropTypes.func,
+  setSearchText: PropTypes.func,
 };
 
 SearchBox.defaultProps = {
-  onChangeText: () => {},
-  onBlur: () => {},
-  onFilterPress: () => {},
+  onFilterPress: null,
   onFocus: () => {},
   value: null,
+  handleSubmit: () => {},
+  setSearchText: () => {},
 };
 
 export default SearchBox;
@@ -81,7 +89,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    marginLeft: 10,
+    marginLeft: 15,
     flex: 1,
     fontSize: 15,
   },

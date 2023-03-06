@@ -1,10 +1,11 @@
 export default [
   {
     id: 1,
-    name: "Nguyen Van v",
+    name: "Martis",
     email: "a",
     password: "a",
     address: "111",
+    avatar: require("../../assets/vv.png"),
     phone: "313288",
   },
   {

@@ -1,11 +1,10 @@
 import React from "react";
-import { Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, View } from "react-native";
 import PropTypes from "prop-types";
 import { theme } from "../theme/theme";
-import Icon from "react-native-vector-icons/EvilIcons";
-import * as Font from "expo-font";
 
 const BaseButton = ({
+  id,
   onPress,
   title,
   icon,
@@ -13,42 +12,62 @@ const BaseButton = ({
   styleText,
   disabled,
   selected,
+  view,
+  valueSelecteds,
+  setValueSelecteds,
 }) => {
-  const [isSelected, setSelection] = React.useState(selected);
+  function removeItemFromArray(arr, x) {
+    const index = arr.indexOf(x);
+    if (index !== -1) {
+      arr.splice(index, 1);
+    }
+    return arr;
+  }
+
+  const [isSelected, setSelection] = React.useState(false);
+  React.useEffect(() => {
+    if (isSelected) {
+      valueSelecteds.push(id);
+      () => setValueSelecteds(valueSelecteds);
+    } else {
+      const newArr = removeItemFromArray(valueSelecteds, id);
+      () => setValueSelecteds(newArr);
+    }
+  }, [isSelected]);
   const handleSelection = () => {
     if (selected) {
       setSelection(!isSelected);
-    } else {
-      console.log("no action");
     }
   };
   return (
-    <TouchableOpacity
-      style={[
-        styles.container,
-        { backgroundColor: disabled ? theme.background : theme.primary },
-        selected && {
-          backgroundColor: isSelected ? theme.primary : theme.primaryDisabled,
-        },
-        styleView,
-      ]}
-      onPress={selected ? handleSelection : onPress}
-      activeOpacity={0.8}
-      disabled={disabled}
-    >
-      <Text
+    <View style={view ? view : {}}>
+      <TouchableOpacity
         style={[
-          styles.label,
-          styleText,
-          ,
-          { color: disabled ? theme.textDarkGray : "#fff" },
-          selected && { color: isSelected ? "#fff" : "black" },
+          styles.container,
+          { backgroundColor: disabled ? theme.background : theme.primary },
+          selected && {
+            backgroundColor: isSelected ? theme.primary : theme.primaryDisabled,
+          },
+          styleView,
         ]}
+        onPress={selected ? handleSelection : onPress}
+        activeOpacity={0.8}
+        disabled={disabled}
       >
-        {title}
-      </Text>
-      {icon}
-    </TouchableOpacity>
+        <Text
+          style={[
+            styles.label,
+            styleText,
+            ,
+            { color: disabled ? theme.textDarkGray : "#fff" },
+            selected && { color: isSelected ? "#fff" : "black" },
+          ]}
+        >
+          {title}
+        </Text>
+        {icon}
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -60,6 +79,9 @@ BaseButton.defaultProps = {
   labelStyle: PropTypes.object,
   disabled: PropTypes.bool,
   selected: PropTypes.any,
+  view: PropTypes.object,
+  valueSelecteds: PropTypes.array,
+  setValueSelected: PropTypes.func,
 };
 
 BaseButton.defaultProps = {
@@ -70,6 +92,9 @@ BaseButton.defaultProps = {
   labelStyle: {},
   disabled: false,
   selected: null,
+  view: {},
+  valueSelecteds: [],
+  setValueSelected: null,
 };
 
 export default BaseButton;

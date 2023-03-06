@@ -1,4 +1,5 @@
-import { every, isEmpty } from "lodash";
+import { useDispatch } from "react-redux";
+import { every } from "lodash";
 function isValidEmail(value) {
   if (value.trim().length > 0) {
     const re =
@@ -37,8 +38,40 @@ function validatePassword(value) {
     return;
   }
 }
+function checkAndUpdateListCart(ob, arr) {
+  //   const existing = some(arr, (item) => item.id === ob.id);
+  const existing = arr.find((item) => item.id === ob.id);
+  if (existing) {
+    existing.quanlity++;
+  } else {
+    arr.push(ob);
+  }
+  return arr;
+}
+function filterByName(arr, keyword) {
+  if (keyword) {
+    return arr.filter((item) =>
+      item.name.toLowerCase().includes(keyword.toLowerCase())
+    );
+  }
+}
+
 function checkNullFormField(listCheck) {
   return !every(listCheck, (item) => item.trim().length > 0);
+}
+function removeById(arr, id) {
+  return arr.filter((item) => item.id !== id);
+}
+function increaseQuantityById(arr, id, key) {
+  const existing = arr.find((item) => item.id === id);
+  if (existing) {
+    if (key === "add") {
+      existing.quanlity++;
+    } else if (key === "sub") {
+      existing.quanlity--;
+    }
+  }
+  return arr;
 }
 
 const utils = {
@@ -47,6 +80,10 @@ const utils = {
   validateEmail,
   validatePassword,
   checkNullFormField,
+  removeById,
+  increaseQuantityById,
+  checkAndUpdateListCart,
+  filterByName,
 };
 
 export default utils;

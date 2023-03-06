@@ -4,8 +4,23 @@ import store from "./src/redux/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Auth, GetStarted, Main } from "./src/product";
-import { View } from "react-native";
+import {
+  Auth,
+  Cart,
+  CategoryList,
+  Checkout,
+  Detail,
+  Favorite,
+  GetStarted,
+  Home,
+  Main,
+  Orders,
+  Payment,
+  Profile,
+  Search,
+  Settings,
+} from "./src/product";
+import DrawerApp from "./src/product/Layout/DrawerApp";
 
 const Stack = createStackNavigator();
 
@@ -13,17 +28,29 @@ export default function App() {
   return (
     <Provider store={store}>
       <SafeAreaProvider>
-        <NavigationContainer>
+        <NavigationContainer independent={true}>
           <Stack.Navigator
-            initialRouteName="Main"
+            initialRouteName="DrawerApp"
             screenOptions={{
-              gestureEnabled: true,
+              gestureEnabled: false,
               headerShown: false,
             }}
           >
             <Stack.Screen name="Main" component={Main} />
             <Stack.Screen name="GetStarted" component={GetStarted} />
             <Stack.Screen name="Auth" component={Auth} />
+            <Stack.Screen name="Detail" component={Detail} />
+            <Stack.Screen name="Favorite" component={Favorite} />
+            <Stack.Screen name="Orders" component={Orders} />
+            <Stack.Screen name="Cart" component={Cart} />
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="CategoryList" component={CategoryList} />
+            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="Search" component={Search} />
+            <Stack.Screen name="Payment" component={Payment} />
+            <Stack.Screen name="Checkout" component={Checkout} />
+            <Stack.Screen name="Settings" component={Settings} />
+            <Stack.Screen name="DrawerApp" component={DrawerApp} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

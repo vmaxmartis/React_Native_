@@ -1,9 +1,7 @@
-import SearchBox from "./SearchBox";
 import SpaceBetween from "./SpaceBw";
 import BaseText from "./BaseText";
 import CustomImage from "./CustomImage";
 import Icon from "./Icon";
-import CartItem from "./cardProduct";
 import BaseTouchable from "./BaseTouchable";
 import LineWithText from "./LineWithText";
 import LoginWithSocial from "./authComponents/LoginWithSocial";
@@ -13,16 +11,18 @@ import BaseCheckbox from "./BaseCheckBox";
 import BaseInputField from "./BaseInputField";
 import BaseButton from "./BaseButton";
 import RangeSliderFilter from "./RangeSlideFilter/index";
+import HeaderApp from "./HeaderProduct";
+import Loadding from "./Loadding";
+import CartItem from "./CartItem";
+import SearchBox from "./SearchBox/index";
 
 export {
   LoginWithSocial,
   NonAccount,
   TermConditions,
-  SearchBox,
   SpaceBetween,
   BaseText,
   BaseTouchable,
-  CartItem,
   CustomImage,
   LineWithText,
   BaseCheckbox,
@@ -30,4 +30,9 @@ export {
   BaseInputField,
   BaseButton,
   RangeSliderFilter,
+  HeaderApp,
+  //   Carousel,
+  Loadding,
+  CartItem,
+  SearchBox,
 };
