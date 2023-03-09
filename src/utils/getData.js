@@ -12,7 +12,10 @@ export function getData(item) {
       return useSelector((state) => state.product.ressultFilter);
     }
     case "user": {
-      return useSelector((state) => state.user);
+      return useSelector((state) => state.user.data);
+    }
+    case "register": {
+      return useSelector((state) => state.signup.data);
     }
     case "cart": {
       return useSelector((state) => state.cart.data);

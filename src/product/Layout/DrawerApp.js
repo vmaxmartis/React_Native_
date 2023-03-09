@@ -4,15 +4,21 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from "@react-navigation/drawer";
+import axios from "axios";
+import API from "../../lib/api";
 import Icons from "react-native-vector-icons/Ionicons";
 import { Icon } from "../../components";
 import { theme } from "../../theme/theme";
 import { Favorite, Main, Cart, Search, Home, Checkout, Payment } from "..";
 import ConfirmAlert from "../../utils/alert";
+import { useDispatch } from "react-redux";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { getAllProducts } from "../../redux/slide/productSlide";
+import { getData } from "../../utils/getData";
+
 const Drawer = createDrawerNavigator();
 const CustomDrawerContent = ({ navigation, ...props }) => {
   const [isSelected, setSelection] = React.useState(NaN);
-  console.log("isSelected:", isSelected);
   const Tabs = [
     { lable: "Favorite", icon: "heart", navigate: "Profile" },
     { lable: "Wallets", icon: "wallet", navigate: "Settings" },
@@ -82,6 +88,19 @@ const CustomDrawerContent = ({ navigation, ...props }) => {
 };
 
 export default function DrawerApp() {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    const handlGetProducts = createAsyncThunk("getAllProduct", async () => {
+      try {
+        const response = await axios.get(`${API.products}?populate=*`);
+        dispatch(getAllProducts(response.data.data));
+        return console.log("response  redux:", response);
+      } catch (err) {
+        console.log("err", err);
+      }
+    });
+    dispatch(handlGetProducts());
+  });
   return (
     <Drawer.Navigator
       initialRouteName="Main"

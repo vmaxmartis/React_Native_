@@ -1,7 +1,6 @@
 import { some, isEmpty } from "lodash";
 export default function filterProducts(arr, dataFilter) {
   const selectedCategory = dataFilter.category;
-  console.log("selectedCategory:", selectedCategory);
   const filterByCategory = arr.filter((item) =>
     selectedCategory.includes(item.categoryId)
   );

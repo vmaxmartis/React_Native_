@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { BottomSheet } from "@rneui/themed";
 import Icon from "react-native-vector-icons/Ionicons";
-import { BaseButton } from "../..";
+import BaseButton from "../../BaseButton";
 import { useDispatch } from "react-redux";
 import { filterResult } from "../../../redux/slide/productSlide";
 import ContentFilter from "./ContentFilter";

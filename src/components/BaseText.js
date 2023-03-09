@@ -13,14 +13,14 @@ function BaseText({ styleView, styleText, valueText }) {
 BaseText.propTypes = {
   placeholder: PropTypes.string,
   styleView: PropTypes.object,
-  styleText: PropTypes.object,
+  styleText: PropTypes.array,
   valueText: PropTypes.string,
 };
 
 BaseText.defaultProps = {
   placeholder: "Any text",
   styleView: {},
-  styleText: { fontSize: 15 },
+  styleText: [{ fontSize: 15 }],
   valueText: "",
   leftElement: <></>,
   rightElement: <></>,

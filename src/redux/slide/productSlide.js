@@ -10,6 +10,9 @@ const productSlice = createSlice({
     ressultFilter: [],
   },
   reducers: {
+    getAllProducts: (state, action) => {
+      state.data = action.payload;
+    },
     getProduct: (state, action) => {
       state.productDetail = state.data.find(
         (item) => item.id === action.payload
@@ -26,5 +29,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { setFavorite, getProduct, filterResult } = productSlice.actions;
+export const { getAllProducts, setFavorite, getProduct, filterResult } =
+  productSlice.actions;
 export default productSlice.reducer;

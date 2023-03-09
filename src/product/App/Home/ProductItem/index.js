@@ -5,17 +5,21 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { theme } from "./../../../../theme/theme";
 import { useDispatch } from "react-redux";
 import { setFavorite } from "../../../../redux/slide/productSlide";
+import API from "./../../../../lib/api";
 
 const ProductItem = ({ data, prefix, style, onPress, hideFavorite }) => {
+  console.log("data:", data);
   const dispatch = useDispatch();
   const handleToggleFavorite = () => {
     const payload = {
       id: data.id,
-      favorite: !data.favorite,
+      favorite: !data.attributes.favorite,
     };
     dispatch(setFavorite(payload));
   };
+  const imageUrl = `${API.UrlImage}${data.attributes.imageSource.data[0].attributes.url}`;
 
+  console.log("imageUrl:", imageUrl);
   return (
     <TouchableOpacity
       style={[styles.container, style]}
@@ -24,8 +28,11 @@ const ProductItem = ({ data, prefix, style, onPress, hideFavorite }) => {
     >
       <View style={{}}>
         <Image
-          style={[styles.image, { backgroundColor: data.backgroundColor }]}
-          source={data.imageSource}
+          style={[
+            styles.image,
+            { backgroundColor: data.attributes.backgroundColor },
+          ]}
+          source={{ uri: imageUrl }}
         />
       </View>
       {!hideFavorite && (
@@ -34,17 +41,19 @@ const ProductItem = ({ data, prefix, style, onPress, hideFavorite }) => {
           style={styles.favorite}
         >
           <Icon
-            name={data.favorite ? "favorite" : "favorite-outline"}
-            color={data.favorite ? theme.primary : theme.primaryDisabled}
+            name={data.attributes.favorite ? "favorite" : "favorite-outline"}
+            color={
+              data.attributes.favorite ? theme.primary : theme.primaryDisabled
+            }
             size={15}
           />
         </TouchableOpacity>
       )}
 
-      <Text style={styles.name}>{data.name}</Text>
+      <Text style={styles.name}>{data.attributes.name}</Text>
       <Text style={styles.price}>
         {prefix}
-        {data.price}
+        {data.attributes.price}
       </Text>
     </TouchableOpacity>
   );
@@ -64,7 +73,6 @@ ProductItem.defaultProps = {
     id: 100,
     name: "",
     price: 1000,
-    imageSource: "",
     backgroundColor: "#efeef3",
   },
   favorite: false,

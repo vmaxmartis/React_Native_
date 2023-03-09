@@ -35,7 +35,6 @@ const paymentMethods = [
 ];
 
 const Checkout = ({ navigation, route }) => {
-  console.log("navigation checkout:", navigation);
   const subtotal = route.params.subtotal;
   const user = getData("user");
   const dispatch = useDispatch();

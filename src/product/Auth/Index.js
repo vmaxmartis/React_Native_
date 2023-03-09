@@ -1,222 +1,160 @@
 import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, View, Keyboard } from "react-native";
-import { theme } from "../../theme/theme";
+import { Text, View, TouchableOpacity } from "react-native";
+import styles from "./Style";
 import withSafeArea from "../../Config/safeArea";
-import AutoRender from "../../Config/AutoRender";
-import { TouchableOpacity } from "react-native";
-import LineWithText from "../../components/LineWithText";
-import { useDispatch, useSelector } from "react-redux";
-import TermConditions from "../../components/authComponents/TermConditions";
+import { useDispatch } from "react-redux";
 import { StackActions } from "@react-navigation/native";
 import utils from "../../utils";
-import LoginWithSocial from "../../components/authComponents/LoginWithSocial";
+import { getData } from "../../utils/getData";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import HiddenKeyBoard from "../../Config/HideKeyBoard";
+import { signUp } from "../../redux/slide/siginUpSlice";
+import { login } from "../../redux/slide/userSlide";
+import API from "./../../lib/api";
+import {
+  BaseButton,
+  BaseInputField,
+  BaseText,
+  CustomImage,
+  LineWithText,
+  LoginWithSocial,
+  TermConditions,
+  NonAccount,
+} from "../../components";
 
 function Auth({ navigation }) {
-  const [signup, setSignup] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
+  console.log("signup:", isSignup);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
-  const userRedux = useSelector((state) => state.user);
+  const [errorMessage, setErrorMessage] = useState("");
+  const isSuccessRegister = getData("register");
+  const User = getData("user");
 
-  const [keyboardShown, setKeyboardShown] = useState(false);
-
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
-      () => {
-        setKeyboardShown(true);
-      }
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
-      () => {
-        setKeyboardShown(false);
-      }
-    );
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  }, []);
   const dispatch = useDispatch();
-  const handleCheckField = () => {
-    let fields = [email, password];
-    if (signup) {
-      fields.push(userName);
-    }
-    return utils.checkNullFormField(fields);
-  };
   function clearForm() {
     setUserName("");
     setEmail("");
     setPassword("");
+    setIsSignup(!isSignup);
   }
-  const handleLogin = () => {
-    if (email === userRedux.email && password === userRedux.password) {
-      alert("Logged in successfully");
-      navigation.dispatch(StackActions.replace("Main"));
-    } else if (email === userRedux.email && password !== userRedux.password) {
-      alert("Password is incorrect");
-      setPassword("");
-    } else {
-      setEmail("");
-      alert("Email is incorrect");
+  const handleSignUp = createAsyncThunk("auth/register", async (payload) => {
+    try {
+      const response = await axios.post(`${API.register}`, payload);
+      dispatch(signUp(response));
+      return response;
+    } catch (err) {
+      console.log("err", err);
     }
-  };
+  });
+  const handleLogin = createAsyncThunk("auth/login", async (payload) => {
+    try {
+      const response = await axios.post(`${API.login}`, payload);
+      const dataUser = response.data.user;
+      console.log("dataUser:", dataUser);
+      if (response.status === 200) {
+        Object.assign(response.data.user, {
+          isLogin: true,
+        });
+        console.log("dataUser:", dataUser);
+        dispatch(login(dataUser));
+      }
+      return response;
+    } catch (err) {
+      setErrorMessage(err.response.data.error.message);
+    }
+  });
 
-  const nonAccount = () => {
-    return (
-      <View style={{ display: "flex", flexDirection: "row", marginBottom: 20 }}>
-        <Text style={{ color: theme.textDarkGray }}>
-          {signup ? "Already a Accoutn?" : "Don't have an Accoutn?"}
-        </Text>
-        <TouchableOpacity
-          onPress={() => {
-            setSignup(!signup);
-            clearForm;
-          }}
-        >
-          <Text style={{ fontWeight: "700" }}>
-            {signup ? " Log in" : " Sign Up"}
-          </Text>
-        </TouchableOpacity>
-      </View>
+  useEffect(() => {
+    if (isSuccessRegister.status === 200) {
+      setIsSignup(false);
+      clearForm();
+      setEmail(isSuccessRegister.data.user.email);
+    }
+  }, [isSuccessRegister]);
+  useEffect(() => {
+    if (User.isLogin === true) {
+      alert("Logged in successfully");
+      navigation.dispatch(StackActions.replace("DrawerApp"));
+    }
+  }, [User]);
+
+  const onRegister = () => {
+    dispatch(
+      handleSignUp({
+        email: email,
+        password: password,
+        username: userName,
+      })
     );
   };
-  const Authenticate = [
-    !keyboardShown && {
-      type: "image",
-      src: require("../../../assets/logo.png"),
-      viewStyle: {
-        width: "100%",
-        height: 100,
-        justifyContent: "flex-end",
-        alignItems: "center",
-        marginVertical: 20,
-      },
-      imageStyle: { width: 80, height: 80 },
-    },
-    {
-      type: "text",
-      valueText: signup ? "Sign up" : "Log in",
-      styleText: {
-        fontSize: 25,
-        fontWeight: "700",
-        marginBottom: 40,
-        marginTop: !keyboardShown ? 0 : 200,
-      },
-    },
-    signup && {
-      type: "input",
-      placeholder: "Name",
-      icon: "people",
-      value: userName,
-      initialValue: "",
-      onChangeText: setUserName,
-      styleView: { width: 350 },
-      validateType: "username",
-    },
-    {
-      type: "input",
-      placeholder: "Email",
-      icon: "mail",
-      value: email,
-      initialValue: "",
-      onChangeText: setEmail,
-      styleView: { width: 350 },
-      validateType: "email",
-    },
-    {
-      type: "input",
-      placeholder: "Password",
-      icon: "lock-closed",
-      value: password,
-      initialValue: "",
-      onChangeText: setPassword,
-      styleView: { width: 350 },
-      validateType: "password",
-    },
-    !signup && {
-      type: "text",
-      styleText: { fontSize: 15, color: theme.textDarkGray },
-      styleView: {
-        width: 350,
-        justifyContent: "flex-end",
-        alignItems: "flex-end",
-        marginBottom: 20,
-      },
-      valueText: "Forgot password ?",
-    },
-    signup && {
-      type: "other",
-      ordersComponnets: <TermConditions />,
-    },
-    {
-      type: "button",
-      title: signup ? "Sign up" : "Log in",
-
-      disabled: handleCheckField(),
-      handle: handleLogin,
-    },
-    {
-      type: "other",
-      ordersComponnets: LineWithText({ textValue: "Or" }),
-    },
-    {
-      type: "other",
-      ordersComponnets: <LoginWithSocial />,
-    },
-    {
-      type: "other",
-      ordersComponnets: nonAccount(),
-    },
-  ];
+  const onlogIn = () => {
+    dispatch(
+      handleLogin({
+        identifier: email,
+        password: password,
+      })
+    );
+  };
   return (
     <View style={styles.container}>
-      <AutoRender flexDirection="column" data={Authenticate} />
+      {!HiddenKeyBoard() && (
+        <CustomImage
+          src={require("../../../assets/logo.png")}
+          viewStyle={styles.imageView}
+          imageStyle={{ with: 90, height: 90 }}
+        />
+      )}
+      <BaseText
+        valueText={isSignup ? "Sign up" : "Log in"}
+        styleText={[styles.title, { marginTop: !HiddenKeyBoard() ? 0 : 200 }]}
+        validateType="name"
+      />
+      {isSignup && (
+        <BaseInputField
+          styleView={{ width: 350 }}
+          icon={"people"}
+          placeholder="Name"
+          onChangeText={setUserName}
+          value={userName}
+        />
+      )}
+      <BaseInputField
+        validateType="email"
+        styleView={{ width: 350 }}
+        icon={"mail"}
+        placeholder="Mail"
+        onChangeText={setEmail}
+        value={email}
+      />
+      <BaseInputField
+        validateType="password"
+        styleView={{ width: 350 }}
+        icon={"lock-closed"}
+        placeholder="Password"
+        onChangeText={setPassword}
+        value={password}
+      />
+      {isSignup ? (
+        <TermConditions />
+      ) : (
+        <BaseText
+          styleView={styles.viewText}
+          valueText={"Forgot password ?"}
+          styleText={styles.forgot}
+        />
+      )}
+      <BaseButton
+        onPress={isSignup ? onRegister : onlogIn}
+        //   disabled={handleCheckField()}
+        title={isSignup ? "Sign up" : "Log in"}
+      />
+      <LineWithText textValue={"Or"} />
+      <LoginWithSocial />
+      <NonAccount signup={isSignup} handle={() => clearForm} />
     </View>
   );
 }
-
 export default withSafeArea(Auth);
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.background,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-    backgroundColor: theme.background,
-  },
-  loginWithSocial: {
-    flexDirection: "row",
-    width: 150,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 30,
-    marginBottom: 30,
-  },
-  socialImage: {
-    backgroundColor: "#fff",
-    width: 70,
-    height: 70,
-    marginHorizontal: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 70,
-    shadowOpacity: 0.37,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 50,
-    },
-  },
-  iconSocialStyle: {
-    width: 30,
-    height: 30,
-  },
-  checkbox: {
-    alignSelf: "center",
-    borderRadius: 5,
-  },
-});

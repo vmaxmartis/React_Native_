@@ -7,7 +7,11 @@ import { getData } from "./../../../utils/getData";
 
 function Favorite({ navigation }) {
   const products = getData("product");
-  const favoriteProd = products.filter((item) => item.favorite === true);
+  console.log("products:", products);
+  const favoriteProd = products.filter(
+    (item) => item.attributes.favorite === true
+  );
+  console.log("favoriteProd:", favoriteProd);
   const screenWidth =
     favoriteProd.length % 2 === 1
       ? Dimensions.get("window").width - 21.5
